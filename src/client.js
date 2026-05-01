@@ -54,13 +54,32 @@ class DesktopAppConnector {
         if (connectResolve) connectResolve(this);
         break;
 
-      case 'response': {
+      case 'response_start':
+        // Server is beginning a streamed AI response
+        this._streamBuffers = this._streamBuffers || new Map();
+        this._streamBuffers.set(msg.requestId, '');
+        break;
+
+      case 'response_delta': {
+        if (this._streamBuffers && this._streamBuffers.has(msg.requestId)) {
+          this._streamBuffers.set(
+            msg.requestId,
+            this._streamBuffers.get(msg.requestId) + msg.delta,
+          );
+        }
+        if (this._onDelta) this._onDelta(msg.requestId, msg.delta);
+        break;
+      }
+
+      case 'response_end': {
+        const fullText = this._streamBuffers && this._streamBuffers.get(msg.requestId);
+        if (this._streamBuffers) this._streamBuffers.delete(msg.requestId);
         const resolver = this.pendingRequests.get(msg.requestId);
         if (resolver) {
-          resolver(msg.text);
+          resolver(fullText || '');
           this.pendingRequests.delete(msg.requestId);
         }
-        if (this._onResponse) this._onResponse(msg);
+        if (this._onResponse) this._onResponse({ ...msg, text: fullText });
         break;
       }
 
@@ -68,14 +87,26 @@ class DesktopAppConnector {
         this._send({ type: 'pong' });
         break;
 
-      case 'error':
+      case 'error': {
         console.error('Server error:', msg.message);
+        const errResolver = this.pendingRequests.get(msg.requestId);
+        if (errResolver) {
+          this.pendingRequests.delete(msg.requestId);
+          // Reject by calling resolver with null; callers can check for null
+          errResolver(null);
+        }
         break;
+      }
 
       case 'status':
         if (this._onResponse) this._onResponse(msg);
         break;
     }
+  }
+
+  // Register a handler called for each streamed token delta
+  onDelta(handler) {
+    this._onDelta = handler;
   }
 
   query(text) {
