@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AidWatch — Accountability in Humanitarian & Development Aid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#0F172A;--navy2:#1E293B;--navy3:#334155;
+      --slate:#64748B;--muted:#94A3B8;--border:#E2E8F0;--bg:#F8FAFC;--white:#fff;
+      --amber:#F59E0B;--amber2:#FEF3C7;
+      --red:#EF4444;--red2:#FEE2E2;
+      --orange:#F97316;--orange2:#FFEDD5;
+      --purple:#8B5CF6;--purple2:#EDE9FE;
+      --blue:#3B82F6;--blue2:#DBEAFE;
+      --yellow:#EAB308;--yellow2:#FEF9C3;
+      --green:#10B981;--green2:#D1FAE5;
+      --teal:#0EA5E9;--teal2:#E0F2FE;
+      --radius:12px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh}
+    a{text-decoration:none;color:inherit}
+    button{font-family:'Inter',sans-serif;cursor:pointer}
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+    /* ══ NAV ══════════════════════════════ */
+    #nav{
+      background:var(--navy);height:60px;padding:0 2rem;
+      display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:200;
+      box-shadow:0 2px 20px rgba(0,0,0,.4);
+    }
+    .nav-logo{display:flex;align-items:center;gap:.6rem;cursor:pointer}
+    .nav-logo-icon{
+      width:34px;height:34px;background:var(--amber);border-radius:9px;
+      display:flex;align-items:center;justify-content:center;font-size:17px;
+      box-shadow:0 2px 8px rgba(245,158,11,.4);
+    }
+    .nav-logo-text{color:#fff;font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+    .nav-logo-text em{color:var(--amber);font-style:normal}
+    .nav-center{flex:1;max-width:460px;margin:0 2rem;display:none}
+    .nav-center.visible{display:block}
+    .nav-search-row{display:flex;gap:0}
+    .nav-search-row input{
+      flex:1;padding:.45rem 1rem;background:rgba(255,255,255,.08);
+      border:1.5px solid rgba(255,255,255,.12);border-right:none;
+      border-radius:8px 0 0 8px;color:#fff;font-size:.85rem;outline:none;
+      font-family:'Inter',sans-serif;transition:border-color .2s,background .2s;
+    }
+    .nav-search-row input::placeholder{color:#64748B}
+    .nav-search-row input:focus{border-color:var(--amber);background:rgba(255,255,255,.12)}
+    .nav-search-row button{
+      padding:.45rem 1rem;background:var(--amber);color:var(--navy);
+      border:none;border-radius:0 8px 8px 0;font-weight:700;font-size:.82rem;
+    }
+    .nav-links{display:flex;gap:1.2rem;align-items:center}
+    .nav-links a{color:var(--muted);font-size:.83rem;font-weight:500;transition:color .15s;cursor:pointer}
+    .nav-links a:hover,.nav-links a.active{color:#fff}
+    .btn-primary{
+      background:var(--amber);color:var(--navy);padding:.4rem 1rem;
+      border-radius:7px;font-weight:700;font-size:.8rem;border:none;
+      transition:background .15s;
+    }
+    .btn-primary:hover{background:#FBBF24}
+
+    /* ══ PAGES ══════════════════════════════ */
+    .page{display:none;animation:fadeIn .2s ease}
+    .page.active{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ══ NOTICE BAR ══════════════════════════════ */
+    .notice{
+      background:#EFF6FF;border-bottom:1px solid #BFDBFE;
+      padding:.55rem 2rem;font-size:.78rem;color:#1D4ED8;
+      display:flex;align-items:center;justify-content:center;gap:.5rem;
+      font-weight:500;
+    }
+
+    /* ══ HERO ══════════════════════════════ */
+    .hero{
+      background:linear-gradient(150deg,#0F172A 0%,#1a3560 55%,#0F172A 100%);
+      padding:4.5rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden;
+    }
+    .hero::after{
+      content:'';position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(245,158,11,.07) 0%,transparent 70%);
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:.4rem;
+      background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);
+      color:var(--amber);padding:.3rem .9rem;border-radius:20px;
+      font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+      margin-bottom:1.4rem;
+    }
+    .hero h1{
+      color:#fff;font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;
+      line-height:1.15;margin-bottom:1rem;max-width:720px;margin-left:auto;margin-right:auto;
+      letter-spacing:-.03em;
+    }
+    .hero h1 span{color:var(--amber)}
+    .hero p{
+      color:var(--muted);font-size:.95rem;max-width:580px;margin:0 auto 2.5rem;
+      line-height:1.75;
+    }
+    .hero-search{max-width:700px;margin:0 auto 1.2rem;display:flex}
+    .hero-search input{
+      flex:1;padding:1rem 1.3rem;background:rgba(255,255,255,.09);
+      border:2px solid rgba(255,255,255,.1);border-right:none;
+      border-radius:var(--radius) 0 0 var(--radius);
+      color:#fff;font-size:1rem;outline:none;font-family:'Inter',sans-serif;
+      transition:border-color .2s,background .2s;
+    }
+    .hero-search input::placeholder{color:#475569}
+    .hero-search input:focus{border-color:var(--amber);background:rgba(255,255,255,.13)}
+    .hero-search button{
+      padding:1rem 2rem;background:var(--amber);color:var(--navy);
+      border:none;border-radius:0 var(--radius) var(--radius) 0;
+      font-weight:800;font-size:1rem;white-space:nowrap;transition:background .15s;
+    }
+    .hero-search button:hover{background:#FBBF24}
+    .hero-tags{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+    .hero-tag{
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+      color:var(--muted);padding:.28rem .75rem;border-radius:20px;
+      font-size:.77rem;cursor:pointer;transition:all .15s;
+    }
+    .hero-tag:hover{background:rgba(245,158,11,.15);border-color:var(--amber);color:var(--amber)}
+    .hero-stats{display:flex;justify-content:center;gap:3.5rem;flex-wrap:wrap}
+    .hero-stat .num{color:#fff;font-size:1.7rem;font-weight:900;letter-spacing:-.03em}
+    .hero-stat .lbl{color:#475569;font-size:.76rem;margin-top:.1rem}
+
+    /* source strip */
+    .source-strip{
+      background:#fff;border-bottom:1px solid var(--border);
+      padding:.7rem 2rem;display:flex;align-items:center;
+      justify-content:center;gap:1rem;flex-wrap:wrap;font-size:.73rem;
+    }
+    .strip-label{font-weight:700;color:var(--navy)}
+    .strip-chip{
+      background:var(--bg);border:1px solid var(--border);
+      padding:.22rem .65rem;border-radius:20px;color:var(--slate);font-weight:500;
+    }
+
+    /* ══ SECTIONS ══════════════════════════════ */
+    .section{padding:2.5rem 2rem;max-width:1120px;margin:0 auto}
+    .section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.5rem}
+    .section-title{font-size:1.15rem;font-weight:800;letter-spacing:-.02em}
+    .section-sub{color:var(--slate);font-size:.82rem;margin-top:.2rem}
+    .see-all{color:var(--blue);font-size:.8rem;font-weight:600;cursor:pointer}
+    .see-all:hover{text-decoration:underline}
+
+    /* categories */
+    .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem}
+    .cat-card{
+      background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);
+      padding:1.2rem 1rem;text-align:center;cursor:pointer;transition:all .2s;
+    }
+    .cat-card:hover{border-color:var(--amber);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+    .cat-icon{font-size:1.5rem;margin-bottom:.5rem}
+    .cat-name{font-size:.8rem;font-weight:700;color:var(--navy)}
+    .cat-count{font-size:.72rem;color:var(--slate);margin-top:.2rem}
+
+    /* ══ RESULT CARDS ══════════════════════════════ */
+    .cards-list{display:grid;gap:.9rem}
+    .rcard{
+      background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);
+      padding:1.2rem 1.5rem;cursor:pointer;transition:all .18s;
+      border-left:4px solid transparent;
+    }
+    .rcard:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);transform:translateY(-1px);border-color:var(--border)}
+    .rcard.fraud{border-left-color:var(--red)}
+    .rcard.corruption{border-left-color:var(--orange)}
+    .rcard.sea{border-left-color:var(--purple)}
+    .rcard.procurement{border-left-color:var(--yellow)}
+    .rcard.sanctions{border-left-color:var(--blue)}
+    .rcard.diversion{border-left-color:var(--teal)}
+    .rcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.55rem}
+    .badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .65rem;border-radius:20px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+    .b-fraud{background:var(--red2);color:var(--red)}
+    .b-corruption{background:var(--orange2);color:var(--orange)}
+    .b-sea{background:var(--purple2);color:var(--purple)}
+    .b-procurement{background:var(--yellow2);color:var(--yellow)}
+    .b-sanctions{background:var(--blue2);color:var(--blue)}
+    .b-diversion{background:var(--teal2);color:var(--teal)}
+    .rcard-date{font-size:.73rem;color:var(--muted);white-space:nowrap}
+    .rcard-title{font-weight:700;font-size:.93rem;color:var(--navy);margin-bottom:.3rem;line-height:1.4}
+    .rcard-summary{font-size:.82rem;color:var(--slate);line-height:1.65;margin-bottom:.8rem}
+    .rcard-footer{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
+    .rmeta{font-size:.74rem;color:var(--slate);display:flex;align-items:center;gap:.25rem}
+    .rmeta strong{color:var(--navy)}
+    .rtag{background:var(--bg);border:1px solid var(--border);padding:.13rem .48rem;border-radius:4px;font-size:.69rem;color:var(--slate)}
+
+    /* ══ RESULTS PAGE ══════════════════════════════ */
+    .results-wrap{display:flex;gap:1.5rem;max-width:1120px;margin:0 auto;padding:2rem}
+    .filters-col{width:230px;flex-shrink:0}
+    .filter-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.1rem;margin-bottom:1rem}
+    .f-title{font-weight:700;font-size:.82rem;color:var(--navy);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.04em}
+    .f-opt{display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem}
+    .f-opt label{font-size:.81rem;color:var(--slate);cursor:pointer;user-select:none}
+    .f-opt input[type=checkbox]{accent-color:var(--amber);width:14px;height:14px;cursor:pointer;flex-shrink:0}
+    .clear-btn{color:var(--blue);font-size:.75rem;font-weight:600;background:none;border:none;cursor:pointer;padding:0}
+    .clear-btn:hover{text-decoration:underline}
+    .results-col{flex:1;min-width:0}
+    .results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+    .results-count{font-size:.88rem;color:var(--slate)}
+    .results-count strong{color:var(--navy)}
+    .sort-sel{
+      padding:.38rem .8rem;border:1.5px solid var(--border);border-radius:8px;
+      font-size:.82rem;background:#fff;color:var(--navy);outline:none;cursor:pointer;
+      font-family:'Inter',sans-serif;
+    }
+    .external-section{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.2rem;margin-top:1.5rem}
+    .ext-title{font-weight:700;font-size:.85rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+    .ext-card{padding:.7rem;border:1px solid var(--border);border-radius:8px;margin-bottom:.6rem;font-size:.82rem}
+    .ext-card .ec-name{font-weight:700;margin-bottom:.2rem}
+    .ext-card .ec-meta{color:var(--slate);font-size:.75rem}
+    .ext-card a{color:var(--blue);font-size:.75rem}
+    .spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--amber);border-radius:50%;animation:spin .6s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .empty-state{text-align:center;padding:4rem 2rem;color:var(--slate)}
+    .empty-state .ei{font-size:2.5rem;margin-bottom:1rem}
+    .empty-state h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+
+    /* ══ ORG PROFILE ══════════════════════════════ */
+    .org-wrap{max-width:920px;margin:0 auto;padding:2rem}
+    .back{
+      display:inline-flex;align-items:center;gap:.4rem;color:var(--slate);
+      font-size:.83rem;cursor:pointer;margin-bottom:1.5rem;transition:color .15s;
+    }
+    .back:hover{color:var(--navy)}
+    .org-hero{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem}
+    .org-hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .org-name{font-size:1.6rem;font-weight:900;letter-spacing:-.03em}
+    .org-sub{color:var(--slate);font-size:.85rem;margin-top:.3rem}
+    .risk-pill{padding:.5rem 1.2rem;border-radius:10px;font-weight:800;font-size:.85rem;text-align:center;min-width:110px}
+    .risk-high{background:var(--red2);color:var(--red)}
+    .risk-medium{background:var(--orange2);color:var(--orange)}
+    .risk-low{background:var(--green2);color:var(--green)}
+    .org-meta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:1rem}
+    .ometa .oml{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;margin-bottom:.2rem}
+    .ometa .omv{font-size:.88rem;font-weight:700;color:var(--navy)}
+    .risk-bar-wrap{margin-top:1.5rem}
+    .risk-bar-labels{display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.4rem}
+    .risk-bar-labels span:first-child{font-weight:700}
+    .rbar{height:10px;background:var(--border);border-radius:10px;overflow:hidden}
+    .rfill{height:100%;border-radius:10px;transition:width 1s ease}
+    .rfill.high{background:linear-gradient(90deg,var(--orange),var(--red))}
+    .rfill.medium{background:linear-gradient(90deg,var(--yellow),var(--orange))}
+    .rfill.low{background:linear-gradient(90deg,var(--green),#34D399)}
+    .sec-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
+    .sec-card-title{font-size:.9rem;font-weight:800;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--border)}
+    .timeline{display:grid;gap:.7rem}
+    .titem{
+      display:flex;gap:.9rem;align-items:flex-start;padding:.8rem;
+      border-radius:9px;border:1px solid var(--border);cursor:pointer;transition:all .15s;
+    }
+    .titem:hover{background:var(--bg)}
+    .tdot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;flex-shrink:0;font-weight:800}
+    .dot-fraud{background:var(--red2);color:var(--red)}
+    .dot-corruption{background:var(--orange2);color:var(--orange)}
+    .dot-sea{background:var(--purple2);color:var(--purple)}
+    .dot-procurement{background:var(--yellow2);color:var(--yellow)}
+    .dot-sanctions{background:var(--blue2);color:var(--blue)}
+    .dot-diversion{background:var(--teal2);color:var(--teal)}
+    .tcontent .tt{font-weight:700;font-size:.87rem;margin-bottom:.2rem}
+    .tcontent .tm{font-size:.74rem;color:var(--slate)}
+    .ind-list{display:grid;gap:.6rem}
+    .ind-item{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.7rem 1rem;border-radius:9px;border:1px solid var(--border);flex-wrap:wrap;gap:.5rem;
+    }
+    .ind-name{font-weight:700;font-size:.87rem}
+    .ind-role{font-size:.74rem;color:var(--slate);margin-top:.1rem}
+    .ist{font-size:.7rem;font-weight:800;padding:.2rem .65rem;border-radius:20px;white-space:nowrap}
+    .ist-debarred{background:var(--red2);color:var(--red)}
+    .ist-investigation{background:var(--orange2);color:var(--orange)}
+    .ist-convicted{background:var(--purple2);color:var(--purple)}
+    .ist-indicted{background:var(--teal2);color:var(--teal)}
+    .ist-dismissed{background:var(--bg);color:var(--slate);border:1px solid var(--border)}
+
+    /* ══ DASHBOARD ══════════════════════════════ */
+    .dash-wrap{max-width:1120px;margin:0 auto;padding:2rem}
+    .dash-title{font-size:1.4rem;font-weight:900;margin-bottom:.3rem;letter-spacing:-.03em}
+    .dash-sub{color:var(--slate);font-size:.85rem;margin-bottom:2rem}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+    .kpi{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.5rem}
+    .kpi-val{font-size:1.8rem;font-weight:900;letter-spacing:-.03em;color:var(--navy)}
+    .kpi-lbl{font-size:.78rem;color:var(--slate);margin-top:.2rem;font-weight:500}
+    .kpi-icon{font-size:1.2rem;margin-bottom:.5rem}
+    .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+    .chart-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+    .chart-title{font-size:.85rem;font-weight:700;margin-bottom:1.2rem;color:var(--navy)}
+    .chart-wrap{position:relative;height:240px}
+    @media(max-width:700px){.chart-grid{grid-template-columns:1fr}}
+    .top-orgs-list{display:grid;gap:.6rem}
+    .top-org-item{
+      display:flex;align-items:center;gap:1rem;padding:.7rem 1rem;
+      background:#fff;border:1.5px solid var(--border);border-radius:9px;cursor:pointer;transition:all .15s;
+    }
+    .top-org-item:hover{box-shadow:0 4px 12px rgba(0,0,0,.06);transform:translateY(-1px)}
+    .top-org-rank{width:28px;height:28px;background:var(--bg);border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0}
+    .top-org-info{flex:1}
+    .top-org-name{font-weight:700;font-size:.88rem}
+    .top-org-meta{font-size:.74rem;color:var(--slate)}
+    .top-org-cases{font-weight:800;font-size:.9rem;color:var(--navy)}
+
+    /* ══ SOURCES PAGE ══════════════════════════════ */
+    .sources-wrap{max-width:1120px;margin:0 auto;padding:2rem}
+    .src-group{margin-bottom:2rem}
+    .src-group-title{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--slate);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+    .src-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem}
+    .src-card{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:1rem 1.1rem;transition:all .15s}
+    .src-card:hover{border-color:var(--blue);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+    .src-name{font-weight:700;font-size:.87rem;margin-bottom:.3rem}
+    .src-desc{font-size:.78rem;color:var(--slate);line-height:1.5;margin-bottom:.5rem}
+    .src-link{color:var(--blue);font-size:.75rem;font-weight:600}
+    .src-link:hover{text-decoration:underline}
+
+    /* ══ ABOUT PAGE ══════════════════════════════ */
+    .about-wrap{max-width:760px;margin:0 auto;padding:3rem 2rem}
+    .about-wrap h1{font-size:2rem;font-weight:900;letter-spacing:-.04em;margin-bottom:.5rem}
+    .about-wrap .lead{color:var(--slate);font-size:1rem;line-height:1.7;margin-bottom:2rem}
+    .about-wrap h2{font-size:1.1rem;font-weight:800;margin:2rem 0 .7rem}
+    .about-wrap p{font-size:.9rem;color:var(--navy2);line-height:1.75;margin-bottom:1rem}
+    .about-wrap ul{padding-left:1.2rem;margin-bottom:1rem}
+    .about-wrap ul li{font-size:.9rem;color:var(--navy2);line-height:1.75;margin-bottom:.3rem}
+    .principle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
+    .principle{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.2rem}
+    .principle .pi{font-size:1.3rem;margin-bottom:.5rem}
+    .principle .pt{font-weight:700;font-size:.87rem;margin-bottom:.3rem}
+    .principle .pd{font-size:.8rem;color:var(--slate);line-height:1.5}
+    .alert-box{
+      background:var(--amber2);border:1.5px solid var(--amber);
+      border-radius:var(--radius);padding:1.2rem 1.5rem;margin:2rem 0;
+    }
+    .alert-box p{font-size:.87rem;color:#92400E;line-height:1.6;margin:0}
+
+    /* ══ FOOTER ══════════════════════════════ */
+    footer{background:var(--navy);color:#475569;padding:2.5rem 2rem;text-align:center;margin-top:2rem}
+    footer .disc{max-width:680px;margin:0 auto 1rem;font-size:.74rem;line-height:1.7;color:#334155}
+    footer .fl{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:.7rem}
+    footer .fl a{color:#64748B;font-size:.8rem;transition:color .15s}
+    footer .fl a:hover{color:var(--muted)}
+    footer .copy{font-size:.75rem;color:#334155}
+
+    /* ══ RESPONSIVE ══════════════════════════════ */
+    @media(max-width:768px){
+      .results-wrap{flex-direction:column;padding:1rem}
+      .filters-col{width:100%}
+      .hero-stats{gap:1.5rem}
+      #nav{padding:0 1rem}
+      .nav-links a:not(.btn-primary){display:none}
+      .kpi-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:480px){
+      .kpi-grid{grid-template-columns:1fr}
+    }
+
+    /* ══ LOADING OVERLAY ══════════════════════════════ */
+    #loading{
+      position:fixed;inset:0;background:rgba(15,23,42,.5);
+      z-index:999;display:none;align-items:center;justify-content:center;
+      backdrop-filter:blur(2px);
+    }
+    #loading.show{display:flex}
+    .loading-box{background:#fff;border-radius:var(--radius);padding:2rem 3rem;text-align:center}
+    .loading-box p{margin-top:.8rem;font-size:.85rem;color:var(--slate)}
+  </style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading"><div class="loading-box"><div class="spinner" style="width:32px;height:32px;border-width:3px"></div><p>Searching sources…</p></div></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" onclick="nav('home')">
+    <div class="nav-logo-icon">⚖️</div>
+    <span class="nav-logo-text">Aid<em>Watch</em></span>
+  </div>
+  <div class="nav-center" id="nav-search">
+    <div class="nav-search-row">
+      <input id="nav-q" type="text" placeholder="Search organizations, cases, countries…" onkeydown="if(event.key==='Enter')search()"/>
+      <button onclick="search()">Search</button>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a id="nl-home"       onclick="nav('home')"      class="active">Home</a>
+    <a id="nl-dashboard"  onclick="nav('dashboard')">Dashboard</a>
+    <a id="nl-sources"    onclick="nav('sources')">Sources</a>
+    <a id="nl-about"      onclick="nav('about')">About</a>
+    <button class="btn-primary" onclick="nav('about')">Submit Case</button>
+  </div>
+</nav>
+
+<!-- ═══ HOME ═══════════════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="notice">ℹ️ All cases are sourced exclusively from publicly available official oversight documents and verified investigative reporting. AidWatch makes no independent allegations.</div>
+
+  <div class="hero">
+    <div class="hero-badge">⚖️ Accountability &nbsp;·&nbsp; Transparency &nbsp;·&nbsp; Integrity</div>
+    <h1>Search Accountability in<br/><span>Humanitarian & Development Aid</span></h1>
+    <p>A free, non-partisan database of documented cases involving fraud, corruption, financial misconduct, and abuse in NGOs, UN agencies, and development contractors — sourced from 200+ official oversight bodies worldwide.</p>
+    <div class="hero-search">
+      <input id="home-q" type="text" placeholder="Search by organization name, country, case type, keyword…" onkeydown="if(event.key==='Enter')homeSearch()"/>
+      <button onclick="homeSearch()">🔍 Search</button>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag" onclick="quickSearch('MedAid')">MedAid International</span>
+      <span class="hero-tag" onclick="quickSearch('Hope Foundation')">Hope Foundation</span>
+      <span class="hero-tag" onclick="quickSearch('South Sudan')">South Sudan</span>
+      <span class="hero-tag" onclick="quickSearch('Yemen')">Yemen</span>
+      <span class="hero-tag" onclick="quickSearch('fraud')">Financial Fraud</span>
+      <span class="hero-tag" onclick="quickSearch('procurement')">Procurement</span>
+      <span class="hero-tag" onclick="quickSearch('sexual exploitation')">SEA</span>
+      <span class="hero-tag" onclick="quickSearch('sanctions')">Sanctions</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num" id="stat-cases">30</div><div class="lbl">Indexed cases</div></div>
+      <div class="hero-stat"><div class="num" id="stat-orgs">11</div><div class="lbl">Organizations tracked</div></div>
+      <div class="hero-stat"><div class="num">200+</div><div class="lbl">Data sources</div></div>
+      <div class="hero-stat"><div class="num" id="stat-amount">$50M+</div><div class="lbl">Documented misuse</div></div>
+    </div>
+  </div>
+
+  <div class="source-strip">
+    <span class="strip-label">Sources include:</span>
+    <span class="strip-chip">World Bank INT</span>
+    <span class="strip-chip">USAID OIG</span>
+    <span class="strip-chip">EU OLAF</span>
+    <span class="strip-chip">UN OIOS</span>
+    <span class="strip-chip">UNICEF Audit</span>
+    <span class="strip-chip">WFP Inspector General</span>
+    <span class="strip-chip">OCCRP</span>
+    <span class="strip-chip">FCDO</span>
+    <span class="strip-chip">AfDB</span>
+    <span class="strip-chip">OpenSanctions</span>
+    <span class="strip-chip">SAM.gov</span>
+    <span class="strip-chip">PSEA Network</span>
+    <span class="strip-chip" style="font-weight:700;color:var(--navy)">+ 200 more →</span>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><div><div class="section-title">Browse by Violation Type</div><div class="section-sub">All categories reflect cases documented by official oversight bodies and verified investigative journalism</div></div></div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="filterSearch('fraud')"><div class="cat-icon">🔴</div><div class="cat-name">Financial Fraud</div><div class="cat-count" id="cc-fraud">— cases</div></div>
+      <div class="cat-card" onclick="filterSearch('corruption')"><div class="cat-icon">🟠</div><div class="cat-name">Corruption & Bribery</div><div class="cat-count" id="cc-corruption">— cases</div></div>
+      <div class="cat-card" onclick="filterSearch('sea')"><div class="cat-icon">🟣</div><div class="cat-name">Sexual Exploitation & Abuse</div><div class="cat-count" id="cc-sea">— cases</div></div>
+      <div class="cat-card" onclick="filterSearch('procurement')"><div class="cat-icon">🟡</div><div class="cat-name">Procurement Fraud</div><div class="cat-count" id="cc-procurement">— cases</div></div>
+      <div class="cat-card" onclick="filterSearch('sanctions')"><div class="cat-icon">🔵</div><div class="cat-name">Sanctions Violations</div><div class="cat-count" id="cc-sanctions">— cases</div></div>
+      <div class="cat-card" onclick="filterSearch('diversion')"><div class="cat-icon">🩵</div><div class="cat-name">Fund Diversion</div><div class="cat-count" id="cc-diversion">— cases</div></div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-hd">
+      <div><div class="section-title">Recently Documented Cases</div><div class="section-sub">Latest findings from oversight bodies worldwide</div></div>
+      <span class="see-all" onclick="quickSearch('')">View all →</span>
+    </div>
+    <div class="cards-list" id="home-recent"></div>
+  </div>
+</div>
+
+<!-- ═══ RESULTS ═══════════════════════════════════════════════════════ -->
+<div id="page-results" class="page">
+  <div class="results-wrap">
+    <div class="filters-col">
+      <div class="filter-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem">
+          <div class="f-title" style="margin:0">Violation Type</div>
+          <button class="clear-btn" onclick="clearFilters()">Clear all</button>
+        </div>
+        <div class="f-opt"><input type="checkbox" id="f-fraud" checked onchange="applyFilters()"><label for="f-fraud">🔴 Financial Fraud</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-corruption" checked onchange="applyFilters()"><label for="f-corruption">🟠 Corruption & Bribery</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-sea" checked onchange="applyFilters()"><label for="f-sea">🟣 Sexual Exploitation & Abuse</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-procurement" checked onchange="applyFilters()"><label for="f-procurement">🟡 Procurement Fraud</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-sanctions" checked onchange="applyFilters()"><label for="f-sanctions">🔵 Sanctions Violation</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-diversion" checked onchange="applyFilters()"><label for="f-diversion">🩵 Fund Diversion</label></div>
+      </div>
+      <div class="filter-card">
+        <div class="f-title">Source Type</div>
+        <div class="f-opt"><input type="checkbox" id="f-un" checked onchange="applyFilters()"><label for="f-un">UN Bodies</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-donor" checked onchange="applyFilters()"><label for="f-donor">Donor Governments</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-bank" checked onchange="applyFilters()"><label for="f-bank">Development Banks</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-media" checked onchange="applyFilters()"><label for="f-media">Investigative Media</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-court" checked onchange="applyFilters()"><label for="f-court">Court Records</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-watchdog" checked onchange="applyFilters()"><label for="f-watchdog">Watchdog Orgs</label></div>
+      </div>
+      <div class="filter-card">
+        <div class="f-title">Region</div>
+        <div class="f-opt"><input type="checkbox" id="f-africa" checked onchange="applyFilters()"><label for="f-africa">Africa</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-middleeast" checked onchange="applyFilters()"><label for="f-middleeast">Middle East</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-asia" checked onchange="applyFilters()"><label for="f-asia">Asia & Pacific</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-latam" checked onchange="applyFilters()"><label for="f-latam">Latin America</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-europe" checked onchange="applyFilters()"><label for="f-europe">Europe</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-global" checked onchange="applyFilters()"><label for="f-global">Global / Multi-country</label></div>
+      </div>
+      <div class="filter-card">
+        <div class="f-title">Case Status</div>
+        <div class="f-opt"><input type="checkbox" id="f-open" checked onchange="applyFilters()"><label for="f-open">Ongoing / Open</label></div>
+        <div class="f-opt"><input type="checkbox" id="f-closed" checked onchange="applyFilters()"><label for="f-closed">Closed / Resolved</label></div>
+      </div>
+    </div>
+
+    <div class="results-col">
+      <div class="results-bar">
+        <div class="results-count" id="res-count">Loading…</div>
+        <select class="sort-sel" id="sort-sel" onchange="applyFilters()">
+          <option value="relevance">Most Relevant</option>
+          <option value="recent">Most Recent</option>
+          <option value="amount">Highest Amount</option>
+        </select>
+      </div>
+      <div class="cards-list" id="res-list"></div>
+
+      <div class="external-section" id="ext-wb" style="display:none">
+        <div class="ext-title">🌐 World Bank Debarment List <span class="spinner" id="wb-spin"></span></div>
+        <div id="ext-wb-results"></div>
+      </div>
+      <div class="external-section" id="ext-os" style="display:none">
+        <div class="ext-title">🌐 OpenSanctions <span class="spinner" id="os-spin"></span></div>
+        <div id="ext-os-results"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ORG PROFILE ═══════════════════════════════════════════════════════ -->
+<div id="page-org" class="page">
+  <div class="org-wrap">
+    <div class="back" onclick="history.go(-1)||nav('results')">← Back to results</div>
+    <div id="org-body"></div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD ═══════════════════════════════════════════════════════ -->
+<div id="page-dashboard" class="page">
+  <div class="dash-wrap">
+    <div class="dash-title">Accountability Dashboard</div>
+    <div class="dash-sub">Aggregated statistics from the AidWatch case database</div>
+    <div class="kpi-grid" id="kpi-grid"></div>
+    <div class="chart-grid">
+      <div class="chart-card"><div class="chart-title">Cases by Violation Type</div><div class="chart-wrap"><canvas id="chart-type"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Cases by Region</div><div class="chart-wrap"><canvas id="chart-region"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Cases by Year</div><div class="chart-wrap"><canvas id="chart-year"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Cases by Source Type</div><div class="chart-wrap"><canvas id="chart-source"></canvas></div></div>
+    </div>
+    <div class="section-hd"><div class="section-title">Most Documented Organizations</div></div>
+    <div class="top-orgs-list" id="top-orgs"></div>
+  </div>
+</div>
+
+<!-- ═══ SOURCES ═══════════════════════════════════════════════════════ -->
+<div id="page-sources" class="page">
+  <div class="sources-wrap">
+    <div style="margin-bottom:2rem">
+      <h1 style="font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.3rem">Data Sources</h1>
+      <p style="color:var(--slate);font-size:.88rem">AidWatch indexes publicly available documents from 200+ official oversight bodies, donor governments, development banks, investigative journalism outlets, and civil society watchdogs.</p>
+    </div>
+    <div id="sources-body"></div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══════════════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="about-wrap">
+    <h1>About AidWatch</h1>
+    <p class="lead">AidWatch is a free, non-partisan accountability tool that aggregates publicly available documented cases of fraud, corruption, financial misconduct, and abuse in the humanitarian and development sector.</p>
+
+    <div class="principle-grid">
+      <div class="principle"><div class="pi">⚖️</div><div class="pt">Non-partisan</div><div class="pd">We do not take sides. Cases are indexed based on official documentation, not allegations.</div></div>
+      <div class="principle"><div class="pi">📄</div><div class="pt">Sources only</div><div class="pd">Every case links directly to the original official document or verified reporting.</div></div>
+      <div class="principle"><div class="pi">🔍</div><div class="pt">Transparency</div><div class="pd">Our methodology and source list are fully public. We explain what we index and why.</div></div>
+      <div class="principle"><div class="pi">🌍</div><div class="pt">Public interest</div><div class="pd">AidWatch exists to help donors, journalists, researchers, and the public access accountability information.</div></div>
+    </div>
+
+    <h2>What AidWatch is</h2>
+    <p>AidWatch is a search engine for accountability. It indexes cases where official oversight bodies — the World Bank, UN oversight offices, donor government auditors, development banks, courts, and verified investigative journalism outlets — have documented misconduct involving humanitarian and development organizations.</p>
+    <p>The tool is intended for use by: institutional donors conducting due diligence on partners; investigative journalists researching the sector; researchers and academics studying aid accountability; civil society organizations tracking organizational track records; and the general public.</p>
+
+    <h2>What AidWatch is not</h2>
+    <p>AidWatch does not make independent allegations. It does not investigate or accuse. Every case in the database is sourced from an official document or verified reporting with a direct link. The presence of a case in this database reflects the finding of the cited source only.</p>
+    <p>AidWatch is not a blacklist. Many organizations have addressed documented issues through accountability processes, and case status is reflected in the database.</p>
+
+    <div class="alert-box"><p>⚠️ If you believe information in this database is inaccurate or outdated, please contact us with the source document. We are committed to accuracy and will review all corrections promptly.</p></div>
+
+    <h2>How to submit a case</h2>
+    <p>AidWatch accepts submissions of documented cases from official sources. To submit, provide:</p>
+    <ul>
+      <li>The name of the organization</li>
+      <li>A link to the official source document (audit report, court record, debarment notice, etc.)</li>
+      <li>A brief description of the documented finding</li>
+    </ul>
+    <p>We do not accept unverified allegations, anonymous tips without documentation, or cases based solely on media reports without an underlying official document.</p>
+
+    <h2>Methodology</h2>
+    <p>Cases are indexed from: official audit and investigation reports from UN oversight bodies; donor government OIG reports and annual reviews; development bank integrity investigations and debarment notices; court records and criminal convictions; verified investigative journalism from established outlets with documented source material.</p>
+    <p>Risk scores are calculated based on: number of documented cases; severity of findings (financial amounts, type of misconduct); recency of cases; case status (open vs. closed); and whether the organization has taken documented remedial action.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="disc">AidWatch is a non-partisan accountability tool. All cases are sourced from publicly available official documents. AidWatch does not make independent allegations. Inclusion in this database reflects documented findings by the cited source only. Organizations with resolved cases may request review of their status.</div>
+  <div class="fl">
+    <a onclick="nav('home')">Home</a>
+    <a onclick="nav('dashboard')">Dashboard</a>
+    <a onclick="nav('sources')">Sources</a>
+    <a onclick="nav('about')">About</a>
+    <a onclick="nav('about')">Submit a Case</a>
+    <a onclick="nav('about')">Contact</a>
+    <a onclick="nav('about')">Corrections Policy</a>
+  </div>
+  <div class="copy">© 2025 AidWatch — Accountability in Humanitarian & Development Aid</div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let allCases = [];
+let allOrgs = [];
+let currentQuery = '';
+let currentResults = [];
+let charts = {};
+
+// ═══════════════════════════════════════════════
+// ROUTING
+// ═══════════════════════════════════════════════
+function nav(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const nl = document.getElementById('nl-' + page);
+  if (nl) nl.classList.add('active');
+  const showSearch = page !== 'home';
+  document.getElementById('nav-search').classList.toggle('visible', showSearch);
+  window.scrollTo(0, 0);
+  if (page === 'dashboard') renderDashboard();
+  if (page === 'sources') renderSources();
+}
+
+// ═══════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════
+const TYPE_META = {
+  fraud:       { label: '🔴 Financial Fraud',         cls: 'b-fraud',       dotCls: 'dot-fraud' },
+  corruption:  { label: '🟠 Corruption & Bribery',    cls: 'b-corruption',  dotCls: 'dot-corruption' },
+  sea:         { label: '🟣 Sexual Exploitation & Abuse', cls: 'b-sea',     dotCls: 'dot-sea' },
+  procurement: { label: '🟡 Procurement Fraud',        cls: 'b-procurement', dotCls: 'dot-procurement' },
+  sanctions:   { label: '🔵 Sanctions Violation',      cls: 'b-sanctions',  dotCls: 'dot-sanctions' },
+  diversion:   { label: '🩵 Fund Diversion',           cls: 'b-diversion',  dotCls: 'dot-diversion' },
+};
+const TYPE_ICONS = { fraud:'🔴', corruption:'🟠', sea:'🟣', procurement:'🟡', sanctions:'🔵', diversion:'🩵' };
+
+function tm(type) { return TYPE_META[type] || { label: type, cls: '', dotCls: '' }; }
+
+function cardHTML(c) {
+  const m = tm(c.type);
+  const tags = c.tags.map(t => `<span class="rtag">#${t}</span>`).join('');
+  const amt = c.amount !== 'N/A' ? `<span class="rmeta">💰 ${c.amount}</span>` : '';
+  const status = c.status === 'ongoing'
+    ? `<span style="font-size:.7rem;background:var(--orange2);color:var(--orange);padding:.15rem .5rem;border-radius:4px;font-weight:700">ONGOING</span>`
+    : `<span style="font-size:.7rem;background:var(--green2);color:var(--green);padding:.15rem .5rem;border-radius:4px;font-weight:700">CLOSED</span>`;
+  return `
+    <div class="rcard ${c.type}" onclick="showOrg(${c.orgId})">
+      <div class="rcard-top">
+        <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
+          <span class="badge ${m.cls}">${m.label}</span>${status}
+        </div>
+        <span class="rcard-date">${c.date}</span>
+      </div>
+      <div class="rcard-title">${c.title}</div>
+      <div class="rcard-summary">${c.summary.slice(0, 220)}…</div>
+      <div class="rcard-footer">
+        <span class="rmeta">🏛️ <strong>${c.org}</strong></span>
+        <span class="rmeta">🌍 ${c.country}</span>
+        ${amt}
+        <span class="rmeta">📄 ${c.source}</span>
+        ${tags}
+      </div>
+    </div>`;
+}
+
+function fmt(n) {
+  if (n >= 1e9) return '$' + (n/1e9).toFixed(1) + 'B';
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return '$' + Math.round(n/1e3) + 'K';
+  return '$' + n;
+}
+
+// ═══════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════
+function homeSearch() {
+  const q = document.getElementById('home-q').value.trim();
+  currentQuery = q;
+  nav('results');
+  doSearch(q);
+}
+function quickSearch(q) {
+  currentQuery = q;
+  document.getElementById('home-q').value = q;
+  nav('results');
+  doSearch(q);
+}
+function filterSearch(type) {
+  currentQuery = '';
+  nav('results');
+  clearFilters();
+  // uncheck all types then check only this one
+  ['fraud','corruption','sea','procurement','sanctions','diversion'].forEach(t => {
+    document.getElementById('f-' + t).checked = (t === type);
+  });
+  doSearch('');
+}
+function search() {
+  const q = document.getElementById('nav-q').value.trim();
+  currentQuery = q;
+  document.getElementById('home-q').value = q;
+  nav('results');
+  doSearch(q);
+}
+
+async function doSearch(q) {
+  showLoading(true);
+  document.getElementById('nav-q').value = q;
+
+  try {
+    const params = new URLSearchParams({ q, sort: document.getElementById('sort-sel')?.value || 'relevance' });
+    const res = await fetch('/api/search?' + params);
+    const data = await res.json();
+    currentResults = data.results || [];
+  } catch {
+    currentResults = [];
+  }
+  showLoading(false);
+  applyFilters();
+
+  // Fire external lookups in background if there's a query
+  if (q && q.length > 2) {
+    fetchExternal(q);
+  } else {
+    document.getElementById('ext-wb').style.display = 'none';
+    document.getElementById('ext-os').style.display = 'none';
+  }
+}
+
+function applyFilters() {
+  const types = ['fraud','corruption','sea','procurement','sanctions','diversion'].filter(t => document.getElementById('f-'+t)?.checked);
+  const sources = ['un','donor','bank','media','court','watchdog'].filter(t => document.getElementById('f-'+t)?.checked);
+  const regions = ['africa','middleeast','asia','latam','europe','global'].filter(t => document.getElementById('f-'+t)?.checked);
+  const showOpen = document.getElementById('f-open')?.checked;
+  const showClosed = document.getElementById('f-closed')?.checked;
+
+  let filtered = currentResults.filter(c =>
+    types.includes(c.type) &&
+    sources.includes(c.sourceType) &&
+    regions.includes(c.region) &&
+    ((c.status === 'ongoing' && showOpen) || (c.status === 'closed' && showClosed))
+  );
+
+  const sort = document.getElementById('sort-sel')?.value;
+  if (sort === 'recent') filtered.sort((a,b) => b.year - a.year || b.id - a.id);
+  else if (sort === 'amount') filtered.sort((a,b) => b.amountNum - a.amountNum);
+
+  const qStr = currentQuery ? ` for "<strong>${currentQuery}</strong>"` : '';
+  document.getElementById('res-count').innerHTML = `Showing <strong>${filtered.length}</strong> result${filtered.length!==1?'s':''}${qStr}`;
+  document.getElementById('res-list').innerHTML = filtered.length
+    ? filtered.map(cardHTML).join('')
+    : `<div class="empty-state"><div class="ei">🔍</div><h3>No documented cases found</h3><p>Try a different search or adjust filters. Only officially documented cases are indexed.</p></div>`;
+}
+
+function clearFilters() {
+  ['fraud','corruption','sea','procurement','sanctions','diversion',
+   'un','donor','bank','media','court','watchdog',
+   'africa','middleeast','asia','latam','europe','global',
+   'open','closed'].forEach(id => {
+    const el = document.getElementById('f-'+id);
+    if (el) el.checked = true;
+  });
+  applyFilters();
+}
+
+async function fetchExternal(q) {
+  // World Bank
+  const wbSection = document.getElementById('ext-wb');
+  const wbSpin = document.getElementById('wb-spin');
+  const wbRes = document.getElementById('ext-wb-results');
+  wbSection.style.display = 'block';
+  wbSpin.style.display = 'inline-block';
+  wbRes.innerHTML = '';
+  try {
+    const r = await fetch('/api/external/worldbank?q=' + encodeURIComponent(q));
+    const d = await r.json();
+    wbSpin.style.display = 'none';
+    if (d.results && d.results.length > 0) {
+      wbRes.innerHTML = d.results.map(r => `
+        <div class="ext-card">
+          <div class="ec-name">${r.name}</div>
+          <div class="ec-meta">Country: ${r.country || 'N/A'} &nbsp;·&nbsp; Grounds: ${r.grounds || 'N/A'} &nbsp;·&nbsp; From: ${r.fromDate || '—'} &nbsp;·&nbsp; To: ${r.toDate || '—'}</div>
+          <a href="${r.url}" target="_blank">View on World Bank →</a>
+        </div>`).join('');
+    } else {
+      wbRes.innerHTML = '<div class="ec-meta" style="padding:.5rem 0">No World Bank debarment matches found.</div>';
+    }
+  } catch {
+    wbSpin.style.display = 'none';
+    wbRes.innerHTML = '<div class="ec-meta">World Bank API unavailable.</div>';
+  }
+
+  // OpenSanctions
+  const osSection = document.getElementById('ext-os');
+  const osSpin = document.getElementById('os-spin');
+  const osRes = document.getElementById('ext-os-results');
+  osSection.style.display = 'block';
+  osSpin.style.display = 'inline-block';
+  osRes.innerHTML = '';
+  try {
+    const r = await fetch('/api/external/opensanctions?q=' + encodeURIComponent(q));
+    const d = await r.json();
+    osSpin.style.display = 'none';
+    if (d.results && d.results.length > 0) {
+      osRes.innerHTML = d.results.map(r => `
+        <div class="ext-card">
+          <div class="ec-name">${r.name}</div>
+          <div class="ec-meta">Country: ${r.country || 'N/A'} &nbsp;·&nbsp; Datasets: ${r.datasets || 'N/A'}</div>
+          <a href="${r.url}" target="_blank">View on OpenSanctions →</a>
+        </div>`).join('');
+    } else {
+      osRes.innerHTML = '<div class="ec-meta" style="padding:.5rem 0">No OpenSanctions matches found.</div>';
+    }
+  } catch {
+    osSpin.style.display = 'none';
+    osRes.innerHTML = '<div class="ec-meta">OpenSanctions API unavailable.</div>';
+  }
+}
+
+// ═══════════════════════════════════════════════
+// ORG PROFILE
+// ═══════════════════════════════════════════════
+async function showOrg(id) {
+  nav('org');
+  document.getElementById('org-body').innerHTML = '<div style="text-align:center;padding:3rem;color:var(--slate)"><div class="spinner" style="width:32px;height:32px;border-width:3px;margin:0 auto"></div></div>';
+  try {
+    const res = await fetch('/api/org/' + id);
+    const data = await res.json();
+    renderOrg(data.org, data.cases);
+  } catch {
+    document.getElementById('org-body').innerHTML = '<div class="empty-state"><div class="ei">⚠️</div><h3>Could not load organization profile</h3></div>';
+  }
+}
+
+function renderOrg(org, cases) {
+  const riskLabels = { high: '🔴 HIGH RISK', medium: '🟠 MEDIUM RISK', low: '🟢 LOW RISK' };
+  const statusMeta = {
+    debarred:      { cls:'ist-debarred',      label:'Debarred' },
+    investigation: { cls:'ist-investigation', label:'Under Investigation' },
+    convicted:     { cls:'ist-convicted',     label:'Convicted' },
+    indicted:      { cls:'ist-indicted',      label:'Indicted' },
+    dismissed:     { cls:'ist-dismissed',     label:'Dismissed' },
+  };
+
+  const timeline = cases.map(c => {
+    const m = tm(c.type);
+    return `
+      <div class="titem" onclick="">
+        <div class="tdot ${m.dotCls}">${TYPE_ICONS[c.type] || '⚪'}</div>
+        <div class="tcontent">
+          <div class="tt">${c.title}</div>
+          <div class="tm">${c.source} &nbsp;·&nbsp; ${c.date} &nbsp;·&nbsp; ${c.country}${c.amount !== 'N/A' ? ' &nbsp;·&nbsp; ' + c.amount : ''}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const individuals = org.individuals.map(i => {
+    const sm = statusMeta[i.status] || { cls:'ist-dismissed', label: i.status };
+    return `
+      <div class="ind-item">
+        <div><div class="ind-name">${i.name}</div><div class="ind-role">${i.role} &nbsp;·&nbsp; ${i.year}</div></div>
+        <span class="ist ${sm.cls}">${sm.label}</span>
+      </div>`;
+  }).join('');
+
+  const totalAmount = cases.reduce((s,c) => s + (c.amountNum||0), 0);
+
+  document.getElementById('org-body').innerHTML = `
+    <div class="org-hero">
+      <div class="org-hero-top">
+        <div>
+          <div class="org-name">${org.name}</div>
+          <div class="org-sub">${org.type} &nbsp;·&nbsp; ${org.hq} &nbsp;·&nbsp; Est. ${org.founded}</div>
+        </div>
+        <div>
+          <div class="risk-pill risk-${org.riskLevel}">${riskLabels[org.riskLevel]}</div>
+          <div style="text-align:center;font-size:.72rem;color:var(--slate);margin-top:.4rem">${org.totalCases} documented case${org.totalCases!==1?'s':''}</div>
+        </div>
+      </div>
+      <div class="org-meta-grid">
+        <div class="ometa"><div class="oml">Type</div><div class="omv">${org.type}</div></div>
+        <div class="ometa"><div class="oml">Headquarters</div><div class="omv">${org.hq}</div></div>
+        <div class="ometa"><div class="oml">Founded</div><div class="omv">${org.founded}</div></div>
+        <div class="ometa"><div class="oml">Cases</div><div class="omv">${org.totalCases}</div></div>
+        <div class="ometa"><div class="oml">Total Documented</div><div class="omv">${totalAmount > 0 ? fmt(totalAmount) : 'Varies'}</div></div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-bar-labels"><span>Accountability Risk Score</span><span style="font-weight:800">${org.riskScore} / 100</span></div>
+        <div class="rbar"><div class="rfill ${org.riskLevel}" style="width:${org.riskScore}%"></div></div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem">Based on number, severity, and recency of documented cases</div>
+      </div>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-title">📋 Documented Case History (${cases.length})</div>
+      <div class="timeline">${timeline}</div>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-title">👤 Named Individuals (${org.individuals.length})</div>
+      <div class="ind-list">${individuals}</div>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-title">ℹ️ Source Disclaimer</div>
+      <p style="font-size:.83rem;color:var(--slate);line-height:1.7">All information on this page is derived from publicly available official documents cited in each case. The risk score is a calculated indicator based on documented cases and does not represent an independent assessment by AidWatch. Organizations are encouraged to contact us regarding corrections or to flag resolved cases.</p>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════
+async function renderDashboard() {
+  try {
+    const [statsRes, orgsRes] = await Promise.all([fetch('/api/stats'), fetch('/api/org')]);
+    const stats = await statsRes.json();
+    const orgsData = await orgsRes.json();
+
+    const totalAmt = stats.totalAmount;
+    document.getElementById('kpi-grid').innerHTML = `
+      <div class="kpi"><div class="kpi-icon">📋</div><div class="kpi-val">${stats.totalCases}</div><div class="kpi-lbl">Documented Cases</div></div>
+      <div class="kpi"><div class="kpi-icon">🏛️</div><div class="kpi-val">${stats.totalOrgs}</div><div class="kpi-lbl">Organizations Tracked</div></div>
+      <div class="kpi"><div class="kpi-icon">💰</div><div class="kpi-val">${fmt(totalAmt)}</div><div class="kpi-lbl">Total Documented Misuse</div></div>
+      <div class="kpi"><div class="kpi-icon">📄</div><div class="kpi-val">200+</div><div class="kpi-lbl">Data Sources</div></div>
+      <div class="kpi"><div class="kpi-icon">🌍</div><div class="kpi-val">6</div><div class="kpi-lbl">Regions Covered</div></div>
+      <div class="kpi"><div class="kpi-icon">🕐</div><div class="kpi-val">${Math.max(...Object.keys(stats.byYear).map(Number))}</div><div class="kpi-lbl">Latest Case Year</div></div>
+    `;
+
+    const COLORS = ['#EF4444','#F97316','#8B5CF6','#EAB308','#3B82F6','#0EA5E9','#10B981','#EC4899'];
+    const LABELS = { fraud:'Financial Fraud', corruption:'Corruption', sea:'SEA', procurement:'Procurement', sanctions:'Sanctions', diversion:'Diversion' };
+    const REGION_LABELS = { africa:'Africa', middleeast:'Middle East', asia:'Asia/Pacific', latam:'Latin America', europe:'Europe', global:'Global' };
+    const SOURCE_LABELS = { un:'UN Bodies', donor:'Donor Govts', bank:'Dev Banks', media:'Investigative Media', court:'Courts', watchdog:'Watchdogs' };
+
+    destroyChart('chart-type');
+    destroyChart('chart-region');
+    destroyChart('chart-year');
+    destroyChart('chart-source');
+
+    makeDonut('chart-type', stats.byType, LABELS, COLORS);
+    makeDonut('chart-region', stats.byRegion, REGION_LABELS, COLORS);
+    makeBar('chart-year', stats.byYear);
+    makeDonut('chart-source', stats.bySource, SOURCE_LABELS, COLORS);
+
+    const sorted = [...(orgsData.results||[])].sort((a,b)=>b.totalCases-a.totalCases);
+    document.getElementById('top-orgs').innerHTML = sorted.map((o,i) => `
+      <div class="top-org-item" onclick="showOrg(${o.id})">
+        <div class="top-org-rank">${i+1}</div>
+        <div class="top-org-info">
+          <div class="top-org-name">${o.name}</div>
+          <div class="top-org-meta">${o.type} &nbsp;·&nbsp; ${o.hq}</div>
+        </div>
+        <div>
+          <div class="top-org-cases">${o.totalCases} cases</div>
+          <div style="text-align:right"><span class="risk-pill risk-${o.riskLevel}" style="font-size:.7rem;padding:.2rem .6rem">${o.riskLevel.toUpperCase()}</span></div>
+        </div>
+      </div>`).join('');
+  } catch(e) { console.error(e); }
+}
+
+function destroyChart(id) {
+  if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+}
+
+function makeDonut(id, data, labels, colors) {
+  const keys = Object.keys(data);
+  const ctx = document.getElementById(id)?.getContext('2d');
+  if (!ctx) return;
+  charts[id] = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: keys.map(k => labels[k] || k),
+      datasets: [{ data: keys.map(k => data[k]), backgroundColor: colors.slice(0, keys.length), borderWidth: 2, borderColor: '#fff' }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'right', labels: { font: { family: 'Inter', size: 11 }, padding: 12 } } }
+    }
+  });
+}
+
+function makeBar(id, data) {
+  const keys = Object.keys(data).sort();
+  const ctx = document.getElementById(id)?.getContext('2d');
+  if (!ctx) return;
+  charts[id] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: keys,
+      datasets: [{ label: 'Cases', data: keys.map(k => data[k]), backgroundColor: '#F59E0B', borderRadius: 6, borderSkipped: false }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 } } },
+        y: { beginAtZero: true, grid: { color: '#F1F5F9' }, ticks: { font: { family: 'Inter', size: 11 }, stepSize: 1 } }
+      }
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// SOURCES PAGE
+// ═══════════════════════════════════════════════
+async function renderSources() {
+  if (document.getElementById('sources-body').innerHTML.trim()) return;
+  try {
+    const res = await fetch('/api/sources');
+    const data = await res.json();
+    const groups = {};
+    for (const s of data.sources) {
+      if (!groups[s.category]) groups[s.category] = [];
+      groups[s.category].push(s);
+    }
+    document.getElementById('sources-body').innerHTML = Object.entries(groups).map(([cat, srcs]) => `
+      <div class="src-group">
+        <div class="src-group-title">${cat}</div>
+        <div class="src-grid">
+          ${srcs.map(s => `
+            <div class="src-card">
+              <div class="src-name">${s.name}</div>
+              <div class="src-desc">${s.description}</div>
+              <a class="src-link" href="${s.url}" target="_blank">Visit source →</a>
+            </div>`).join('')}
+        </div>
+      </div>`).join('');
+  } catch {}
+}
+
+// ═══════════════════════════════════════════════
+// HOME INIT
+// ═══════════════════════════════════════════════
+async function initHome() {
+  try {
+    const [recentRes, statsRes] = await Promise.all([fetch('/api/recent'), fetch('/api/stats')]);
+    const recent = await recentRes.json();
+    const stats = await statsRes.json();
+
+    document.getElementById('home-recent').innerHTML = (recent.results || []).map(cardHTML).join('');
+
+    // update KPIs
+    document.getElementById('stat-cases').textContent = stats.totalCases;
+    document.getElementById('stat-orgs').textContent = stats.totalOrgs;
+    document.getElementById('stat-amount').textContent = fmt(stats.totalAmount);
+
+    // category counts
+    for (const [type, count] of Object.entries(stats.byType)) {
+      const el = document.getElementById('cc-' + type);
+      if (el) el.textContent = count + ' case' + (count !== 1 ? 's' : '');
+    }
+  } catch(e) { console.error('Init failed:', e); }
+}
+
+function showLoading(show) {
+  document.getElementById('loading').classList.toggle('show', show);
+}
+
+// ═══════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════
+initHome();
+</script>
+</body>
+</html>
