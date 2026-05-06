@@ -418,7 +418,293 @@
       "date": "Mar 2018", "year": 2018, "country": "United Kingdom",
       "amount": "N/A", "amountNum": 0,
       "tags": ["safeguarding", "governance", "uk-charity-commission"],
-      "status": "closed"
+      "status": "closed",
+      "timeline": [
+        {"date": "Feb 2018", "event": "Oxfam Haiti scandal breaks publicly; UK Charity Commission launches sector-wide review"},
+        {"date": "Mar 2018", "event": "UK Charity Commission opens regulatory case into Plan International UK safeguarding governance"},
+        {"date": "2018-2019", "event": "Plan International UK publishes transparency report; implements improvements"},
+        {"date": "2020", "event": "Charity Commission closes engagement; no formal inquiry required"}
+      ]
+    },
+    {
+      "id": 36, "type": "Financial Fraud", "sourceType": "un", "region": "Global",
+      "org": "UNOPS", "orgId": 34,
+      "title": "UNOPS institutional crisis — $100M+ in mismanaged funds; Executive Director Jan Mattsson resigned",
+      "summary": "A 2008 OIOS investigation (Board of Auditors report A/63/5/Add.10) revealed systemic financial mismanagement, irregular procurement, and governance failures across UNOPS global operations under Executive Director Jan Mattsson. Losses and unsupported expenditures exceeded $100 million. Mattsson resigned in 2008. The General Assembly ordered a comprehensive overhaul; UNOPS underwent complete management restructuring and financial controls reform. The case is among the largest documented institutional failures in the UN system.",
+      "source": "UN OIOS / Board of Auditors A/63/5/Add.10",
+      "sourceUrl": "https://www.un.org/ga/search/view_doc.asp?symbol=A/63/5/Add.10",
+      "date": "May 2008", "year": 2008, "country": "Global",
+      "amount": "$100M+", "amountNum": 100000000,
+      "tags": ["UNOPS", "institutional-failure", "procurement", "OIOS", "reform"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2006-2007", "event": "Internal whistleblowers raise concerns about irregular UNOPS procurement and financial reporting"},
+        {"date": "2007", "event": "OIOS investigation launched covering UNOPS global operations"},
+        {"date": "May 2008", "event": "Jan Mattsson resigns as UNOPS Executive Director amid investigation findings"},
+        {"date": "Jun 2008", "event": "Board of Auditors report A/63/5/Add.10 documents $100M+ in mismanaged funds"},
+        {"date": "2009", "event": "UN General Assembly orders UNOPS comprehensive reform; new leadership installed"},
+        {"date": "2010", "event": "Restructured UNOPS implements new financial controls; case formally closed"}
+      ]
+    },
+    {
+      "id": 37, "type": "Sexual Exploitation", "sourceType": "media", "region": "Europe & North America",
+      "org": "Mercy Corps", "orgId": 35,
+      "title": "Co-founder Ellsworth Culver sexual abuse — board concealed 2002 findings for 16 years",
+      "summary": "An investigation by The Oregonian/OregonLive (March 2018) revealed that Mercy Corps co-founder Ellsworth Culver had been accused by his daughter Audrey Mornington of childhood sexual abuse. An internal Mercy Corps investigation conducted in 2002 substantiated the allegations but findings were never reported to law enforcement; the organization continued working with Culver until his death in 2014. CEO Neal Keny-Guyer announced his resignation in July 2018 following public outcry. Congressional attention and NGO sector scrutiny followed.",
+      "source": "The Oregonian/OregonLive",
+      "sourceUrl": "https://www.oregonlive.com/news/2018/03/mercy_corps_co-founders_daught.html",
+      "date": "Mar 2018", "year": 2018, "country": "United States",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "cover-up", "governance-failure", "co-founder"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2002", "event": "Internal Mercy Corps investigation substantiates sexual abuse allegations against co-founder Ellsworth Culver; not reported to law enforcement"},
+        {"date": "2002-2014", "event": "Mercy Corps continues relationship with Culver; co-founder's daughter attempts to report multiple times"},
+        {"date": "2014", "event": "Ellsworth Culver dies; findings remain concealed"},
+        {"date": "Mar 2018", "event": "The Oregonian/OregonLive publishes investigation documenting 16-year cover-up"},
+        {"date": "Jul 2018", "event": "CEO Neal Keny-Guyer announces resignation; governance review ordered by board"},
+        {"date": "2019", "event": "New CEO and governance reforms implemented; mandatory reporting policies strengthened"}
+      ]
+    },
+    {
+      "id": 38, "type": "Financial Fraud", "sourceType": "regulator", "region": "East Asia",
+      "org": "Global Fund — Myanmar Red Cross", "orgId": 36,
+      "title": "Myanmar principal recipient misappropriation — $13.5M questioned by OIG",
+      "summary": "Global Fund Office of the Inspector General report GF-OIG-12-001 (February 2012) found that Myanmar Red Cross, as principal recipient for Global Fund HIV/AIDS and malaria grants, had misappropriated approximately $13.5 million. Irregularities included payments to fictitious vendors, unsupported transfers to subrecipients, and inadequate oversight systems. The Global Fund terminated Myanmar Red Cross's role as principal recipient and implemented a recovery and transition plan.",
+      "source": "Global Fund OIG (GF-OIG-12-001)",
+      "sourceUrl": "https://www.theglobalfund.org/en/oig/",
+      "date": "Feb 2012", "year": 2012, "country": "Myanmar",
+      "amount": "$13.5M", "amountNum": 13500000,
+      "tags": ["Global-Fund", "principal-recipient", "misappropriation", "Myanmar"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2009", "event": "OIG audit opens following concerns about Myanmar Red Cross grant financial management"},
+        {"date": "2011", "event": "Expanded OIG investigation uncovers fictitious vendor payments and transfer irregularities"},
+        {"date": "Feb 2012", "event": "OIG report GF-OIG-12-001 documents $13.5M in misappropriated funds"},
+        {"date": "2012", "event": "Global Fund terminates Myanmar Red Cross as principal recipient"},
+        {"date": "2013", "event": "New principal recipients installed; partial recovery of funds secured"}
+      ]
+    },
+    {
+      "id": 39, "type": "Sexual Exploitation", "sourceType": "ngo", "region": "Central Africa",
+      "org": "CARE International (DRC / South Sudan)", "orgId": 37,
+      "title": "CARE DRC and South Sudan SEA — staff used commercial sex services; governance failures exposed",
+      "summary": "Following The Guardian investigation (June 2018), CARE International acknowledged that staff in the Democratic Republic of Congo and South Sudan had been accused of using commercial sex services, including from women in aid-dependent situations. The disclosures came as part of the post-Oxfam sector transparency wave. CARE disclosed prior complaints that had been inadequately handled and committed to publishing annual safeguarding reports, mandatory INTERPOL screening, and strengthened PSEA enforcement.",
+      "source": "The Guardian / CARE International",
+      "sourceUrl": "https://www.theguardian.com/global-development/2018/jun/06/care-international-staff-accused-using-prostitutes-south-sudan-drc",
+      "date": "Jun 2018", "year": 2018, "country": "DR Congo",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "DRC", "South-Sudan", "PSEA", "transparency-report"],
+      "status": "closed",
+      "timeline": [
+        {"date": "Pre-2018", "event": "Multiple CARE staff complaints about SEA in DRC and South Sudan; handling deemed inadequate"},
+        {"date": "Jun 2018", "event": "The Guardian investigation documents CARE staff SEA cases; CEO Sofía Sprechmann responds"},
+        {"date": "Jul 2018", "event": "CARE International CEO commits to annual safeguarding transparency reports"},
+        {"date": "2019", "event": "CARE publishes first annual safeguarding transparency report; staff dismissals confirmed"},
+        {"date": "2020", "event": "INTERPOL screening and enhanced PSEA mechanisms implemented across CARE operations"}
+      ]
+    },
+    {
+      "id": 40, "type": "Financial Fraud", "sourceType": "regulator", "region": "South Asia",
+      "org": "ActionAid India", "orgId": 38,
+      "title": "ActionAid India governance failure — ActionAid UK froze funding after PwC audit",
+      "summary": "In 2016, ActionAid UK froze funding to its Indian affiliate ActionAid India following a PricewaterhouseCoopers (PwC) audit that identified significant financial management weaknesses and governance failures. The Guardian reported (October 2016) that ActionAid India had operated below expected standards of financial accountability, including inadequate documentation, weak internal controls, non-compliance with financial management procedures, and governance irregularities. ActionAid International subsequently restructured the federation relationship and required India to implement comprehensive corrective measures.",
+      "source": "The Guardian / ActionAid",
+      "sourceUrl": "https://www.theguardian.com/global-development/2016/oct/06/actionaid-india-financial-management-concerns",
+      "date": "Oct 2016", "year": 2016, "country": "India",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["financial-controls", "audit-failure", "governance", "FCRA"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2015", "event": "Internal concerns about ActionAid India financial management escalated to ActionAid International"},
+        {"date": "2016", "event": "PricewaterhouseCoopers audit identifies significant weaknesses in financial controls"},
+        {"date": "Oct 2016", "event": "The Guardian reports ActionAid UK has frozen funding to India affiliate"},
+        {"date": "2017", "event": "Comprehensive corrective action plan implemented; federation relationship restructured"},
+        {"date": "2018", "event": "Funding restored following confirmed implementation of financial management improvements"}
+      ]
+    },
+    {
+      "id": 41, "type": "Corruption", "sourceType": "bank", "region": "Sub-Saharan Africa",
+      "org": "Lesotho Highlands Development Authority", "orgId": 39,
+      "title": "Lesotho Highlands Water Project — landmark $2M bribery convictions; first World Bank cross-debarment",
+      "summary": "CEO Masupha Sole of the Lesotho Highlands Development Authority was convicted in 2002 and sentenced to 18 years (later reduced) for accepting $2M+ in bribes from 12 international construction companies during the Lesotho Highlands Water Project, one of Africa's largest infrastructure projects. Companies convicted or penalised include Canada's Acres International (debarred by World Bank in 2004 — the first-ever World Bank cross-debarment under the MDB Mutual Enforcement Agreement), France's Dumez, and others. The prosecutions set a global precedent for domestic court enforcement against multinational bribery.",
+      "source": "World Bank Integrity / Lesotho High Court",
+      "sourceUrl": "https://www.worldbank.org/en/projects-operations/procurement/debarred-firms",
+      "date": "2002", "year": 2002, "country": "Lesotho",
+      "amount": "$2M+ in bribes", "amountNum": 2000000,
+      "tags": ["bribery", "water-project", "cross-debarment", "landmark-case", "World-Bank"],
+      "status": "closed",
+      "timeline": [
+        {"date": "1990s", "event": "Bribery payments made during construction tendering and execution by 12 international companies"},
+        {"date": "2002", "event": "Masupha Sole convicted; sentenced to 18 years' imprisonment (later reduced on appeal)"},
+        {"date": "2002-2004", "event": "Multiple international companies — Acres International, Dumez, and others — convicted by Lesotho courts"},
+        {"date": "Aug 2004", "event": "World Bank debars Acres International — the first company debarred under the MDB Mutual Enforcement Agreement (cross-debarment)"},
+        {"date": "2006", "event": "Final corporate convictions concluded; case reshapes international anti-bribery enforcement landscape"}
+      ]
+    },
+    {
+      "id": 42, "type": "Corruption", "sourceType": "media", "region": "East Africa",
+      "org": "UNHCR Uganda", "orgId": 40,
+      "title": "Uganda resettlement bribery — staff solicited $500–$5,000 bribes from refugees for assistance",
+      "summary": "A Reuters investigation (September 2019) documented that UNHCR Uganda staff and associated intermediaries had systematically solicited bribes of $500 to $5,000 from Somali, South Sudanese, and Congolese refugees in exchange for resettlement referrals, documentation, and assistance services. Internal UNHCR data showed hundreds of complaints over multiple years had gone unaddressed. The Inspector General opened an investigation; multiple staff were dismissed and a complaint hotline was implemented. The pattern mirrored the 2017 UNHCR Kenya case.",
+      "source": "Reuters",
+      "sourceUrl": "https://www.reuters.com/investigates/special-report/africa-bribes-unhcr-uganda/",
+      "date": "Sep 2019", "year": 2019, "country": "Uganda",
+      "amount": "Estimated hundreds of thousands", "amountNum": 0,
+      "tags": ["bribery", "resettlement-fraud", "Uganda", "refugees", "investigative-journalism"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2015-2018", "event": "Internal UNHCR Uganda complaint logs record hundreds of bribery allegations from refugees"},
+        {"date": "Sep 2019", "event": "Reuters investigation publishes findings on systematic bribery ring involving UNHCR Uganda staff"},
+        {"date": "Oct 2019", "event": "UNHCR Inspector General opens formal investigation; multiple staff suspended"},
+        {"date": "2020", "event": "Staff dismissals; new complaint hotline and enhanced oversight measures implemented"}
+      ]
+    },
+    {
+      "id": 43, "type": "Procurement Fraud", "sourceType": "donor", "region": "Latin America & Caribbean",
+      "org": "USAID Haiti (multiple contractors)", "orgId": 41,
+      "title": "Haiti earthquake recovery — USAID OIG identified $240M+ in questioned costs across 10 audits",
+      "summary": "Multiple USAID Office of Inspector General audits (2011-2014) of Haiti earthquake recovery projects identified over $240 million in questioned costs across implementing partners. Issues included lack of documentation, overbilling, cost mischarging, missing equipment, and failure to deliver contracted outputs. Audits covered shelter, health, agriculture, and infrastructure programmes. Multiple major US contractors received adverse findings. Congress held hearings on Haiti reconstruction accountability.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/sites/default/files/audit-reports/9-521-12-003-p.pdf",
+      "date": "2012", "year": 2012, "country": "Haiti",
+      "amount": "$240M+ questioned", "amountNum": 240000000,
+      "tags": ["Haiti", "earthquake-response", "questioned-costs", "USAID-OIG", "reconstruction"],
+      "status": "closed",
+      "timeline": [
+        {"date": "Jan 2010", "event": "Magnitude 7.0 earthquake; USAID launches $1.5B+ reconstruction programme"},
+        {"date": "2011", "event": "First USAID OIG audits document weak contractor monitoring and unsupported costs"},
+        {"date": "2012", "event": "Multiple audits publish overbilling and documentation failures across contractors"},
+        {"date": "2013", "event": "Congressional hearings on Haiti reconstruction accountability"},
+        {"date": "2014", "event": "Final OIG audit series published; total questioned costs exceed $240M across the portfolio"}
+      ]
+    },
+    {
+      "id": 44, "type": "Misconduct", "sourceType": "media", "region": "Europe & North America",
+      "org": "International Rescue Committee", "orgId": 42,
+      "title": "Harassment cover-up pattern — Daily Beast investigation documents retaliation against complainants",
+      "summary": "The Daily Beast published an investigation series (2020) documenting that the International Rescue Committee (IRC) had a pattern of protecting senior male staff accused of sexual harassment while retaliating against women who raised complaints. Former staff described a culture of silence and intimidation; multiple named complainants described dismissed grievances and forced departures. CEO David Miliband acknowledged 'serious concerns'. The IRC board announced governance reforms and external accountability measures.",
+      "source": "The Daily Beast",
+      "sourceUrl": "https://www.thedailybeast.com/irc-sexual-misconduct",
+      "date": "2020", "year": 2020, "country": "United States",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["harassment", "cover-up", "retaliation", "accountability", "IRC"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2018-2019", "event": "Multiple IRC staff raise formal complaints about harassment; complaints reportedly dismissed"},
+        {"date": "2020", "event": "The Daily Beast investigation documents pattern of harassment and retaliation at IRC"},
+        {"date": "2020", "event": "CEO David Miliband acknowledges 'serious concerns'; IRC commissions external review"},
+        {"date": "2021", "event": "IRC board announces governance reforms; safeguarding policies strengthened"}
+      ]
+    },
+    {
+      "id": 45, "type": "Aid Diversion", "sourceType": "media", "region": "Middle East & North Africa",
+      "org": "IOM Libya / EU Trust Fund", "orgId": 43,
+      "title": "Libya detention funds — Guardian investigation documents EU aid reached trafficking networks",
+      "summary": "The Guardian (October 2019) and EU Court of Auditors (2021) documented that EU-funded programmes channelled through the International Organization for Migration (IOM) and UNHCR in Libya, designed to support detained migrants, were benefiting people-smuggling and trafficking networks that controlled the detention facilities. The EU Africa Trust Fund committed approximately €455 million to Libya migration management. European Parliament rapporteurs raised alarm that funds were sustaining the detention system rather than protecting migrants.",
+      "source": "The Guardian / EU Court of Auditors",
+      "sourceUrl": "https://www.theguardian.com/world/2019/oct/22/the-long-read-corruption-libya-eu-aid",
+      "date": "Oct 2019", "year": 2019, "country": "Libya",
+      "amount": "€455M programme", "amountNum": 500000000,
+      "tags": ["Libya", "migration", "trafficking", "EU-EUTF", "detention"],
+      "status": "ongoing",
+      "timeline": [
+        {"date": "2017", "event": "EU launches Trust Fund for Africa Libya programme; IOM/UNHCR receive substantial funding"},
+        {"date": "2019", "event": "The Guardian investigation links detention-centre funding to trafficking networks"},
+        {"date": "2019", "event": "European Parliament calls for probe into EU Africa Trust Fund transparency"},
+        {"date": "2021", "event": "EU Court of Auditors publishes critical review of migration fund accountability gaps"},
+        {"date": "Ongoing", "event": "Civil society organizations continue monitoring; no formal sanctions imposed"}
+      ]
+    },
+    {
+      "id": 46, "type": "Sexual Exploitation", "sourceType": "un", "region": "West Africa",
+      "org": "UN MINUSMA (Mali)", "orgId": 44,
+      "title": "Mali UN peacekeeping SEA — UN Conduct and Discipline records substantiated cases across multiple contingents",
+      "summary": "UN Conduct and Discipline Service data (cumulative 2013-2023) records dozens of substantiated sexual exploitation and abuse (SEA) cases involving MINUSMA peacekeepers in Mali, across Chadian, Senegalese, Bangladeshi, and Togolese contingents. Multiple victims were women and girls in host communities. UN OIOS conducted investigations; several troop-contributing countries repatriated implicated personnel. MINUSMA's mandate ended in December 2023 after Mali requested UN withdrawal.",
+      "source": "UN Conduct and Discipline Service / OIOS",
+      "sourceUrl": "https://conduct.unmissions.org/",
+      "date": "2014", "year": 2014, "country": "Mali",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "MINUSMA", "Mali", "peacekeepers", "PSEA"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2013", "event": "MINUSMA mission launched following French Serval intervention"},
+        {"date": "2014", "event": "First SEA allegations against peacekeepers documented by UN Conduct and Discipline"},
+        {"date": "2014-2022", "event": "Multiple substantiated SEA cases; several contingents repatriated implicated personnel"},
+        {"date": "2023", "event": "Mali government requests MINUSMA withdrawal; mission ends December 2023"}
+      ]
+    },
+    {
+      "id": 47, "type": "Procurement Fraud", "sourceType": "donor", "region": "Middle East & North Africa",
+      "org": "USAID Lebanon — Development Alternatives Inc.", "orgId": 45,
+      "title": "Lebanon Industry Value Chain Development — USAID OIG found $25M in questioned costs in DAI contract",
+      "summary": "USAID OIG audit (2013) of the Lebanon Industry Value Chain Development programme implemented by Development Alternatives Inc. (DAI) found approximately $25 million in questioned costs, including unsupported salaries, inflated overhead rates, and inadequately documented expenditures. DAI agreed to remedial actions and USAID recovered some amounts. The case was among several OIG findings involving DAI contracts across the MENA region.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2013", "year": 2013, "country": "Lebanon",
+      "amount": "$25M questioned", "amountNum": 25000000,
+      "tags": ["USAID-OIG", "Lebanon", "questioned-costs", "DAI", "overbilling"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2009", "event": "USAID Lebanon Industry Value Chain Development programme launched; DAI selected as implementer"},
+        {"date": "2013", "event": "USAID OIG audit documents $25M in questioned costs, unsupported salaries, and inflated overhead"},
+        {"date": "2014", "event": "DAI agrees to corrective actions; USAID partially recovers questioned amounts"},
+        {"date": "2015", "event": "Enhanced financial oversight implemented for subsequent USAID Lebanon awards"}
+      ]
+    },
+    {
+      "id": 48, "type": "Procurement Fraud", "sourceType": "donor", "region": "South Asia",
+      "org": "USAID Pakistan — multiple implementing partners", "orgId": 46,
+      "title": "Pakistan FATA reconstruction — USAID OIG cumulative findings across 12 audits, $85M questioned",
+      "summary": "Multiple USAID OIG audits (2010-2015) of reconstruction and development programmes in Pakistan's Federally Administered Tribal Areas (FATA) and Khyber Pakhtunkhwa documented approximately $85 million in questioned costs across 12 implementing partners. Issues included lack of performance data, inadequate documentation, weak subgrant monitoring, and over-reported progress. Congressional scrutiny prompted USAID to overhaul Pakistan programme management.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2012", "year": 2012, "country": "Pakistan",
+      "amount": "$85M questioned", "amountNum": 85000000,
+      "tags": ["Pakistan", "FATA", "USAID-OIG", "reconstruction", "questioned-costs"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2009", "event": "USAID Pakistan FATA reconstruction programme scaled up following Swat conflict displacement"},
+        {"date": "2010-2012", "event": "USAID OIG begins audit series; first findings of weak documentation and monitoring"},
+        {"date": "2012-2015", "event": "12 OIG audits collectively document $85M in questioned costs across implementing partners"},
+        {"date": "2016", "event": "USAID overhauls Pakistan programme management; new accountability systems implemented"}
+      ]
+    },
+    {
+      "id": 49, "type": "Financial Fraud", "sourceType": "donor", "region": "East Africa",
+      "org": "USAID Kenya — local implementing partners", "orgId": 47,
+      "title": "Kenya USAID health programme fraud — $15M in false claims by local implementing partners",
+      "summary": "USAID OIG investigations (2016-2018) in Kenya documented approximately $15 million in fraud by local implementing partners in health and HIV/AIDS programmes, including falsified beneficiary data, inflated invoices, payments to ghost beneficiaries, and diverted funds. Several Kenyan NGOs had US federal civil and criminal proceedings initiated. The cases prompted a USAID-wide review of local partner vetting and financial monitoring systems.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2017", "year": 2017, "country": "Kenya",
+      "amount": "$15M", "amountNum": 15000000,
+      "tags": ["Kenya", "health-programmes", "ghost-beneficiaries", "USAID-OIG", "false-claims"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2015", "event": "USAID OIG begins Kenya health programme audits following anomalies in financial reports"},
+        {"date": "2016", "event": "OIG investigation uncovers ghost beneficiaries and falsified data across multiple local partners"},
+        {"date": "2017", "event": "$15M in fraud documented; civil and criminal proceedings initiated against Kenyan NGOs"},
+        {"date": "2018", "event": "USAID implements enhanced local partner vetting and financial monitoring across Kenya portfolio"}
+      ]
+    },
+    {
+      "id": 50, "type": "Corruption", "sourceType": "regulator", "region": "Sub-Saharan Africa",
+      "org": "USAID Democratic Republic of Congo — contractors", "orgId": 48,
+      "title": "DRC USAID OIG — documented $26M in questioned costs across health and stabilization programmes",
+      "summary": "Multiple USAID OIG audits and investigations in the Democratic Republic of Congo (2013-2019) documented approximately $26 million in questioned costs across health, governance, and stabilization programmes. Issues included undocumented expenditures, weak subgrant monitoring, procurement without competition, and absence of required approvals. Implementing partners included international NGOs and Congolese civil society organizations. USAID DRC Mission implemented an enhanced monitoring framework as a result.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2015", "year": 2015, "country": "DR Congo",
+      "amount": "$26M questioned", "amountNum": 26000000,
+      "tags": ["DRC", "USAID-OIG", "questioned-costs", "health-programmes"],
+      "status": "closed",
+      "timeline": [
+        {"date": "2013", "event": "USAID OIG begins DRC programme audits following weak financial reporting by implementing partners"},
+        {"date": "2015", "event": "Multiple OIG findings across health and stabilization programmes document $26M in questioned costs"},
+        {"date": "2017", "event": "USAID DRC Mission implements enhanced monitoring framework and financial controls"},
+        {"date": "2019", "event": "Follow-up audits confirm improvements; major questioned costs recovered or resolved"}
+      ]
     }
   ],
   "organizations": [
@@ -652,6 +938,111 @@
       "riskScore": 3, "riskLevel": "low", "totalCases": 1,
       "description": "Children's NGO; UK Charity Commission engagement in 2018 on safeguarding governance.",
       "caseIds": [35], "individuals": "Sector-wide reform"
+    },
+    {
+      "id": 34, "name": "UNOPS", "slug": "unops", "type": "UN operational support agency",
+      "hq": "Copenhagen, Denmark", "founded": 1973,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UN Office for Project Services. 2007-2008 institutional crisis under Executive Director Jan Mattsson; $100M+ in financial mismanagement documented by OIOS. Underwent full management overhaul.",
+      "caseIds": [36], "individuals": "Jan Mattsson (resigned)"
+    },
+    {
+      "id": 35, "name": "Mercy Corps", "slug": "mercy-corps", "type": "International NGO",
+      "hq": "Portland, Oregon, USA", "founded": 1979,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "Major US humanitarian and development NGO. Co-founder Ellsworth Culver sexual abuse cover-up (2002-2018) exposed by The Oregonian; CEO Neal Keny-Guyer resigned July 2018.",
+      "caseIds": [37], "individuals": "Ellsworth Culver (co-founder, deceased), Neal Keny-Guyer (CEO, resigned)"
+    },
+    {
+      "id": 36, "name": "Myanmar Red Cross (Global Fund recipient)", "slug": "myanmar-red-cross-gf", "type": "National Society / Global Fund recipient",
+      "hq": "Yangon, Myanmar", "founded": 1947,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "Myanmar Red Cross served as principal recipient for Global Fund grants; 2012 OIG investigation documented $13.5M in misappropriated funds. Removed as principal recipient.",
+      "caseIds": [38], "individuals": "Country-level management"
+    },
+    {
+      "id": 37, "name": "CARE International", "slug": "care-international", "type": "International NGO confederation",
+      "hq": "Geneva, Switzerland", "founded": 1945,
+      "riskScore": 5, "riskLevel": "medium", "totalCases": 1,
+      "description": "Major humanitarian and development NGO confederation. 2018 disclosures of SEA by DRC and South Sudan staff; committed to annual safeguarding transparency reports.",
+      "caseIds": [39], "individuals": "Multiple staff dismissed"
+    },
+    {
+      "id": 38, "name": "ActionAid India", "slug": "actionaid-india", "type": "National NGO / ActionAid affiliate",
+      "hq": "New Delhi, India", "founded": 1972,
+      "riskScore": 4, "riskLevel": "medium", "totalCases": 1,
+      "description": "Indian affiliate of ActionAid International. ActionAid UK froze funding in 2016 after PwC audit found governance and financial management failures.",
+      "caseIds": [40], "individuals": "Country-level management"
+    },
+    {
+      "id": 39, "name": "Lesotho Highlands Development Authority", "slug": "lhda", "type": "State infrastructure authority",
+      "hq": "Maseru, Lesotho", "founded": 1986,
+      "riskScore": 9, "riskLevel": "high", "totalCases": 1,
+      "description": "State authority managing the Lesotho Highlands Water Project. CEO Masupha Sole convicted of accepting $2M+ in bribes from 12 international companies; first World Bank cross-debarment case.",
+      "caseIds": [41], "individuals": "Masupha Sole (CEO, convicted)"
+    },
+    {
+      "id": 40, "name": "UNHCR Uganda", "slug": "unhcr-uganda", "type": "UN refugee agency operations",
+      "hq": "Kampala, Uganda", "founded": 1950,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UNHCR Uganda operations. Reuters 2019 investigation documented systematic staff bribery of refugees ($500-$5,000 per case); multiple staff dismissed.",
+      "caseIds": [42], "individuals": "Multiple staff dismissed"
+    },
+    {
+      "id": 41, "name": "USAID Haiti contractors (collective)", "slug": "usaid-haiti-contractors", "type": "Donor implementing partners",
+      "hq": "Port-au-Prince, Haiti", "founded": 2010,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "Multiple USAID implementing partners in post-earthquake Haiti reconstruction. $240M+ in questioned costs documented across 10 USAID OIG audits (2011-2014).",
+      "caseIds": [43], "individuals": "Multiple implementing partners"
+    },
+    {
+      "id": 42, "name": "International Rescue Committee (harassment case)", "slug": "irc-harassment", "type": "International NGO",
+      "hq": "New York, USA", "founded": 1933,
+      "riskScore": 5, "riskLevel": "medium", "totalCases": 1,
+      "description": "Major international humanitarian NGO. 2020 Daily Beast investigation documented pattern of protecting senior staff accused of harassment and retaliating against complainants.",
+      "caseIds": [44], "individuals": "Multiple senior staff"
+    },
+    {
+      "id": 43, "name": "IOM Libya / EU Trust Fund for Africa", "slug": "iom-libya", "type": "IOM operations",
+      "hq": "Tripoli, Libya", "founded": 2015,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "IOM Libya operations funded by EU Africa Trust Fund (€455M programme). Guardian and EU Court of Auditors documented that funds may have benefited trafficking networks controlling detention facilities.",
+      "caseIds": [45], "individuals": "Trafficking networks; no individual prosecutions"
+    },
+    {
+      "id": 44, "name": "UN MINUSMA (Mali)", "slug": "minusma", "type": "UN peacekeeping mission",
+      "hq": "Bamako, Mali", "founded": 2013,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UN Multidimensional Integrated Stabilization Mission in Mali (2013-2023). Dozens of substantiated SEA cases across multiple contingents documented by UN Conduct and Discipline Service.",
+      "caseIds": [46], "individuals": "Peacekeepers from multiple contributing countries"
+    },
+    {
+      "id": 45, "name": "Development Alternatives Inc. (DAI) — Lebanon", "slug": "dai-lebanon", "type": "USAID implementing partner",
+      "hq": "Bethesda, Maryland, USA", "founded": 1970,
+      "riskScore": 5, "riskLevel": "medium", "totalCases": 1,
+      "description": "Major USAID implementing partner. 2013 OIG audit of Lebanon programme found $25M in questioned costs including unsupported salaries and inflated overhead.",
+      "caseIds": [47], "individuals": "Programme management"
+    },
+    {
+      "id": 46, "name": "USAID Pakistan implementing partners (collective)", "slug": "usaid-pakistan", "type": "Donor implementing partners",
+      "hq": "Islamabad, Pakistan", "founded": 2009,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 1,
+      "description": "Multiple USAID implementing partners in Pakistan FATA reconstruction. $85M questioned across 12 OIG audits (2010-2015).",
+      "caseIds": [48], "individuals": "Implementing partner management"
+    },
+    {
+      "id": 47, "name": "USAID Kenya health implementing partners", "slug": "usaid-kenya", "type": "Donor implementing partners",
+      "hq": "Nairobi, Kenya", "founded": 2015,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 1,
+      "description": "Local Kenyan NGOs as USAID health programme implementing partners. OIG investigations (2016-2018) documented $15M in fraud including ghost beneficiaries and falsified data.",
+      "caseIds": [49], "individuals": "Local NGO management"
+    },
+    {
+      "id": 48, "name": "USAID DRC implementing partners (collective)", "slug": "usaid-drc", "type": "Donor implementing partners",
+      "hq": "Kinshasa, DR Congo", "founded": 2013,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 1,
+      "description": "Multiple implementing partners in USAID DRC health and stabilization programmes. $26M in questioned costs documented across OIG audits (2013-2019).",
+      "caseIds": [50], "individuals": "Implementing partner management"
     }
   ]
 }

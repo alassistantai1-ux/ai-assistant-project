@@ -2,96 +2,241 @@
 
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const START_TIME = Date.now();
 
-app.use(cors());
-app.use(express.json());
+// ── security middleware ────────────────────────────────────────────────────────
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      imgSrc: ["'self'", 'data:', 'https:'],
+      connectSrc: ["'self'", 'https://api.gdeltproject.org', 'https://api.opensanctions.org',
+        'https://en.wikipedia.org', 'https://api.openalex.org', 'https://apigwext.worldbank.org'],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+}));
+
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || '*',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+app.use(express.json({ limit: '1mb' }));
+
+// general API rate limit
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_MAX || '120'),
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many requests — please slow down.' },
+});
+
+// stricter limit for external-fetch endpoints
+const externalLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_EXTERNAL || '20'),
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many external search requests.' },
+});
+
+app.use('/api', apiLimiter);
+app.use('/api/external', externalLimiter);
+app.use('/api/everything', externalLimiter);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Load local database
+// ── load database ──────────────────────────────────────────────────────────────
+
 const DB = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'cases.json'), 'utf8'));
 
-// ── helpers ──────────────────────────────────────────────────────────────────
+// ── input helpers ─────────────────────────────────────────────────────────────
 
-function httpsGet(url, timeoutMs = 8000) {
-  return new Promise((resolve) => {
-    const req = https.get(url, { headers: { 'User-Agent': 'AidWatch/1.0 (public-interest accountability tool)' } }, (res) => {
-      // follow one redirect
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        res.resume();
-        return resolve(httpsGet(res.headers.location, timeoutMs));
-      }
-      let data = '';
-      res.on('data', c => data += c);
-      res.on('end', () => {
-        try { resolve(JSON.parse(data)); }
-        catch { resolve(null); }
-      });
-    });
-    req.on('error', () => resolve(null));
-    req.setTimeout(timeoutMs, () => { req.destroy(); resolve(null); });
-  });
+function sanitizeStr(v, maxLen = 200) {
+  if (typeof v !== 'string') return '';
+  return v.trim().slice(0, maxLen);
 }
+
+function sanitizeInt(v, fallback, min = 1, max = 100) {
+  const n = parseInt(v, 10);
+  if (isNaN(n)) return fallback;
+  return Math.min(max, Math.max(min, n));
+}
+
+function parsePage(query) {
+  const page = sanitizeInt(query.page, 1, 1, 1000);
+  const limit = sanitizeInt(query.limit, 20, 1, 100);
+  return { page, limit, offset: (page - 1) * limit };
+}
+
+// ── scoring ───────────────────────────────────────────────────────────────────
 
 function scoreMatch(c, q) {
   if (!q) return 1;
   const ql = q.toLowerCase();
   let score = 0;
-  if (c.org.toLowerCase().includes(ql)) score += 10;
-  if (c.title.toLowerCase().includes(ql)) score += 6;
-  if (c.country.toLowerCase().includes(ql)) score += 5;
-  if (c.summary.toLowerCase().includes(ql)) score += 3;
-  if (c.source.toLowerCase().includes(ql)) score += 3;
-  if (c.tags.some(t => t.toLowerCase().includes(ql))) score += 4;
-  if (c.type.toLowerCase().includes(ql)) score += 2;
+  if ((c.org || '').toLowerCase().includes(ql)) score += 10;
+  if ((c.title || '').toLowerCase().includes(ql)) score += 6;
+  if ((c.country || '').toLowerCase().includes(ql)) score += 5;
+  if ((c.summary || '').toLowerCase().includes(ql)) score += 3;
+  if ((c.source || '').toLowerCase().includes(ql)) score += 3;
+  if ((c.tags || []).some(t => t.toLowerCase().includes(ql))) score += 4;
+  if ((c.type || '').toLowerCase().includes(ql)) score += 2;
+  if ((c.region || '').toLowerCase().includes(ql)) score += 2;
   return score;
 }
 
-// ── local search ──────────────────────────────────────────────────────────────
+function getSeverity(c) {
+  const t = (c.type || '').toLowerCase();
+  if (t.includes('sexual') || t.includes('sea')) return 'critical';
+  if (c.amountNum >= 50_000_000) return 'critical';
+  if (t.includes('financial fraud') || t.includes('fraud')) {
+    return c.amountNum >= 5_000_000 ? 'critical' : 'high';
+  }
+  if (t.includes('corruption')) return 'high';
+  if (t.includes('diversion') || t.includes('procurement')) {
+    return c.amountNum >= 10_000_000 ? 'critical' : 'high';
+  }
+  if (t.includes('sanction')) return 'high';
+  if (c.amountNum >= 1_000_000) return 'high';
+  return 'medium';
+}
+
+function enrichCase(c) {
+  return { ...c, severity: getSeverity(c) };
+}
+
+// ── health ─────────────────────────────────────────────────────────────────────
+
+app.get('/health', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: 'ok',
+      uptime: Math.floor((Date.now() - START_TIME) / 1000),
+      cases: DB.cases.length,
+      organizations: DB.organizations.length,
+      timestamp: new Date().toISOString(),
+    },
+  });
+});
+
+// ── search ─────────────────────────────────────────────────────────────────────
 
 app.get('/api/search', (req, res) => {
-  const { q = '', type, region, sourceType, year, sort = 'relevance' } = req.query;
+  const q = sanitizeStr(req.query.q, 200);
+  const type = sanitizeStr(req.query.type, 100);
+  const region = sanitizeStr(req.query.region, 100);
+  const sourceType = sanitizeStr(req.query.sourceType, 100);
+  const status = sanitizeStr(req.query.status, 50);
+  const severity = sanitizeStr(req.query.severity, 20);
+  const yearFrom = req.query.yearFrom ? sanitizeInt(req.query.yearFrom, null, 1990, 2099) : null;
+  const yearTo = req.query.yearTo ? sanitizeInt(req.query.yearTo, null, 1990, 2099) : null;
+  const sort = sanitizeStr(req.query.sort, 20) || 'relevance';
+  const { page, limit, offset } = parsePage(req.query);
 
-  let results = DB.cases.map(c => ({ ...c, _score: scoreMatch(c, q) }));
+  let results = DB.cases.map(c => ({ ...enrichCase(c), _score: scoreMatch(c, q) }));
 
   if (q) results = results.filter(c => c._score > 0);
   if (type) results = results.filter(c => c.type === type);
   if (region) results = results.filter(c => c.region === region);
   if (sourceType) results = results.filter(c => c.sourceType === sourceType);
-  if (year) results = results.filter(c => c.year === parseInt(year));
+  if (status) results = results.filter(c => c.status === status);
+  if (severity) results = results.filter(c => c.severity === severity);
+  if (yearFrom !== null) results = results.filter(c => c.year >= yearFrom);
+  if (yearTo !== null) results = results.filter(c => c.year <= yearTo);
 
-  if (sort === 'relevance') results.sort((a, b) => b._score - a._score);
-  else if (sort === 'recent') results.sort((a, b) => b.year - a.year);
-  else if (sort === 'amount') results.sort((a, b) => b.amountNum - a.amountNum);
+  const sortFns = {
+    relevance: (a, b) => b._score - a._score,
+    newest: (a, b) => b.year - a.year || b.id - a.id,
+    oldest: (a, b) => a.year - b.year || a.id - b.id,
+    amount: (a, b) => b.amountNum - a.amountNum,
+    severity: (a, b) => {
+      const order = { critical: 3, high: 2, medium: 1 };
+      return (order[b.severity] || 0) - (order[a.severity] || 0);
+    },
+  };
+  results.sort(sortFns[sort] || sortFns.relevance);
+
+  const total = results.length;
+  const paged = results.slice(offset, offset + limit).map(({ _score, ...c }) => c);
 
   res.json({
-    total: results.length,
-    results: results.map(({ _score, ...c }) => c),
+    success: true,
+    data: {
+      total,
+      page,
+      limit,
+      pages: Math.ceil(total / limit),
+      results: paged,
+    },
     source: 'local',
   });
+});
+
+// ── case by id ─────────────────────────────────────────────────────────────────
+
+app.get('/api/cases/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (isNaN(id)) return res.status(400).json({ success: false, error: 'Invalid case ID' });
+
+  const c = DB.cases.find(x => x.id === id);
+  if (!c) return res.status(404).json({ success: false, error: 'Case not found' });
+
+  const enriched = enrichCase(c);
+  const org = DB.organizations.find(o => o.id === c.orgId) || null;
+
+  // related: same org or same type, exclude self, limit 4
+  const related = DB.cases
+    .filter(r => r.id !== id && (r.orgId === c.orgId || r.type === c.type))
+    .sort((a, b) => b.year - a.year)
+    .slice(0, 4)
+    .map(enrichCase);
+
+  res.json({ success: true, data: { case: enriched, org, related } });
 });
 
 // ── org profile ───────────────────────────────────────────────────────────────
 
 app.get('/api/org/:id', (req, res) => {
-  const org = DB.organizations.find(o => o.id === parseInt(req.params.id) || o.slug === req.params.id);
-  if (!org) return res.status(404).json({ error: 'Organization not found' });
-  const cases = DB.cases.filter(c => org.caseIds.includes(c.id));
-  res.json({ org, cases });
+  const idParam = sanitizeStr(req.params.id, 100);
+  const org = DB.organizations.find(
+    o => o.id === parseInt(idParam, 10) || o.slug === idParam,
+  );
+  if (!org) return res.status(404).json({ success: false, error: 'Organization not found' });
+
+  const cases = DB.cases
+    .filter(c => org.caseIds.includes(c.id))
+    .map(enrichCase)
+    .sort((a, b) => b.year - a.year);
+
+  res.json({ success: true, data: { org, cases } });
 });
 
 app.get('/api/org', (req, res) => {
-  const { q = '' } = req.query;
-  const ql = q.toLowerCase();
+  const q = sanitizeStr(req.query.q, 200).toLowerCase();
   const results = q
-    ? DB.organizations.filter(o => o.name.toLowerCase().includes(ql) || o.type.toLowerCase().includes(ql))
+    ? DB.organizations.filter(
+        o => o.name.toLowerCase().includes(q) || (o.type || '').toLowerCase().includes(q),
+      )
     : DB.organizations;
-  res.json({ total: results.length, results });
+
+  res.json({ success: true, data: { total: results.length, results } });
 });
 
 // ── stats ─────────────────────────────────────────────────────────────────────
@@ -102,54 +247,64 @@ app.get('/api/stats', (req, res) => {
   const byRegion = {};
   const byYear = {};
   const bySource = {};
+  const bySeverity = {};
+  const byStatus = {};
   let totalAmount = 0;
 
   for (const c of cases) {
+    const sev = getSeverity(c);
     byType[c.type] = (byType[c.type] || 0) + 1;
     byRegion[c.region] = (byRegion[c.region] || 0) + 1;
     byYear[c.year] = (byYear[c.year] || 0) + 1;
     bySource[c.sourceType] = (bySource[c.sourceType] || 0) + 1;
+    bySeverity[sev] = (bySeverity[sev] || 0) + 1;
+    byStatus[c.status || 'unknown'] = (byStatus[c.status || 'unknown'] || 0) + 1;
     totalAmount += c.amountNum || 0;
   }
 
   res.json({
-    totalCases: cases.length,
-    totalOrgs: DB.organizations.length,
-    totalAmount,
-    byType,
-    byRegion,
-    byYear,
-    bySource,
+    success: true,
+    data: {
+      totalCases: cases.length,
+      totalOrgs: DB.organizations.length,
+      totalAmount,
+      byType,
+      byRegion,
+      byYear,
+      bySource,
+      bySeverity,
+      byStatus,
+    },
   });
 });
 
-// ── recent ────────────────────────────────────────────────────────────────────
+// ── recent ─────────────────────────────────────────────────────────────────────
 
 app.get('/api/recent', (req, res) => {
-  const n = parseInt(req.query.n) || 8;
-  const recent = [...DB.cases].sort((a, b) => b.year - a.year || b.id - a.id).slice(0, n);
-  res.json({ results: recent });
+  const n = sanitizeInt(req.query.n, 8, 1, 50);
+  const recent = [...DB.cases]
+    .sort((a, b) => b.year - a.year || b.id - a.id)
+    .slice(0, n)
+    .map(enrichCase);
+  res.json({ success: true, data: { results: recent } });
 });
 
 // ── external: World Bank debarment ───────────────────────────────────────────
 
 app.get('/api/external/worldbank', async (req, res) => {
-  const { q } = req.query;
-  if (!q) return res.json({ results: [] });
+  const q = sanitizeStr(req.query.q, 200);
+  if (!q) return res.json({ success: true, data: { results: [] } });
 
   const url = `https://apigwext.worldbank.org/dvsvc/v1.0/json/APPLICATION/ADOBE_EXPRNCE_MGR/FIRM/debarred?FORMAT=JSON`;
   const data = await httpsGet(url);
 
   if (!data || !data.debarredFirms) {
-    return res.json({ results: [], source: 'worldbank', error: 'unavailable' });
+    return res.json({ success: true, data: { results: [], source: 'worldbank', error: 'unavailable' } });
   }
 
   const ql = q.toLowerCase();
-  const matches = (data.debarredFirms || [])
-    .filter(f =>
-      (f.firmName || '').toLowerCase().includes(ql) ||
-      (f.country || '').toLowerCase().includes(ql)
-    )
+  const results = (data.debarredFirms || [])
+    .filter(f => (f.firmName || '').toLowerCase().includes(ql) || (f.country || '').toLowerCase().includes(ql))
     .slice(0, 10)
     .map(f => ({
       source: 'World Bank Debarment',
@@ -161,20 +316,20 @@ app.get('/api/external/worldbank', async (req, res) => {
       url: 'https://www.worldbank.org/en/projects-operations/procurement/debarred-firms',
     }));
 
-  res.json({ results: matches, source: 'worldbank' });
+  res.json({ success: true, data: { results, source: 'worldbank' } });
 });
 
 // ── external: OpenSanctions ───────────────────────────────────────────────────
 
 app.get('/api/external/opensanctions', async (req, res) => {
-  const { q } = req.query;
-  if (!q) return res.json({ results: [] });
+  const q = sanitizeStr(req.query.q, 200);
+  if (!q) return res.json({ success: true, data: { results: [] } });
 
   const url = `https://api.opensanctions.org/search/default?q=${encodeURIComponent(q)}&limit=8&schema=Organization`;
   const data = await httpsGet(url);
 
   if (!data || !data.results) {
-    return res.json({ results: [], source: 'opensanctions', error: 'unavailable' });
+    return res.json({ success: true, data: { results: [], source: 'opensanctions', error: 'unavailable' } });
   }
 
   const results = (data.results || []).map(r => ({
@@ -186,29 +341,25 @@ app.get('/api/external/opensanctions', async (req, res) => {
     url: `https://www.opensanctions.org/entities/${r.id}/`,
   }));
 
-  res.json({ results, source: 'opensanctions' });
+  res.json({ success: true, data: { results, source: 'opensanctions' } });
 });
 
-// ── external: GDELT (global news, 100+ countries, thousands of outlets) ──────
+// ── external: GDELT ──────────────────────────────────────────────────────────
 
 app.get('/api/external/gdelt', async (req, res) => {
-  const { q, mode = 'accountability' } = req.query;
-  if (!q) return res.json({ results: [] });
+  const q = sanitizeStr(req.query.q, 200);
+  const mode = sanitizeStr(req.query.mode, 20) || 'accountability';
+  if (!q) return res.json({ success: true, data: { results: [] } });
 
-  // accountability-biased query: org name + accountability-relevant terms
   const accountabilityTerms = '(fraud OR corruption OR misconduct OR investigation OR audit OR scandal OR abuse OR "sexual exploitation" OR whistleblower OR debarred OR sanctioned OR mismanagement OR "aid diversion")';
-  const fullQuery = mode === 'all'
-    ? `"${q}"`
-    : `"${q}" AND ${accountabilityTerms}`;
-
+  const fullQuery = mode === 'all' ? `"${q}"` : `"${q}" AND ${accountabilityTerms}`;
   const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(fullQuery)}&mode=ArtList&maxrecords=40&sort=DateDesc&format=json&timespan=10y`;
   const data = await httpsGet(url);
 
   if (!data || !data.articles) {
-    return res.json({ results: [], source: 'gdelt', error: 'unavailable' });
+    return res.json({ success: true, data: { results: [], source: 'gdelt', error: 'unavailable' } });
   }
 
-  // dedupe by domain — keep most recent per outlet, max 25 total
   const seen = new Map();
   for (const a of data.articles) {
     const dom = a.domain || 'unknown';
@@ -227,96 +378,48 @@ app.get('/api/external/gdelt', async (req, res) => {
     image: a.socialimage || null,
   }));
 
-  res.json({ results, source: 'gdelt', total: data.articles.length });
+  res.json({ success: true, data: { results, source: 'gdelt', total: data.articles.length } });
 });
 
-function formatGdeltDate(s) {
-  // GDELT date format: 20250115T120000Z
-  if (!s || s.length < 8) return null;
-  return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`;
-}
-
-function prettyOutlet(domain) {
-  if (!domain) return 'Unknown';
-  const map = {
-    'theguardian.com': 'The Guardian',
-    'nytimes.com': 'The New York Times',
-    'washingtonpost.com': 'The Washington Post',
-    'reuters.com': 'Reuters',
-    'apnews.com': 'Associated Press',
-    'bbc.com': 'BBC News',
-    'bbc.co.uk': 'BBC News',
-    'aljazeera.com': 'Al Jazeera',
-    'devex.com': 'Devex',
-    'thenewhumanitarian.org': 'The New Humanitarian',
-    'irinnews.org': 'IRIN News',
-    'occrp.org': 'OCCRP',
-    'ft.com': 'Financial Times',
-    'economist.com': 'The Economist',
-    'lemonde.fr': 'Le Monde',
-    'liberation.fr': 'Libération',
-    'spiegel.de': 'Der Spiegel',
-    'sueddeutsche.de': 'Süddeutsche Zeitung',
-    'elpais.com': 'El País',
-    'corriere.it': 'Corriere della Sera',
-    'thehindu.com': 'The Hindu',
-    'timesofindia.indiatimes.com': 'Times of India',
-    'scmp.com': 'South China Morning Post',
-    'japantimes.co.jp': 'The Japan Times',
-    'abc.net.au': 'ABC News (Australia)',
-    'cbc.ca': 'CBC News',
-    'globeandmail.com': 'The Globe and Mail',
-    'allafrica.com': 'AllAfrica',
-    'mg.co.za': 'Mail & Guardian',
-    'dailynation.africa': 'Daily Nation',
-    'standardmedia.co.ke': 'The Standard',
-    'premiumtimesng.com': 'Premium Times Nigeria',
-    'globalwitness.org': 'Global Witness',
-    'transparency.org': 'Transparency International',
-    'hrw.org': 'Human Rights Watch',
-  };
-  return map[domain] || domain.replace(/^www\./, '').split('.')[0]
-    .replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-}
-
-// ── external: Wikipedia (knowledge panel) ────────────────────────────────────
+// ── external: Wikipedia ───────────────────────────────────────────────────────
 
 app.get('/api/external/wikipedia', async (req, res) => {
-  const { q } = req.query;
-  if (!q) return res.json({ result: null });
+  const q = sanitizeStr(req.query.q, 200);
+  if (!q) return res.json({ success: true, data: { result: null } });
 
   const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=1&format=json&origin=*`;
   const search = await httpsGet(searchUrl);
   const title = search?.query?.search?.[0]?.title;
-  if (!title) return res.json({ result: null });
+  if (!title) return res.json({ success: true, data: { result: null } });
 
-  const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
-  const summary = await httpsGet(summaryUrl);
-
-  if (!summary) return res.json({ result: null });
+  const summary = await httpsGet(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+  if (!summary) return res.json({ success: true, data: { result: null } });
 
   res.json({
-    result: {
-      title: summary.title,
-      description: summary.description,
-      extract: summary.extract,
-      thumbnail: summary.thumbnail?.source || null,
-      url: summary.content_urls?.desktop?.page,
-      source: 'Wikipedia',
+    success: true,
+    data: {
+      result: {
+        title: summary.title,
+        description: summary.description,
+        extract: summary.extract,
+        thumbnail: summary.thumbnail?.source || null,
+        url: summary.content_urls?.desktop?.page,
+        source: 'Wikipedia',
+      },
     },
   });
 });
 
-// ── external: OpenAlex (academic) ────────────────────────────────────────────
+// ── external: OpenAlex ────────────────────────────────────────────────────────
 
 app.get('/api/external/openalex', async (req, res) => {
-  const { q } = req.query;
-  if (!q) return res.json({ results: [] });
+  const q = sanitizeStr(req.query.q, 200);
+  if (!q) return res.json({ success: true, data: { results: [] } });
 
   const url = `https://api.openalex.org/works?search=${encodeURIComponent(q + ' (corruption OR fraud OR accountability OR governance OR misconduct)')}&per-page=8&sort=publication_date:desc`;
   const data = await httpsGet(url);
 
-  if (!data || !data.results) return res.json({ results: [], source: 'openalex' });
+  if (!data || !data.results) return res.json({ success: true, data: { results: [], source: 'openalex' } });
 
   const results = data.results.map(w => ({
     source: 'OpenAlex',
@@ -328,17 +431,17 @@ app.get('/api/external/openalex', async (req, res) => {
     citations: w.cited_by_count || 0,
   }));
 
-  res.json({ results, source: 'openalex' });
+  res.json({ success: true, data: { results, source: 'openalex' } });
 });
 
 // ── meta-search: everything in parallel ──────────────────────────────────────
 
 app.get('/api/everything', async (req, res) => {
-  const { q } = req.query;
-  if (!q) return res.json({ query: '', sections: {} });
+  const q = sanitizeStr(req.query.q, 200);
+  if (!q) return res.json({ success: true, data: { query: '', sections: {} } });
 
   const localResults = DB.cases
-    .map(c => ({ ...c, _score: scoreMatch(c, q) }))
+    .map(c => ({ ...enrichCase(c), _score: scoreMatch(c, q) }))
     .filter(c => c._score > 0)
     .sort((a, b) => b._score - a._score)
     .slice(0, 12)
@@ -346,10 +449,9 @@ app.get('/api/everything', async (req, res) => {
 
   const matchedOrgs = DB.organizations.filter(o =>
     o.name.toLowerCase().includes(q.toLowerCase()) ||
-    o.slug.toLowerCase().includes(q.toLowerCase())
+    o.slug.toLowerCase().includes(q.toLowerCase()),
   );
 
-  // fan out external requests in parallel
   const [wb, os, gdelt, wiki, oa] = await Promise.all([
     httpsGet(`https://apigwext.worldbank.org/dvsvc/v1.0/json/APPLICATION/ADOBE_EXPRNCE_MGR/FIRM/debarred?FORMAT=JSON`),
     httpsGet(`https://api.opensanctions.org/search/default?q=${encodeURIComponent(q)}&limit=6&schema=Organization`),
@@ -358,7 +460,7 @@ app.get('/api/everything', async (req, res) => {
       const s = await httpsGet(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=1&format=json&origin=*`);
       const t = s?.query?.search?.[0]?.title;
       if (!t) return null;
-      return await httpsGet(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(t)}`);
+      return httpsGet(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(t)}`);
     })(),
     httpsGet(`https://api.openalex.org/works?search=${encodeURIComponent(q + ' (corruption OR fraud OR accountability OR governance OR misconduct)')}&per-page=8&sort=publication_date:desc`),
   ]);
@@ -387,9 +489,7 @@ app.get('/api/everything', async (req, res) => {
     if (!seenDomains.has(dom)) seenDomains.set(dom, a);
   }
   const mediaResults = [...seenDomains.values()].slice(0, 25).map(a => ({
-    title: a.title,
-    url: a.url,
-    domain: a.domain,
+    title: a.title, url: a.url, domain: a.domain,
     outlet: prettyOutlet(a.domain),
     country: a.sourcecountry || 'International',
     language: a.language || 'English',
@@ -398,9 +498,7 @@ app.get('/api/everything', async (req, res) => {
   }));
 
   const knowledge = wiki ? {
-    title: wiki.title,
-    description: wiki.description,
-    extract: wiki.extract,
+    title: wiki.title, description: wiki.description, extract: wiki.extract,
     thumbnail: wiki.thumbnail?.source || null,
     url: wiki.content_urls?.desktop?.page,
   } : null;
@@ -414,29 +512,31 @@ app.get('/api/everything', async (req, res) => {
     citations: w.cited_by_count || 0,
   }));
 
-  // outlet diversity stats
   const outlets = new Set(mediaResults.map(m => m.outlet));
   const countries = new Set(mediaResults.map(m => m.country));
 
   res.json({
-    query: q,
-    knowledge,
-    organization: matchedOrgs[0] || null,
-    matchedOrgs,
-    sections: {
-      cases: { total: localResults.length, results: localResults },
-      sanctions: {
-        total: wbResults.length + osResults.length,
-        worldBank: wbResults,
-        openSanctions: osResults,
+    success: true,
+    data: {
+      query: q,
+      knowledge,
+      organization: matchedOrgs[0] || null,
+      matchedOrgs,
+      sections: {
+        cases: { total: localResults.length, results: localResults },
+        sanctions: {
+          total: wbResults.length + osResults.length,
+          worldBank: wbResults,
+          openSanctions: osResults,
+        },
+        media: {
+          total: mediaResults.length,
+          outlets: outlets.size,
+          countries: countries.size,
+          results: mediaResults,
+        },
+        academic: { total: academicResults.length, results: academicResults },
       },
-      media: {
-        total: mediaResults.length,
-        outlets: outlets.size,
-        countries: countries.size,
-        results: mediaResults,
-      },
-      academic: { total: academicResults.length, results: academicResults },
     },
   });
 });
@@ -444,7 +544,7 @@ app.get('/api/everything', async (req, res) => {
 // ── sources list ──────────────────────────────────────────────────────────────
 
 app.get('/api/sources', (req, res) => {
-  res.json({ sources: SOURCES });
+  res.json({ success: true, data: { sources: SOURCES } });
 });
 
 // ── fallback to SPA ───────────────────────────────────────────────────────────
@@ -453,9 +553,69 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`\n  ⚖️  AidWatch running at http://localhost:${PORT}\n`);
+// ── error handler ─────────────────────────────────────────────────────────────
+
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, _next) => {
+  console.error('[AidWatch] Unhandled error:', err.message);
+  res.status(500).json({ success: false, error: 'Internal server error' });
 });
+
+// Only start the HTTP server when run directly (not during tests)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n  ⚖️  AidWatch running at http://localhost:${PORT}\n`);
+  });
+}
+
+module.exports = app;
+
+// ── helpers ───────────────────────────────────────────────────────────────────
+
+function httpsGet(url, timeoutMs = 8000) {
+  return new Promise((resolve) => {
+    const req = https.get(url, { headers: { 'User-Agent': 'AidWatch/1.0 (public-interest accountability tool)' } }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        res.resume();
+        return resolve(httpsGet(res.headers.location, timeoutMs));
+      }
+      let data = '';
+      res.on('data', c => { data += c; });
+      res.on('end', () => {
+        try { resolve(JSON.parse(data)); } catch { resolve(null); }
+      });
+    });
+    req.on('error', () => resolve(null));
+    req.setTimeout(timeoutMs, () => { req.destroy(); resolve(null); });
+  });
+}
+
+function formatGdeltDate(s) {
+  if (!s || s.length < 8) return null;
+  return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
+}
+
+function prettyOutlet(domain) {
+  if (!domain) return 'Unknown';
+  const map = {
+    'theguardian.com': 'The Guardian', 'nytimes.com': 'The New York Times',
+    'washingtonpost.com': 'The Washington Post', 'reuters.com': 'Reuters',
+    'apnews.com': 'Associated Press', 'bbc.com': 'BBC News', 'bbc.co.uk': 'BBC News',
+    'aljazeera.com': 'Al Jazeera', 'devex.com': 'Devex',
+    'thenewhumanitarian.org': 'The New Humanitarian', 'irinnews.org': 'IRIN News',
+    'occrp.org': 'OCCRP', 'ft.com': 'Financial Times', 'economist.com': 'The Economist',
+    'lemonde.fr': 'Le Monde', 'spiegel.de': 'Der Spiegel',
+    'thehindu.com': 'The Hindu', 'scmp.com': 'South China Morning Post',
+    'abc.net.au': 'ABC News (Australia)', 'cbc.ca': 'CBC News',
+    'allafrica.com': 'AllAfrica', 'mg.co.za': 'Mail & Guardian',
+    'premiumtimesng.com': 'Premium Times Nigeria',
+    'globalwitness.org': 'Global Witness', 'transparency.org': 'Transparency International',
+    'hrw.org': 'Human Rights Watch', 'oregonlive.com': 'The Oregonian',
+    'thedailybeast.com': 'The Daily Beast', 'foreignpolicy.com': 'Foreign Policy',
+  };
+  return map[domain] || domain.replace(/^www\./, '').split('.')[0]
+    .replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
 
 // ── sources reference ─────────────────────────────────────────────────────────
 
@@ -468,29 +628,26 @@ const SOURCES = [
   { category: 'UN Oversight', name: 'WHO Internal Audit', description: 'WHO Office of Internal Oversight Services', url: 'https://www.who.int/about/accountability/audit' },
   { category: 'UN Oversight', name: 'UNFPA Internal Audit', description: 'UNFPA audit and oversight reports', url: 'https://www.unfpa.org/resources/internal-audit-reports' },
   { category: 'UN Oversight', name: 'UN Ethics Office', description: 'Whistleblower and retaliation cases', url: 'https://www.un.org/en/ethics' },
+  { category: 'UN Oversight', name: 'UN Conduct & Discipline', description: 'SEA case database across all UN missions', url: 'https://conduct.unmissions.org' },
   { category: 'Donor Governments', name: 'USAID OIG', description: 'US Agency for International Development Office of Inspector General', url: 'https://oig.usaid.gov' },
+  { category: 'Donor Governments', name: 'SIGAR', description: 'Special Inspector General for Afghanistan Reconstruction', url: 'https://www.sigar.mil' },
   { category: 'Donor Governments', name: 'FCDO / DFID', description: 'UK Foreign Commonwealth & Development Office audit reports and annual reviews', url: 'https://www.gov.uk/fcdo' },
   { category: 'Donor Governments', name: 'EU OLAF', description: 'European Anti-Fraud Office — covers all EU-funded aid and development', url: 'https://anti-fraud.ec.europa.eu' },
   { category: 'Donor Governments', name: 'GIZ Internal Audit', description: 'German development agency compliance and audit', url: 'https://www.giz.de/en/aboutgiz/compliance.html' },
-  { category: 'Donor Governments', name: 'DFAT (Australia)', description: 'Australian Department of Foreign Affairs and Trade audits', url: 'https://www.dfat.gov.au' },
   { category: 'Donor Governments', name: 'Norad Evaluation', description: 'Norwegian Agency for Development Cooperation evaluations', url: 'https://www.norad.no/en' },
-  { category: 'Donor Governments', name: 'Sida Audit', description: 'Swedish International Development Cooperation Agency audits', url: 'https://www.sida.se/en' },
   { category: 'Development Banks', name: 'World Bank INT', description: 'World Bank Integrity Vice Presidency — debarment and investigation reports', url: 'https://www.worldbank.org/en/projects-operations/procurement/debarred-firms' },
-  { category: 'Development Banks', name: 'AfDB Integrity', description: 'African Development Bank integrity investigations and debarment', url: 'https://www.afdb.org/en/topics-and-sectors/topics/fiduciary-services-and-inspection' },
+  { category: 'Development Banks', name: 'AfDB Integrity', description: 'African Development Bank integrity investigations and debarment', url: 'https://www.afdb.org' },
   { category: 'Development Banks', name: 'ADB Integrity', description: 'Asian Development Bank Office of Anticorruption and Integrity', url: 'https://www.adb.org/site/integrity/main' },
   { category: 'Development Banks', name: 'IADB OII', description: 'Inter-American Development Bank Office of Institutional Integrity', url: 'https://www.iadb.org/en/who-we-are/topics/integrity' },
-  { category: 'Development Banks', name: 'EBRD', description: 'European Bank for Reconstruction and Development debarment', url: 'https://www.ebrd.com/integrity-and-compliance' },
   { category: 'Sanctions & Debarment', name: 'OpenSanctions', description: 'Aggregated global sanctions lists from 100+ sources', url: 'https://www.opensanctions.org' },
   { category: 'Sanctions & Debarment', name: 'SAM.gov Exclusions', description: 'US federal excluded parties list', url: 'https://sam.gov' },
   { category: 'Sanctions & Debarment', name: 'UN Security Council', description: 'UN SC sanctions for terrorism financing and arms embargo violations', url: 'https://www.un.org/securitycouncil/sanctions' },
-  { category: 'Sanctions & Debarment', name: 'EU Sanctions Map', description: 'Full EU consolidated sanctions list', url: 'https://www.sanctionsmap.eu' },
   { category: 'Investigative Journalism', name: 'OCCRP', description: 'Organized Crime and Corruption Reporting Project', url: 'https://www.occrp.org' },
   { category: 'Investigative Journalism', name: 'The New Humanitarian', description: 'Aid sector accountability journalism', url: 'https://www.thenewhumanitarian.org' },
-  { category: 'Investigative Journalism', name: 'Finance Uncovered', description: 'Financial flows in international development', url: 'https://financeuncovered.org' },
   { category: 'Investigative Journalism', name: 'Global Witness', description: 'Resource corruption and aid diversion investigations', url: 'https://www.globalwitness.org' },
   { category: 'Investigative Journalism', name: 'The Sentry', description: 'Africa-focused warlord economy and aid diversion investigations', url: 'https://thesentry.org' },
   { category: 'Watchdogs & Civil Society', name: 'Transparency International', description: 'Corruption perception data and documented cases', url: 'https://www.transparency.org' },
-  { category: 'Watchdogs & Civil Society', name: 'Aidspan', description: 'Global Fund watchdog — funding and accountability', url: 'https://www.aidspan.org' },
   { category: 'Watchdogs & Civil Society', name: 'PSEA Network', description: 'Protection from Sexual Exploitation and Abuse inter-agency tracking', url: 'https://www.un.org/en/spotlight-initiative' },
   { category: 'Watchdogs & Civil Society', name: 'Human Rights Watch', description: 'Documented abuse by humanitarian actors', url: 'https://www.hrw.org' },
+  { category: 'Watchdogs & Civil Society', name: 'UK Charity Commission', description: 'UK regulatory body; published inquiry reports on Oxfam, Save the Children, and others', url: 'https://www.gov.uk/government/organisations/charity-commission' },
 ];

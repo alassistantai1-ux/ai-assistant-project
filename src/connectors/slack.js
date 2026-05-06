@@ -2,8 +2,13 @@
 
 const https = require('https');
 
-const BASE = 'https://slack.com/api';
-
+/**
+ * Makes an authenticated POST request to the Slack Web API.
+ * @param {string} method - Slack API method name (e.g. "chat.postMessage")
+ * @param {object|null} body - Request body
+ * @param {string} token - Bot or User OAuth token
+ * @returns {Promise<object>}
+ */
 function request(method, body = null, token) {
   return new Promise((resolve, reject) => {
     const payload = body ? JSON.stringify(body) : '';
@@ -44,6 +49,10 @@ const SlackConnector = {
   displayName: 'Slack',
   description: 'Send messages and read channels in Slack',
 
+  /**
+   * Validates that required credentials are present.
+   * @param {object} credentials - Must include token
+   */
   validate(credentials) {
     if (!credentials.token) throw new Error('Slack connector requires a token (Bot/User OAuth token)');
   },
@@ -98,6 +107,13 @@ const SlackConnector = {
     },
   ],
 
+  /**
+   * Executes a Slack tool call.
+   * @param {string} toolName
+   * @param {object} params
+   * @param {object} credentials - { token }
+   * @returns {Promise<object>}
+   */
   async execute(toolName, params, credentials) {
     const token = credentials.token;
 

@@ -4,6 +4,13 @@ const https = require('https');
 
 const BASE = 'https://api.github.com';
 
+/**
+ * Makes an authenticated request to the GitHub REST API.
+ * @param {string} path - API path or full URL
+ * @param {object} options - https.request options (method, headers)
+ * @param {object|null} body - Request body (will be JSON-serialized)
+ * @returns {Promise<object>}
+ */
 function request(path, options = {}, body = null) {
   return new Promise((resolve, reject) => {
     const url = path.startsWith('http') ? path : `${BASE}${path}`;
@@ -29,6 +36,11 @@ function request(path, options = {}, body = null) {
   });
 }
 
+/**
+ * Builds required GitHub API headers.
+ * @param {string} token - Personal access token or fine-grained token
+ * @returns {object}
+ */
 function authHeaders(token) {
   return {
     Authorization: `Bearer ${token}`,
@@ -44,6 +56,10 @@ const GitHubConnector = {
   displayName: 'GitHub',
   description: 'Access GitHub repositories, issues, and pull requests',
 
+  /**
+   * Validates that required credentials are present.
+   * @param {object} credentials - Must include token
+   */
   validate(credentials) {
     if (!credentials.token) throw new Error('GitHub connector requires a token (personal access token)');
   },
@@ -116,6 +132,13 @@ const GitHubConnector = {
     },
   ],
 
+  /**
+   * Executes a GitHub tool call.
+   * @param {string} toolName
+   * @param {object} params
+   * @param {object} credentials - { token }
+   * @returns {Promise<object>}
+   */
   async execute(toolName, params, credentials) {
     const headers = authHeaders(credentials.token);
 

@@ -4,6 +4,14 @@ const https = require('https');
 
 const NOTION_VERSION = '2022-06-28';
 
+/**
+ * Makes an authenticated request to the Notion REST API.
+ * @param {string} path - API path (relative to /v1)
+ * @param {string} method - HTTP method
+ * @param {string} token - Notion integration secret
+ * @param {object|null} body - Request body (will be JSON-serialized)
+ * @returns {Promise<object>}
+ */
 function request(path, method, token, body = null) {
   return new Promise((resolve, reject) => {
     const payload = body ? JSON.stringify(body) : '';
@@ -40,6 +48,11 @@ function request(path, method, token, body = null) {
   });
 }
 
+/**
+ * Extracts the plain-text title from a Notion page's properties.
+ * @param {object} page - Notion page object
+ * @returns {string}
+ */
 function extractTitle(page) {
   const props = page.properties || {};
   for (const key of ['title', 'Title', 'Name', 'name']) {
@@ -55,6 +68,10 @@ const NotionConnector = {
   displayName: 'Notion',
   description: 'Search, read, and create pages in Notion',
 
+  /**
+   * Validates that required credentials are present.
+   * @param {object} credentials - Must include token (integration secret)
+   */
   validate(credentials) {
     if (!credentials.token) throw new Error('Notion connector requires a token (integration secret)');
   },
@@ -110,6 +127,13 @@ const NotionConnector = {
     },
   ],
 
+  /**
+   * Executes a Notion tool call.
+   * @param {string} toolName
+   * @param {object} params
+   * @param {object} credentials - { token }
+   * @returns {Promise<object>}
+   */
   async execute(toolName, params, credentials) {
     const token = credentials.token;
 
@@ -140,7 +164,7 @@ const NotionConnector = {
           request(`blocks/${params.pageId}/children?page_size=50`, 'GET', token),
         ]);
         const textBlocks = (blocks.results || [])
-          .filter((b) => b.type === 'paragraph' || b.type === 'heading_1' || b.type === 'heading_2' || b.type === 'heading_3' || b.type === 'bulleted_list_item' || b.type === 'numbered_list_item')
+          .filter((b) => ['paragraph', 'heading_1', 'heading_2', 'heading_3', 'bulleted_list_item', 'numbered_list_item'].includes(b.type))
           .map((b) => {
             const rich = b[b.type]?.rich_text || [];
             return rich.map((t) => t.plain_text).join('');

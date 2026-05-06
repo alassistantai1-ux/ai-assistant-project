@@ -1,28 +1,81 @@
 'use strict';
 
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const { WebSocketServer } = require('ws');
 const { v4: uuidv4 } = require('uuid');
 const Anthropic = require('@anthropic-ai/sdk').default;
 const { ConnectorRegistry } = require('./connectors');
 
 const PORT = process.env.PORT || 8765;
-const MODEL = 'claude-sonnet-4-6';
+const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6';
+const MAX_HISTORY_TURNS = 20; // max user+assistant turn pairs per session
 
 const SYSTEM_PROMPT =
   'You are a helpful AI assistant embedded in a desktop application. ' +
   'Provide clear, concise, and accurate answers. ' +
-  'When the user asks you to perform actions on their connected accounts (email, calendar, GitHub, Slack, Notion, etc.), ' +
+  'When the user asks you to perform actions on their connected accounts (email, calendar, GitHub, Slack, Notion, Jira, etc.), ' +
   'use the available tools to do so. Always confirm what you did after completing an action. ' +
   'Format responses in plain text unless the user requests structured output.';
 
 const anthropic = new Anthropic();
 const registry = new ConnectorRegistry();
 
-const wss = new WebSocketServer({ port: PORT });
+/** @type {Map<string, Array<{role: string, content: any}>>} Per-client conversation history */
+const conversations = new Map();
+
+// ─── Structured logger ────────────────────────────────────────────────────────
+
+/**
+ * Emits a structured JSON log line to stdout.
+ * @param {string} event - Short event identifier
+ * @param {object} [meta] - Additional key/value metadata
+ */
+function log(event, meta = {}) {
+  process.stdout.write(JSON.stringify({ ts: new Date().toISOString(), event, ...meta }) + '\n');
+}
+
+// ─── HTTP server (serves static chat UI) ─────────────────────────────────────
+
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+
+const httpServer = http.createServer((req, res) => {
+  if (req.method !== 'GET') {
+    res.writeHead(405);
+    res.end('Method Not Allowed');
+    return;
+  }
+
+  const safePath = req.url === '/' ? '/index.html' : req.url;
+  // Prevent path traversal
+  const filePath = path.resolve(PUBLIC_DIR, '.' + safePath);
+  if (!filePath.startsWith(PUBLIC_DIR)) {
+    res.writeHead(403);
+    res.end('Forbidden');
+    return;
+  }
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not found');
+      return;
+    }
+    const ext = path.extname(filePath);
+    const mime = { '.html': 'text/html', '.js': 'application/javascript', '.css': 'text/css' }[ext] || 'application/octet-stream';
+    res.writeHead(200, { 'Content-Type': mime });
+    res.end(data);
+  });
+});
+
+// ─── WebSocket server (shares the HTTP server) ────────────────────────────────
+
+const wss = new WebSocketServer({ server: httpServer });
 const clients = new Map();
 
-wss.on('listening', () => {
-  console.log(`AI Assistant WebSocket server listening on ws://localhost:${PORT}`);
+httpServer.listen(PORT, () => {
+  log('server_started', { port: PORT, ui: `http://localhost:${PORT}` });
 });
 
 wss.on('connection', (ws, req) => {
@@ -30,7 +83,8 @@ wss.on('connection', (ws, req) => {
   const remoteAddress = req.socket.remoteAddress;
 
   clients.set(clientId, { ws, connectedAt: new Date() });
-  console.log(`Desktop app connected [${clientId}] from ${remoteAddress}. Total clients: ${clients.size}`);
+  conversations.set(clientId, []);
+  log('client_connected', { clientId, remoteAddress, totalClients: clients.size });
 
   send(ws, { type: 'connected', clientId, message: 'AI Assistant ready' });
 
@@ -53,17 +107,32 @@ wss.on('connection', (ws, req) => {
     clearInterval(heartbeat);
     clients.delete(clientId);
     registry.removeClient(clientId);
-    console.log(`Desktop app disconnected [${clientId}] code=${code}. Total clients: ${clients.size}`);
+    conversations.delete(clientId);
+    log('client_disconnected', { clientId, code, totalClients: clients.size });
   });
 
   ws.on('error', (err) => {
-    console.error(`Client error [${clientId}]:`, err.message);
+    log('client_error', { clientId, error: err.message });
   });
 });
 
+// ─── Message handler ──────────────────────────────────────────────────────────
+
+/**
+ * Dispatches an incoming WebSocket message to the appropriate handler.
+ * @param {import('ws').WebSocket} ws
+ * @param {string} clientId
+ * @param {object} msg
+ */
 function handleMessage(ws, clientId, msg) {
   switch (msg.type) {
     case 'pong':
+      break;
+
+    case 'new_conversation':
+      conversations.set(clientId, []);
+      send(ws, { type: 'conversation_cleared', requestId: msg.requestId });
+      log('conversation_cleared', { clientId });
       break;
 
     case 'query':
@@ -71,9 +140,9 @@ function handleMessage(ws, clientId, msg) {
         send(ws, { type: 'error', requestId: msg.requestId, message: 'Missing text field' });
         return;
       }
-      console.log(`Query from [${clientId}]: ${msg.text}`);
+      log('query_received', { clientId, requestId: msg.requestId, text: msg.text.slice(0, 120) });
       handleQuery(ws, clientId, msg).catch((err) => {
-        console.error(`Query error [${clientId}]:`, err.message);
+        log('query_error', { clientId, requestId: msg.requestId, error: err.message });
         send(ws, { type: 'error', requestId: msg.requestId, message: 'AI request failed' });
       });
       break;
@@ -85,9 +154,10 @@ function handleMessage(ws, clientId, msg) {
       }
       try {
         const result = registry.connect(clientId, msg.connector, msg.credentials);
-        console.log(`Account connected [${clientId}]: ${msg.connector}`);
+        log('account_connected', { clientId, connector: msg.connector });
         send(ws, { type: 'account_connected', requestId: msg.requestId, ...result });
       } catch (err) {
+        log('account_connect_error', { clientId, connector: msg.connector, error: err.message });
         send(ws, { type: 'error', requestId: msg.requestId, message: err.message });
       }
       break;
@@ -99,7 +169,7 @@ function handleMessage(ws, clientId, msg) {
         return;
       }
       const result = registry.disconnect(clientId, msg.connector);
-      console.log(`Account disconnected [${clientId}]: ${msg.connector}`);
+      log('account_disconnected', { clientId, connector: msg.connector });
       send(ws, { type: 'account_disconnected', requestId: msg.requestId, ...result });
       break;
     }
@@ -108,7 +178,7 @@ function handleMessage(ws, clientId, msg) {
       send(ws, {
         type: 'connectors_list',
         requestId: msg.requestId,
-        available: registry.list(),
+        available: registry.list(clientId),
         connected: registry.connectedAccounts(clientId),
       });
       break;
@@ -120,6 +190,7 @@ function handleMessage(ws, clientId, msg) {
         connectedClients: clients.size,
         uptime: process.uptime(),
         connectedAccounts: registry.connectedAccounts(clientId),
+        conversationLength: (conversations.get(clientId) || []).length,
       });
       break;
 
@@ -128,11 +199,28 @@ function handleMessage(ws, clientId, msg) {
   }
 }
 
+// ─── Agentic query loop ───────────────────────────────────────────────────────
+
+/**
+ * Handles a query message: builds conversation history, runs the agentic
+ * tool-use loop with Claude, and streams the response back to the client.
+ * @param {import('ws').WebSocket} ws
+ * @param {string} clientId
+ * @param {object} msg
+ */
 async function handleQuery(ws, clientId, msg) {
   send(ws, { type: 'response_start', requestId: msg.requestId });
 
   const tools = registry.getTools(clientId);
-  const messages = [{ role: 'user', content: msg.text }];
+  const history = conversations.get(clientId) || [];
+
+  // Append the new user message
+  history.push({ role: 'user', content: msg.text });
+
+  // Cap history at MAX_HISTORY_TURNS turn pairs (2 messages per turn)
+  while (history.length > MAX_HISTORY_TURNS * 2) {
+    history.splice(0, 2);
+  }
 
   // Agentic loop: keep running until the model stops calling tools
   while (true) {
@@ -146,13 +234,13 @@ async function handleQuery(ws, clientId, msg) {
           cache_control: { type: 'ephemeral' },
         },
       ],
-      messages,
+      messages: history,
     };
 
-    if (tools.length > 0) requestParams.tools = tools;
-
-    // If tools are available, allow Claude to decide when to stop
-    if (tools.length > 0) requestParams.tool_choice = { type: 'auto' };
+    if (tools.length > 0) {
+      requestParams.tools = tools;
+      requestParams.tool_choice = { type: 'auto' };
+    }
 
     let finalMessage;
 
@@ -161,19 +249,15 @@ async function handleQuery(ws, clientId, msg) {
       const stream = anthropic.messages.stream(requestParams);
 
       for await (const event of stream) {
-        if (
-          event.type === 'content_block_delta' &&
-          event.delta.type === 'text_delta'
-        ) {
+        if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
           send(ws, { type: 'response_delta', requestId: msg.requestId, delta: event.delta.text });
         }
       }
       finalMessage = await stream.finalMessage();
     } else {
-      // Non-streaming path (needed for tool_use to inspect content blocks)
+      // Non-streaming path (required for tool_use to inspect content blocks)
       finalMessage = await anthropic.messages.create(requestParams);
 
-      // Stream text blocks to the client as deltas
       for (const block of finalMessage.content) {
         if (block.type === 'text') {
           send(ws, { type: 'response_delta', requestId: msg.requestId, delta: block.text });
@@ -185,41 +269,37 @@ async function handleQuery(ws, clientId, msg) {
     if (finalMessage.stop_reason === 'tool_use') {
       const toolUseBlocks = finalMessage.content.filter((b) => b.type === 'tool_use');
 
-      // Add the assistant turn with all content blocks
-      messages.push({ role: 'assistant', content: finalMessage.content });
+      history.push({ role: 'assistant', content: finalMessage.content });
 
-      // Execute each tool call and collect results
       const toolResults = await Promise.all(
         toolUseBlocks.map(async (block) => {
-          console.log(`Tool call [${clientId}]: ${block.name}`, block.input);
-          send(ws, {
-            type: 'tool_call',
-            requestId: msg.requestId,
-            tool: block.name,
-            input: block.input,
-          });
+          log('tool_call', { clientId, tool: block.name, input: block.input });
+          send(ws, { type: 'tool_call', requestId: msg.requestId, tool: block.name, input: block.input });
           try {
             const result = await registry.executeToolCall(clientId, block.name, block.input);
-            console.log(`Tool result [${clientId}]: ${block.name} OK`);
+            log('tool_result', { clientId, tool: block.name, status: 'ok' });
             return { type: 'tool_result', tool_use_id: block.id, content: JSON.stringify(result) };
           } catch (err) {
-            console.error(`Tool error [${clientId}]: ${block.name}`, err.message);
-            return {
-              type: 'tool_result',
-              tool_use_id: block.id,
-              is_error: true,
-              content: err.message,
-            };
+            log('tool_result', { clientId, tool: block.name, status: 'error', error: err.message });
+            return { type: 'tool_result', tool_use_id: block.id, is_error: true, content: err.message };
           }
         }),
       );
 
-      // Add tool results and continue the loop
-      messages.push({ role: 'user', content: toolResults });
+      history.push({ role: 'user', content: toolResults });
       continue;
     }
 
-    // Model is done — send usage and exit loop
+    // Model is done — persist the assistant turn and send usage
+    history.push({ role: 'assistant', content: finalMessage.content });
+
+    log('query_complete', {
+      clientId,
+      requestId: msg.requestId,
+      inputTokens: finalMessage.usage.input_tokens,
+      outputTokens: finalMessage.usage.output_tokens,
+    });
+
     send(ws, {
       type: 'response_end',
       requestId: msg.requestId,
@@ -234,12 +314,19 @@ async function handleQuery(ws, clientId, msg) {
   }
 }
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/**
+ * Sends a JSON message to a WebSocket client if the connection is open.
+ * @param {import('ws').WebSocket} ws
+ * @param {object} payload
+ */
 function send(ws, payload) {
   if (ws.readyState === ws.OPEN) ws.send(JSON.stringify(payload));
 }
 
 process.on('SIGINT', () => {
-  console.log('\nShutting down...');
+  log('server_shutdown');
   for (const { ws } of clients.values()) ws.close(1001, 'Server shutting down');
-  wss.close(() => process.exit(0));
+  httpServer.close(() => process.exit(0));
 });

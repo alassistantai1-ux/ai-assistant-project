@@ -1,15 +1,23 @@
 {
   "name": "ai-assistant-project",
   "version": "1.1.0",
-  "description": "AI assistant with desktop app connectivity and account connectors (Google, GitHub, Slack, Notion)",
+  "description": "AI assistant with desktop app connectivity and account connectors (Google, GitHub, Slack, Notion, Jira) + AidWatch accountability search engine",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "start:server": "node src/server.js",
+    "start:aidwatch": "node aidwatch/server.js",
+    "dev": "concurrently \"node --watch src/server.js\" \"node --watch aidwatch/server.js\"",
+    "test": "cd aidwatch && npm test",
+    "lint": "eslint src/ --ext .js && eslint aidwatch/server.js --ext .js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
     "uuid": "^9.0.0",
     "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0"
   }
 }
