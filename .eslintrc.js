@@ -16,7 +16,7 @@ module.exports = {
 
     // Style
     'eqeqeq': ['error', 'always'],
-    'curly': ['error', 'all'],
+    'curly': ['error', 'multi-line'],
     'prefer-const': 'error',
     'no-var': 'error',
 
