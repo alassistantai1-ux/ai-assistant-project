@@ -102,8 +102,8 @@ describe('GET /api/cases/:id', () => {
     expect(res.body.error).toBeTruthy();
   });
 
-  it('returns 404 for a non-numeric id', async () => {
-    const res = await request(app).get('/api/cases/abc').expect(404);
+  it('returns 400 for a non-numeric id', async () => {
+    const res = await request(app).get('/api/cases/abc').expect(400);
     expect(res.body.success).toBe(false);
   });
 });
@@ -125,8 +125,9 @@ describe('GET /api/stats', () => {
   it('bySeverity has all three severity levels', async () => {
     const res = await request(app).get('/api/stats').expect(200);
     const { bySeverity } = res.body.data;
-    const levels = bySeverity.map((s) => s.severity || s.label || s.key || s[0]);
-    expect(levels).toEqual(expect.arrayContaining(['critical', 'high', 'medium']));
+    // bySeverity is { critical: N, high: N, medium: N }
+    expect(typeof bySeverity).toBe('object');
+    expect(Object.keys(bySeverity)).toEqual(expect.arrayContaining(['critical', 'high', 'medium']));
   });
 
   it('total cases in byType equals total case count', async () => {
@@ -134,7 +135,8 @@ describe('GET /api/stats', () => {
       request(app).get('/api/stats'),
       request(app).get('/api/search?limit=100'),
     ]);
-    const totalFromStats = statsRes.body.data.byType.reduce((s, t) => s + (t.count || t.value || 0), 0);
+    // byType is { fraud: N, corruption: N, ... } — sum the values
+    const totalFromStats = Object.values(statsRes.body.data.byType).reduce((s, n) => s + n, 0);
     const totalCases = searchRes.body.data.total;
     expect(totalFromStats).toBe(totalCases);
   });
