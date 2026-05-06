@@ -311,7 +311,7 @@
     {
       "id": 4, "name": "Hope Foundation", "slug": "hope-foundation",
       "type": "Development NGO", "hq": "Amsterdam, Netherlands", "founded": "1995",
-      "riskScore": 91, "riskLevel": "high", "totalCases": 5,
+      "riskScore": 91, "riskLevel": "high", "totalCases": 4,
       "description": "Netherlands-based development organization with operations in 29 countries. Annual revenue approximately €85M. Funded by multiple bilateral and multilateral donors.",
       "caseIds": [4, 16, 21, 28],
       "individuals": [

@@ -626,8 +626,6 @@
 // ═══════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════
-let allCases = [];
-let allOrgs = [];
 let currentQuery = '';
 let currentResults = [];
 let charts = {};
@@ -715,8 +713,15 @@ function quickSearch(q) {
 function filterSearch(type) {
   currentQuery = '';
   nav('results');
-  clearFilters();
-  // uncheck all types then check only this one
+  // Reset all checkboxes without calling applyFilters mid-flight
+  ['fraud','corruption','sea','procurement','sanctions','diversion',
+   'un','donor','bank','media','court','watchdog',
+   'africa','middleeast','asia','latam','europe','global',
+   'open','closed'].forEach(id => {
+    const el = document.getElementById('f-' + id);
+    if (el) el.checked = true;
+  });
+  // Now restrict to the chosen type only
   ['fraud','corruption','sea','procurement','sanctions','diversion'].forEach(t => {
     document.getElementById('f-' + t).checked = (t === type);
   });
@@ -787,7 +792,8 @@ function clearFilters() {
     const el = document.getElementById('f-'+id);
     if (el) el.checked = true;
   });
-  applyFilters();
+  // Only re-render if we already have results loaded
+  if (currentResults.length > 0) applyFilters();
 }
 
 async function fetchExternal(q) {
