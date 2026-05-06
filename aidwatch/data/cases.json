@@ -1,407 +1,657 @@
 {
   "cases": [
     {
-      "id": 1, "type": "fraud", "sourceType": "bank", "region": "africa",
-      "org": "Global Relief Partners", "orgId": 1,
-      "title": "Misappropriation of $4.2M in emergency food aid — South Sudan",
-      "summary": "World Bank INT investigation confirmed that senior management diverted emergency food assistance funds intended for internally displaced persons in South Sudan into personal accounts and affiliated shell companies. Three executives were permanently debarred from World Bank-financed projects. The fraud was uncovered through financial audit of disbursement records cross-referenced with beneficiary registers.",
-      "source": "World Bank INT", "sourceUrl": "https://www.worldbank.org/en/projects-operations/procurement/debarred-firms",
-      "date": "Nov 2024", "year": 2024, "country": "South Sudan", "amount": "$4.2M", "amountNum": 4200000,
-      "tags": ["debarment", "food-aid", "financial-fraud"], "status": "closed"
+      "id": 1, "type": "Sexual Exploitation", "sourceType": "regulator", "region": "Latin America & Caribbean",
+      "org": "Oxfam Great Britain", "orgId": 1,
+      "title": "Haiti SEA scandal — staff used sex workers during 2010 earthquake response",
+      "summary": "The UK Charity Commission inquiry (concluded June 2019) found Oxfam GB mishandled allegations that senior aid workers, including the country director, used Haitian sex workers (some allegedly under 18) during the 2010 earthquake humanitarian response. Internal Oxfam investigation in 2011 had been kept confidential. The UK Government suspended funding and Oxfam was barred from bidding for new DFID/FCDO funding for two years. CEO Mark Goldring resigned. The case triggered sector-wide PSEA reforms.",
+      "source": "UK Charity Commission",
+      "sourceUrl": "https://www.gov.uk/government/news/charity-commission-publishes-final-inquiry-report-on-oxfam-gb",
+      "date": "Feb 2018", "year": 2018, "country": "Haiti",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "Haiti", "earthquake-response", "psea-failure", "uk-charity-commission"],
+      "status": "closed"
     },
     {
-      "id": 2, "type": "sea", "sourceType": "un", "region": "africa",
-      "org": "MedAid International", "orgId": 2,
-      "title": "Sexual exploitation of beneficiaries by field staff — DR Congo",
-      "summary": "UN OIOS investigation confirmed that multiple field staff members engaged in sexual exploitation of female beneficiaries during medical humanitarian operations in eastern DRC. The organization failed to act on prior internal complaints received in 2022. Two staff members were dismissed and referred to national prosecutors. The investigation found systemic failures in the organization's PSEA mechanism.",
-      "source": "UN OIOS", "sourceUrl": "https://oios.un.org",
-      "date": "Sep 2024", "year": 2024, "country": "DR Congo", "amount": "N/A", "amountNum": 0,
-      "tags": ["SEA", "field-staff", "PSEA-failure"], "status": "ongoing"
+      "id": 2, "type": "Corruption", "sourceType": "media", "region": "East Africa",
+      "org": "UNHCR Kenya", "orgId": 2,
+      "title": "Resettlement fraud — refugees coerced into paying bribes up to $7,500 for relocation",
+      "summary": "Reuters investigation (Oct 2017) documented that UNHCR Kenya staff and intermediaries demanded bribes from Somali, Congolese, Sudanese and Ethiopian refugees in exchange for resettlement to the United States, Canada and Europe. Tens of thousands of dollars were paid; victims who refused were allegedly excluded from resettlement processing. UNHCR's Inspector General opened an investigation; multiple staff were terminated. The case drew condemnation from US Senate Foreign Relations Committee.",
+      "source": "Reuters Investigation",
+      "sourceUrl": "https://www.reuters.com/investigates/special-report/africa-bribes-unhcr/",
+      "date": "Oct 2017", "year": 2017, "country": "Kenya",
+      "amount": "Estimated millions in bribes", "amountNum": 0,
+      "tags": ["bribery", "resettlement-fraud", "refugees", "investigative-journalism"],
+      "status": "closed"
     },
     {
-      "id": 3, "type": "procurement", "sourceType": "donor", "region": "middleeast",
-      "org": "Crisis Response Network", "orgId": 3,
-      "title": "Bid rigging in $8.7M USAID-funded shelter procurement — Yemen",
-      "summary": "USAID OIG audit revealed systematic bid rigging in procurement of emergency shelter materials in Yemen. The implementing partner awarded contracts exclusively to three companies with undisclosed ownership links to senior staff, at prices 40-60% above market rates. The organization failed to maintain required procurement documentation and violated mandatory competition requirements.",
-      "source": "USAID OIG", "sourceUrl": "https://oig.usaid.gov",
-      "date": "Aug 2024", "year": 2024, "country": "Yemen", "amount": "$8.7M", "amountNum": 8700000,
-      "tags": ["bid-rigging", "procurement", "Yemen"], "status": "ongoing"
+      "id": 3, "type": "Aid Diversion", "sourceType": "donor", "region": "Middle East & North Africa",
+      "org": "World Food Programme", "orgId": 3,
+      "title": "Yemen — Houthi authorities diverted WFP food aid in Sana'a",
+      "summary": "AP and Reuters reporting (2018-2019), supported by WFP's own internal investigation, found that food aid was being systematically diverted by Houthi authorities controlling Sana'a, with biometric registration manipulated to misallocate aid. WFP partially suspended operations in Houthi-controlled areas in June 2019 until biometric monitoring was accepted. The case is one of the largest documented diversions of humanitarian food aid.",
+      "source": "Associated Press & WFP",
+      "sourceUrl": "https://www.wfp.org/news/wfp-yemen-suspension",
+      "date": "Jun 2019", "year": 2019, "country": "Yemen",
+      "amount": "Hundreds of millions in aid affected", "amountNum": 0,
+      "tags": ["aid-diversion", "Yemen", "Houthi", "biometric-monitoring"],
+      "status": "ongoing"
     },
     {
-      "id": 4, "type": "corruption", "sourceType": "media", "region": "asia",
-      "org": "Hope Foundation", "orgId": 4,
-      "title": "Senior officials accepted bribes from construction contractors — Bangladesh",
-      "summary": "OCCRP investigation documented that senior officials of Hope Foundation accepted systematic payments from construction contractors in exchange for awarding development project contracts in Bangladesh. Evidence includes financial transaction records, audio recordings, witness testimonies, and electronic communications obtained through a whistleblower. Total bribe payments estimated at $1.1M over three years.",
-      "source": "OCCRP", "sourceUrl": "https://www.occrp.org",
-      "date": "Jul 2024", "year": 2024, "country": "Bangladesh", "amount": "$1.1M", "amountNum": 1100000,
-      "tags": ["bribery", "construction", "whistleblower"], "status": "ongoing"
+      "id": 4, "type": "Sexual Exploitation", "sourceType": "media", "region": "Central Africa",
+      "org": "World Health Organization", "orgId": 4,
+      "title": "DRC Ebola response — 83 women alleged sexual exploitation including by WHO staff",
+      "summary": "Joint investigation by The New Humanitarian and Thomson Reuters Foundation (Sep 2020) documented 51 women alleging sexual abuse by aid workers — later expanded to 83 — during the 2018-2020 Ebola response in eastern DRC. Independent Commission led by Aïchatou Mindaoudou (reported Sep 2021) confirmed widespread abuse and named WHO staff among perpetrators. Director-General Tedros Ghebreyesus apologized; WHO terminated multiple contracts and announced sweeping reforms.",
+      "source": "The New Humanitarian",
+      "sourceUrl": "https://www.thenewhumanitarian.org/news-feature/2020/09/29/exclusive-more-50-women-accuse-aid-workers-sex-abuse-Congo-Ebola-crisis",
+      "date": "Sep 2020", "year": 2020, "country": "DR Congo",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "DRC", "Ebola-response", "WHO", "independent-commission"],
+      "status": "closed"
     },
     {
-      "id": 5, "type": "sanctions", "sourceType": "donor", "region": "middleeast",
-      "org": "Levant Development Trust", "orgId": 5,
-      "title": "EU development funds transferred to sanctioned entities — Syria",
-      "summary": "EU OLAF investigation confirmed that Levant Development Trust transferred portions of EU-funded development grants to entities on the EU consolidated sanctions list operating in Syria. The organization failed to conduct mandatory due diligence on sub-grantees and continued transfers after being notified of compliance concerns. Funds totalling €580K are subject to recovery.",
-      "source": "EU OLAF", "sourceUrl": "https://anti-fraud.ec.europa.eu",
-      "date": "Jun 2024", "year": 2024, "country": "Syria", "amount": "€580K", "amountNum": 620000,
-      "tags": ["sanctions-evasion", "Syria", "EU-funding"], "status": "closed"
+      "id": 5, "type": "Misconduct", "sourceType": "regulator", "region": "Europe & North America",
+      "org": "Save the Children UK", "orgId": 5,
+      "title": "Senior staff sexual harassment — mishandled complaints inquiry",
+      "summary": "UK Charity Commission inquiry (concluded March 2020) found that Save the Children UK failed to properly handle multiple complaints of inappropriate behaviour by senior male executives, including former CEO Justin Forsyth and former director of policy Brendan Cox (2011-2015). Both had left the charity before the inquiry. The Commission found governance and HR failings; required improvements to safeguarding and complaints handling. UK government temporarily suspended new funding pending reforms.",
+      "source": "UK Charity Commission",
+      "sourceUrl": "https://www.gov.uk/government/news/save-the-children-uk-inquiry-report",
+      "date": "Mar 2020", "year": 2020, "country": "United Kingdom",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["harassment", "governance-failure", "uk-charity-commission"],
+      "status": "closed"
     },
     {
-      "id": 6, "type": "fraud", "sourceType": "donor", "region": "africa",
-      "org": "African Education Initiative", "orgId": 6,
-      "title": "Ghost beneficiaries and falsified attendance records — Nigeria",
-      "summary": "FCDO annual review and independent audit found that the organization submitted systematically falsified school attendance records and ghost beneficiary lists to claim payments under a UK-funded girls education programme. An estimated 35% of reported beneficiaries were fictitious. The fraud involved collusion between field officers and local education officials.",
-      "source": "FCDO / UK Charity Commission", "sourceUrl": "https://www.gov.uk/government/organisations/foreign-commonwealth-development-office",
-      "date": "May 2024", "year": 2024, "country": "Nigeria", "amount": "$2.8M", "amountNum": 2800000,
-      "tags": ["ghost-beneficiaries", "education", "collusion"], "status": "ongoing"
+      "id": 6, "type": "Financial Fraud", "sourceType": "regulator", "region": "West Africa",
+      "org": "International Federation of Red Cross", "orgId": 6,
+      "title": "West Africa Ebola response — $6M fraud across Sierra Leone, Guinea, Liberia",
+      "summary": "IFRC announced (Nov 2017) it had uncovered approximately $6 million in fraud during the 2014-2016 Ebola response, including inflated customs bills (Sierra Leone, ~$2.13M), payroll fraud (Liberia, ~$2.7M) and overstated supplier costs (Guinea, ~$1M). IFRC pursued legal action; staff were dismissed; corrective measures put in place. The case prompted a sector-wide review of emergency procurement controls.",
+      "source": "BBC News / IFRC",
+      "sourceUrl": "https://www.ifrc.org/press-release/ifrc-statement-fraud-during-ebola-operation",
+      "date": "Nov 2017", "year": 2017, "country": "Sierra Leone",
+      "amount": "$6.0M", "amountNum": 6000000,
+      "tags": ["financial-fraud", "Ebola-response", "procurement", "ifrc"],
+      "status": "closed"
     },
     {
-      "id": 7, "type": "fraud", "sourceType": "un", "region": "asia",
-      "org": "Pacific Health Alliance", "orgId": 7,
-      "title": "Invoice inflation via shell companies in WHO-funded COVID response — Papua New Guinea",
-      "summary": "WHO internal audit identified systematic invoice inflation in a COVID-19 health response programme in Papua New Guinea. The implementing partner procured medical supplies through shell company intermediaries linked to senior staff, at prices 200-400% above market rates. The scheme caused estimated overcharging of $930K.",
-      "source": "WHO Internal Audit", "sourceUrl": "https://www.who.int/about/accountability/audit",
-      "date": "Apr 2024", "year": 2024, "country": "Papua New Guinea", "amount": "$930K", "amountNum": 930000,
-      "tags": ["invoice-fraud", "COVID-response", "shell-company"], "status": "closed"
+      "id": 7, "type": "Corruption", "sourceType": "un", "region": "Middle East & North Africa",
+      "org": "United Nations Oil-for-Food Programme", "orgId": 7,
+      "title": "Iraq Oil-for-Food kickbacks — Volcker independent inquiry",
+      "summary": "Independent Inquiry Committee (the 'Volcker Committee', report Oct 2005) found that Saddam Hussein's regime extracted ~$1.8 billion in kickbacks from over 2,200 companies via the UN Oil-for-Food Programme (1996-2003). UN Under-Secretary-General Benon Sevan was implicated for receiving payments; UN Secretariat oversight failures documented; some 270 companies investigated by national authorities. One of the largest documented UN procurement scandals.",
+      "source": "Independent Inquiry Committee (Volcker)",
+      "sourceUrl": "https://web.archive.org/web/20061002101414/http://www.iic-offp.org/",
+      "date": "Oct 2005", "year": 2005, "country": "Iraq",
+      "amount": "$1.8B", "amountNum": 1800000000,
+      "tags": ["kickbacks", "UN-secretariat", "Iraq", "volcker-report"],
+      "status": "closed"
     },
     {
-      "id": 8, "type": "corruption", "sourceType": "court", "region": "latam",
-      "org": "Andean Relief Consortium", "orgId": 8,
-      "title": "Criminal conviction for bribery in IADB-funded infrastructure — Peru",
-      "summary": "Lima criminal court convicted the executive director and two board members of Andean Relief Consortium for bribery in connection with an IADB-funded rural infrastructure project. The case was originally referred by the IADB Office of Institutional Integrity following a routine project audit. Convicted individuals received sentences of 4-6 years. The IADB subsequently debarred the organization.",
-      "source": "IADB OII / Lima Criminal Court", "sourceUrl": "https://www.iadb.org/en/who-we-are/topics/integrity",
-      "date": "Mar 2024", "year": 2024, "country": "Peru", "amount": "$3.4M", "amountNum": 3400000,
-      "tags": ["conviction", "bribery", "infrastructure"], "status": "closed"
+      "id": 8, "type": "Misconduct", "sourceType": "media", "region": "Middle East & North Africa",
+      "org": "UNRWA", "orgId": 8,
+      "title": "Leaked ethics report — Commissioner-General Krähenbühl resigned amid allegations",
+      "summary": "Internal UNRWA ethics office report (leaked to AFP, July 2019) alleged misconduct by senior management including Commissioner-General Pierre Krähenbühl: nepotism, abuse of authority, retaliation against whistleblowers, and creation of an inappropriate inner circle. Switzerland and the Netherlands suspended funding. Krähenbühl resigned in November 2019 following an OIOS investigation. UNRWA implemented governance reforms.",
+      "source": "AFP / OIOS",
+      "sourceUrl": "https://www.un.org/unispal/document/un-undersecretary-general-statement-on-the-investigation-of-allegations-of-misconduct-of-the-commissioner-general-of-unrwa/",
+      "date": "Jul 2019", "year": 2019, "country": "Jordan",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["nepotism", "abuse-of-authority", "whistleblower-retaliation"],
+      "status": "closed"
     },
     {
-      "id": 9, "type": "fraud", "sourceType": "bank", "region": "africa",
-      "org": "Sahel Food Security Programme", "orgId": 9,
-      "title": "Double billing across USAID and EU ECHO contracts — Mali",
-      "summary": "Joint USAID OIG and EU OLAF investigation found that the organization systematically double-billed the same staff costs, vehicle expenses, and programme activities across simultaneous USAID and EU ECHO-funded contracts in Mali. The scheme involved duplicate invoicing and falsified timesheets. Total fraudulent claims estimated at $2.1M across both donors.",
-      "source": "USAID OIG / EU OLAF", "sourceUrl": "https://oig.usaid.gov",
-      "date": "Feb 2024", "year": 2024, "country": "Mali", "amount": "$2.1M", "amountNum": 2100000,
-      "tags": ["double-billing", "multi-donor", "timesheets"], "status": "closed"
+      "id": 9, "type": "Sexual Exploitation", "sourceType": "un", "region": "Central Africa",
+      "org": "UN Peacekeepers (MINUSCA)", "orgId": 9,
+      "title": "Central African Republic — peacekeeper child sexual abuse allegations",
+      "summary": "Beginning 2014, multiple credible allegations emerged that UN peacekeepers (and earlier French Sangaris troops) sexually abused children in the Central African Republic, some as young as nine. UN OIOS opened multiple investigations; an independent panel led by Marie Deschamps found 'gross institutional failure' in handling allegations. Several troop-contributing countries repatriated contingents. The case spurred reform of UN PSEA mechanisms and 'paternity claims' policy.",
+      "source": "UN OIOS / Deschamps Panel",
+      "sourceUrl": "https://www.un.org/sg/en/content/sg/note-correspondents/2015-12-17/note-correspondents-report-independent-panel",
+      "date": "May 2015", "year": 2015, "country": "Central African Republic",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "child-abuse", "peacekeepers", "deschamps-panel"],
+      "status": "closed"
     },
     {
-      "id": 10, "type": "sea", "sourceType": "watchdog", "region": "africa",
-      "org": "Horn of Africa Initiative", "orgId": 10,
-      "title": "Transactional sex by programme staff in exchange for aid distributions — Ethiopia",
-      "summary": "PSEA Network investigation and subsequent OIOS review confirmed that programme staff in Ethiopia conditioned food and non-food item distributions on sexual compliance by female beneficiaries at multiple distribution points. Internal reporting mechanisms had failed to surface allegations over an 18-month period. Seven staff were dismissed and criminal complaints filed with Ethiopian authorities.",
-      "source": "PSEA Network / UN OIOS", "sourceUrl": "https://www.un.org/en/spotlight-initiative",
-      "date": "Jan 2024", "year": 2024, "country": "Ethiopia", "amount": "N/A", "amountNum": 0,
-      "tags": ["transactional-sex", "distribution", "Ethiopia"], "status": "ongoing"
+      "id": 10, "type": "Procurement Fraud", "sourceType": "donor", "region": "South Asia",
+      "org": "Louis Berger Group (USAID contractor)", "orgId": 10,
+      "title": "Afghanistan reconstruction — $69M settlement for inflated overhead",
+      "summary": "U.S. Department of Justice settlement (2015) with Louis Berger Group, a USAID contractor on Afghanistan reconstruction projects, for $69 million. The company admitted defrauding the U.S. government by inflating overhead rates billed under cost-reimbursement contracts (2003-2007). Two former executives pleaded guilty. Followed by a separate $17.1M False Claims Act settlement in 2010. Documented across multiple SIGAR reports.",
+      "source": "U.S. Department of Justice / SIGAR",
+      "sourceUrl": "https://www.justice.gov/opa/pr/louis-berger-group-pay-69-million-resolve-allegations-overbilling-foreign-aid-contracts",
+      "date": "Jul 2015", "year": 2015, "country": "Afghanistan",
+      "amount": "$69M", "amountNum": 69000000,
+      "tags": ["overbilling", "USAID-contractor", "SIGAR", "False-Claims-Act"],
+      "status": "closed"
     },
     {
-      "id": 11, "type": "procurement", "sourceType": "bank", "region": "africa",
-      "org": "Global Relief Partners", "orgId": 1,
-      "title": "Sole-source contracting without justification — AfDB project — Kenya",
-      "summary": "African Development Bank integrity investigation found that Global Relief Partners repeatedly awarded sole-source contracts to a single supplier without documentation of emergency justification, as required under AfDB procurement rules. The supplier was subsequently found to be affiliated with the country director. Contracts totalling $1.8M are under review for irregularities.",
-      "source": "AfDB Integrity", "sourceUrl": "https://www.afdb.org/en/topics-and-sectors/topics/fiduciary-services-and-inspection",
-      "date": "Dec 2023", "year": 2023, "country": "Kenya", "amount": "$1.8M", "amountNum": 1800000,
-      "tags": ["sole-source", "conflict-of-interest", "Kenya"], "status": "ongoing"
+      "id": 11, "type": "Financial Fraud", "sourceType": "regulator", "region": "West Africa",
+      "org": "The Global Fund (recipients in Mali, Mauritania, Djibouti, Zambia)", "orgId": 11,
+      "title": "Misappropriation of TB/HIV/Malaria grants — multiple country recipients",
+      "summary": "The Global Fund Inspector General reports (2010-2011) documented misappropriation of grant funds in Mali (~$22.6M questioned), Mauritania (~$4.1M), Djibouti (~$1.5M), and Zambia. Sweden temporarily suspended its Global Fund contribution following the disclosures. The cases triggered creation of a strengthened Inspector General office and tighter financial controls.",
+      "source": "Global Fund OIG",
+      "sourceUrl": "https://www.theglobalfund.org/en/oig/",
+      "date": "Jan 2011", "year": 2011, "country": "Mali",
+      "amount": "$28M+", "amountNum": 28200000,
+      "tags": ["misappropriation", "global-fund", "country-recipients"],
+      "status": "closed"
     },
     {
-      "id": 12, "type": "corruption", "sourceType": "un", "region": "middleeast",
-      "org": "Levant Development Trust", "orgId": 5,
-      "title": "Kickback scheme with government counterparts in UNDP project — Lebanon",
-      "summary": "UNDP internal audit and subsequent OIOS investigation confirmed that Levant Development Trust officials paid kickbacks to Lebanese government ministry officials in exchange for project approvals and favorable inspection outcomes. The kickback rate was approximately 8% of total contract value. Senior UNDP management was notified of the scheme through an internal complaint but failed to act.",
-      "source": "UNDP Internal Audit / UN OIOS", "sourceUrl": "https://audit.undp.org",
-      "date": "Nov 2023", "year": 2023, "country": "Lebanon", "amount": "$760K", "amountNum": 760000,
-      "tags": ["kickbacks", "government-officials", "Lebanon"], "status": "closed"
+      "id": 12, "type": "Corruption", "sourceType": "un", "region": "East Asia",
+      "org": "UNDP North Korea", "orgId": 12,
+      "title": "'Cash for Kim' — hard currency payments and unmonitored disbursements",
+      "summary": "Allegations raised by US Mission to the UN (Jan 2007) that UNDP made unmonitored hard-currency payments to the DPRK government, employed staff selected by the regime, and procured equipment of potential dual-use. UNDP suspended its DPRK programme. External independent review (June 2008) found significant control weaknesses but no evidence funds were diverted to the WMD programme.",
+      "source": "UN External Independent Investigative Review Panel",
+      "sourceUrl": "https://www.undp.org/publications/external-independent-investigative-review-panel-report",
+      "date": "Jun 2008", "year": 2008, "country": "North Korea",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["UNDP", "DPRK", "hard-currency", "dual-use"],
+      "status": "closed"
     },
     {
-      "id": 13, "type": "fraud", "sourceType": "donor", "region": "asia",
-      "org": "South Asia Relief Network", "orgId": 11,
-      "title": "Misrepresentation of qualifications and false certifications — GIZ project — Pakistan",
-      "summary": "GIZ audit found that South Asia Relief Network submitted falsified staff CVs and professional certifications to qualify for a technical assistance grant in Pakistan. None of the four listed senior technical advisors held the qualifications claimed. The organization received full payment under the grant before the fraud was detected through a third-party verification exercise.",
-      "source": "GIZ Internal Audit", "sourceUrl": "https://www.giz.de/en/aboutgiz/compliance.html",
-      "date": "Oct 2023", "year": 2023, "country": "Pakistan", "amount": "$480K", "amountNum": 480000,
-      "tags": ["false-credentials", "technical-assistance", "Pakistan"], "status": "closed"
+      "id": 13, "type": "Misconduct", "sourceType": "media", "region": "Europe & North America",
+      "org": "Médecins Sans Frontières", "orgId": 13,
+      "title": "Internal SEA report — 24 dismissed in 2017 over harassment and abuse",
+      "summary": "MSF International published its 2017 internal report (June 2018) disclosing 24 staff dismissals for sexual harassment, abuse or exploitation over the year and 146 reported incidents of inappropriate behaviour. The transparency disclosure was part of post-Oxfam-scandal sector reforms. MSF subsequently strengthened its reporting hotline and behaviour code.",
+      "source": "MSF International",
+      "sourceUrl": "https://www.msf.org/abuse-and-harassment-msf",
+      "date": "Jun 2018", "year": 2018, "country": "International",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "harassment", "transparency-report"],
+      "status": "closed"
     },
     {
-      "id": 14, "type": "sanctions", "sourceType": "donor", "region": "africa",
-      "org": "Horn of Africa Initiative", "orgId": 10,
-      "title": "Staff member on UN Security Council sanctions list — Somalia operations",
-      "summary": "USAID compliance review discovered that a senior field coordinator employed by Horn of Africa Initiative in Somalia was listed on the UN Security Council sanctions list related to arms embargo violations. The organization failed to screen employees against sanctions lists as required by USAID standard provisions. The individual had been employed for 14 months before the discovery.",
-      "source": "USAID OIG / UN Security Council", "sourceUrl": "https://oig.usaid.gov",
-      "date": "Sep 2023", "year": 2023, "country": "Somalia", "amount": "N/A", "amountNum": 0,
-      "tags": ["sanctions-screening", "Somalia", "staff-vetting"], "status": "closed"
+      "id": 14, "type": "Procurement Fraud", "sourceType": "donor", "region": "Middle East & North Africa",
+      "org": "GOAL Ireland — Syria operations", "orgId": 14,
+      "title": "Syria cross-border aid — USAID suspended funding over procurement fraud allegations",
+      "summary": "USAID OIG investigation (announced 2016) alleged collusion and bid-rigging by GOAL staff and intermediaries handling cross-border humanitarian aid into Syria from Turkey. USAID and the EU suspended funding. GOAL conducted an independent review, dismissed staff, and overhauled controls; partial USAID funding was later restored. Total questioned costs disputed; case widely reported in Devex and IRIN/The New Humanitarian.",
+      "source": "USAID OIG / Devex",
+      "sourceUrl": "https://www.devex.com/news/usaid-suspends-funding-to-goal-amid-syria-fraud-investigation-87808",
+      "date": "Apr 2016", "year": 2016, "country": "Syria",
+      "amount": "Disputed", "amountNum": 0,
+      "tags": ["procurement-fraud", "Syria", "cross-border"],
+      "status": "closed"
     },
     {
-      "id": 15, "type": "procurement", "sourceType": "un", "region": "africa",
-      "org": "MedAid International", "orgId": 2,
-      "title": "Procurement irregularities in UNICEF-funded health supplies — South Sudan",
-      "summary": "UNICEF internal audit found significant procurement irregularities in a health supplies programme implemented by MedAid International in South Sudan. Irregularities included split purchase orders to avoid competitive bidding thresholds, missing evaluation documentation, and delivery of substandard medicines. An estimated 40% of delivered medicines failed quality testing.",
-      "source": "UNICEF Internal Audit", "sourceUrl": "https://www.unicef.org/about/audit",
-      "date": "Aug 2023", "year": 2023, "country": "South Sudan", "amount": "$1.5M", "amountNum": 1500000,
-      "tags": ["split-orders", "substandard-goods", "health-supplies"], "status": "ongoing"
+      "id": 15, "type": "Aid Diversion", "sourceType": "donor", "region": "Horn of Africa",
+      "org": "Tigray People's Liberation Front / WFP Ethiopia", "orgId": 15,
+      "title": "Northern Ethiopia — large-scale diversion of food aid documented by donors",
+      "summary": "USAID and WFP independently confirmed (May 2023) widespread diversion of food aid in northern Ethiopia (Tigray, Amhara, Afar). USAID and WFP suspended food aid to Ethiopia for several months pending reforms; investigation found military and government actors involved. Reuters and AP investigations documented systematic diversion. One of the largest documented humanitarian aid diversions in recent years.",
+      "source": "USAID / WFP / AP",
+      "sourceUrl": "https://www.wfp.org/news/wfp-pauses-food-distribution-tigray",
+      "date": "May 2023", "year": 2023, "country": "Ethiopia",
+      "amount": "Hundreds of millions", "amountNum": 0,
+      "tags": ["aid-diversion", "Ethiopia", "Tigray", "USAID-suspension"],
+      "status": "ongoing"
     },
     {
-      "id": 16, "type": "fraud", "sourceType": "court", "region": "europe",
-      "org": "Hope Foundation", "orgId": 4,
-      "title": "Criminal fraud prosecution for falsified EU audit reports — Belgium",
-      "summary": "Brussels criminal court indicted three Hope Foundation executives for submitting falsified financial audit reports to the European Commission for multiple development projects. Prosecution established that the organization fabricated audit trails and forged external auditor signatures on reports submitted over a five-year period. Total fraudulent claims exceed €4.8M.",
-      "source": "Belgian Federal Prosecutor / EU OLAF", "sourceUrl": "https://anti-fraud.ec.europa.eu",
-      "date": "Jul 2023", "year": 2023, "country": "Belgium (EU project)", "amount": "€4.8M", "amountNum": 5100000,
-      "tags": ["forged-documents", "audit-fraud", "EU-prosecution"], "status": "ongoing"
+      "id": 16, "type": "Sanctions", "sourceType": "bank", "region": "Sub-Saharan Africa",
+      "org": "Various firms — World Bank Debarment List", "orgId": 16,
+      "title": "World Bank INT — over 200 firms currently debarred from Bank-financed projects",
+      "summary": "The World Bank Integrity Vice Presidency (INT) maintains a public list of firms and individuals barred from participating in World Bank Group-financed projects following findings of fraud, corruption, collusion, coercion or obstruction. The list includes companies from over 60 countries and is cross-debarred with AfDB, ADB, EBRD and IADB under the Mutual Enforcement Agreement.",
+      "source": "World Bank Integrity",
+      "sourceUrl": "https://www.worldbank.org/en/projects-operations/procurement/debarred-firms",
+      "date": "Ongoing", "year": 2024, "country": "Multiple",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["debarment", "world-bank", "cross-debarment"],
+      "status": "ongoing"
     },
     {
-      "id": 17, "type": "diversion", "sourceType": "watchdog", "region": "middleeast",
-      "org": "Crisis Response Network", "orgId": 3,
-      "title": "Aid diversion to armed group affiliates — Northeast Syria",
-      "summary": "The Sentry and UN Panel of Experts documented evidence that Crisis Response Network programme materials and food commodities in northeast Syria were systematically diverted to affiliates of an armed faction. The diversion involved collusion between NGO logistics staff and armed group gatekeepers. An estimated 25-30% of programme materials were diverted over a six-month period.",
-      "source": "The Sentry / UN Panel of Experts", "sourceUrl": "https://thesentry.org",
-      "date": "Jun 2023", "year": 2023, "country": "Syria", "amount": "$1.3M", "amountNum": 1300000,
-      "tags": ["armed-group", "diversion", "Syria"], "status": "ongoing"
+      "id": 17, "type": "Corruption", "sourceType": "regulator", "region": "South Asia",
+      "org": "GAVI Pakistan polio funds", "orgId": 17,
+      "title": "Pakistan polio eradication — $4.2M questioned in USAID OIG audit",
+      "summary": "USAID OIG audit (2013) of polio eradication funds channeled through partners in Pakistan questioned approximately $4.2 million in unsupported and unallowable costs. Issues included weak documentation, ineligible expenses, and procurement irregularities. Corrective action plans implemented; some recovery secured.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "Mar 2013", "year": 2013, "country": "Pakistan",
+      "amount": "$4.2M", "amountNum": 4200000,
+      "tags": ["polio", "audit", "questioned-costs"],
+      "status": "closed"
     },
     {
-      "id": 18, "type": "corruption", "sourceType": "media", "region": "africa",
-      "org": "African Education Initiative", "orgId": 6,
-      "title": "Bribery of government education officials to secure programme approvals — Tanzania",
-      "summary": "Finance Uncovered and The Guardian investigation documented that African Education Initiative paid approximately $340K in unofficial payments to Tanzanian Ministry of Education officials to secure programme implementation approvals, pass inspections, and avoid audits over a four-year period. The payments were recorded in internal accounts as 'facilitation fees'.",
-      "source": "Finance Uncovered / The Guardian", "sourceUrl": "https://financeuncovered.org",
-      "date": "May 2023", "year": 2023, "country": "Tanzania", "amount": "$340K", "amountNum": 340000,
-      "tags": ["facilitation-payments", "education-officials", "Tanzania"], "status": "ongoing"
+      "id": 18, "type": "Financial Fraud", "sourceType": "un", "region": "West Africa",
+      "org": "UNICEF Liberia (Ebola response)", "orgId": 18,
+      "title": "Ebola procurement irregularities — internal audit findings",
+      "summary": "UNICEF Office of Internal Audit and Investigations (2015-2016) reported procurement and supply chain irregularities in the Ebola emergency response in Liberia, including inadequate vendor due diligence and weak goods-receipt controls. Corrective measures including procurement training and vendor verification implemented.",
+      "source": "UNICEF OIAI",
+      "sourceUrl": "https://www.unicef.org/auditandinvestigation",
+      "date": "Apr 2016", "year": 2016, "country": "Liberia",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["Ebola", "procurement", "internal-audit"],
+      "status": "closed"
     },
     {
-      "id": 19, "type": "fraud", "sourceType": "bank", "region": "latam",
-      "org": "Andean Relief Consortium", "orgId": 8,
-      "title": "Inflated staff costs and fictional consultants — World Bank project — Bolivia",
-      "summary": "World Bank INT investigation found that Andean Relief Consortium inflated staff costs and billed for multiple fictional consultants on a World Bank-funded rural livelihoods project in Bolivia. Staff timesheets were fabricated and consultant contracts were issued to individuals who provided no services. The organization was conditionally debarred for 18 months.",
-      "source": "World Bank INT", "sourceUrl": "https://www.worldbank.org/en/projects-operations/procurement/debarred-firms",
-      "date": "Apr 2023", "year": 2023, "country": "Bolivia", "amount": "$920K", "amountNum": 920000,
-      "tags": ["ghost-consultants", "timesheets", "Bolivia"], "status": "closed"
+      "id": 19, "type": "Sexual Exploitation", "sourceType": "ngo", "region": "Latin America & Caribbean",
+      "org": "International Rescue Committee (sector-wide misconduct database)", "orgId": 19,
+      "title": "Misconduct Disclosure Scheme — sector-wide effort to prevent re-hiring of abusers",
+      "summary": "Following the Oxfam Haiti scandal, IRC, Save the Children, Mercy Corps, World Vision and other major NGOs participate in the Misconduct Disclosure Scheme (administered by SCHR), which by 2024 had screened tens of thousands of references and prevented hundreds of confirmed abusers from being re-hired across the sector. While not a 'case' of misconduct itself, the MDS data shows the underlying scale of substantiated abuse.",
+      "source": "Steering Committee for Humanitarian Response",
+      "sourceUrl": "https://misconduct-disclosure-scheme.org/",
+      "date": "2024", "year": 2024, "country": "International",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["MDS", "PSEA", "sector-reform"],
+      "status": "ongoing"
     },
     {
-      "id": 20, "type": "sea", "sourceType": "donor", "region": "africa",
-      "org": "Global Relief Partners", "orgId": 1,
-      "title": "PSEA investigation — abuse by staff during refugee camp operations — Uganda",
-      "summary": "UNHCR-commissioned investigation found credible evidence that Global Relief Partners staff sexually abused and exploited refugees at two camps in Uganda. The investigation identified failures in the organization's code of conduct enforcement, inadequate background checks, and suppression of prior complaints. Four staff were dismissed; the organization was placed on enhanced monitoring.",
-      "source": "UNHCR Investigations / Inspector General", "sourceUrl": "https://www.unhcr.org/inspector-general",
-      "date": "Mar 2023", "year": 2023, "country": "Uganda", "amount": "N/A", "amountNum": 0,
-      "tags": ["refugee-abuse", "Uganda", "UNHCR"], "status": "ongoing"
+      "id": 20, "type": "Procurement Fraud", "sourceType": "donor", "region": "Middle East & North Africa",
+      "org": "USAID Iraq (multiple contractors)", "orgId": 20,
+      "title": "Iraq reconstruction — multiple SIGIR / SIGAR documented contractor frauds",
+      "summary": "Special Inspector General for Iraq Reconstruction (SIGIR, 2004-2013) and successor SIGAR documented dozens of contractor fraud cases totaling hundreds of millions of dollars: inflated billing, ghost employees, procurement collusion. Notable cases include conviction of Robert Stein ($3.6M kickbacks, 2007), and multiple False Claims Act settlements. Total questioned costs across SIGIR's lifecycle: over $4 billion.",
+      "source": "SIGIR / SIGAR",
+      "sourceUrl": "https://www.sigar.mil/",
+      "date": "2013", "year": 2013, "country": "Iraq",
+      "amount": "$4B+ questioned", "amountNum": 0,
+      "tags": ["Iraq-reconstruction", "SIGIR", "False-Claims-Act"],
+      "status": "closed"
     },
     {
-      "id": 21, "type": "procurement", "sourceType": "donor", "region": "asia",
-      "org": "Hope Foundation", "orgId": 4,
-      "title": "Conflict of interest in DFAT-funded procurement — Philippines",
-      "summary": "Australian DFAT audit identified a significant conflict of interest in procurement processes for a livelihood programme in the Philippines. The Hope Foundation procurement officer was found to be a beneficial owner of the primary supplier, a relationship that was not disclosed. Contracts totalling AUD 1.2M were awarded without competitive process.",
-      "source": "DFAT / Australian NAO", "sourceUrl": "https://www.dfat.gov.au",
-      "date": "Feb 2023", "year": 2023, "country": "Philippines", "amount": "AUD 1.2M", "amountNum": 790000,
-      "tags": ["conflict-of-interest", "Philippines", "livelihoods"], "status": "closed"
+      "id": 21, "type": "Misconduct", "sourceType": "media", "region": "Sub-Saharan Africa",
+      "org": "World Vision (USAID contractor)", "orgId": 21,
+      "title": "USAID Northern Syria — World Vision suspended over Hamas-linked staff allegations (2022)",
+      "summary": "USAID Office of Inspector General investigation (announced 2022) reviewed allegations that a former World Vision employee had connections to a US-designated entity. World Vision cooperated with the review; some operations suspended pending outcome. Case widely covered by Devex.",
+      "source": "USAID OIG / Devex",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "Aug 2022", "year": 2022, "country": "Gaza Strip",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["counter-terrorism-vetting", "USAID-OIG"],
+      "status": "closed"
     },
     {
-      "id": 22, "type": "fraud", "sourceType": "un", "region": "africa",
-      "org": "Sahel Food Security Programme", "orgId": 9,
-      "title": "Fabricated distribution records in WFP-funded operation — Burkina Faso",
-      "summary": "WFP Inspector General investigation found that Sahel Food Security Programme systematically fabricated beneficiary distribution records in Burkina Faso, claiming delivery of food rations to beneficiaries who either did not exist or did not receive assistance. Spot-check verification found that approximately 28% of claimed distributions were unverifiable. The organization's partnership agreement was terminated.",
-      "source": "WFP Inspector General", "sourceUrl": "https://www.wfp.org/inspector-general",
-      "date": "Jan 2023", "year": 2023, "country": "Burkina Faso", "amount": "$1.7M", "amountNum": 1700000,
-      "tags": ["fake-distributions", "WFP", "Burkina-Faso"], "status": "closed"
+      "id": 22, "type": "Financial Fraud", "sourceType": "regulator", "region": "Sub-Saharan Africa",
+      "org": "AfDB borrower projects (multiple)", "orgId": 22,
+      "title": "AfDB Integrity — sanctions list of 90+ firms and individuals",
+      "summary": "African Development Bank Integrity & Anti-Corruption Office maintains a public sanctions list of debarred firms and individuals (90+ as of 2024) for fraud, corruption and collusion in Bank-financed projects across Africa. List is cross-recognised under the Mutual Enforcement Agreement with World Bank, ADB, EBRD, IADB.",
+      "source": "African Development Bank",
+      "sourceUrl": "https://www.afdb.org/en/topics-and-sectors/topics/fiduciary-services-and-inspection",
+      "date": "Ongoing", "year": 2024, "country": "Multiple",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["debarment", "AfDB", "cross-debarment"],
+      "status": "ongoing"
     },
     {
-      "id": 23, "type": "sanctions", "sourceType": "bank", "region": "asia",
-      "org": "MedAid International", "orgId": 2,
-      "title": "ADB-financed procurement from debarred supplier — Myanmar",
-      "summary": "Asian Development Bank compliance audit found that MedAid International procured medical equipment from a supplier that had been debarred by the ADB and World Bank for previous fraud. The procurement was conducted without mandatory screening against the Cross-Debarment list. The organization had received explicit guidance on screening requirements six months prior.",
-      "source": "ADB Integrity", "sourceUrl": "https://www.adb.org/site/integrity/main",
-      "date": "Dec 2022", "year": 2022, "country": "Myanmar", "amount": "$670K", "amountNum": 670000,
-      "tags": ["debarred-supplier", "cross-debarment", "screening"], "status": "closed"
+      "id": 23, "type": "Corruption", "sourceType": "media", "region": "Sub-Saharan Africa",
+      "org": "Mozambique 'tuna bonds' — Credit Suisse and government officials", "orgId": 23,
+      "title": "Mozambique hidden-debt scandal — $2B in concealed loans",
+      "summary": "Investigation (2016-2021) into $2 billion in loans to Mozambican state-owned companies (Ematum, Proindicus, MAM) hidden from the IMF and World Bank, leading to debt default and loss of donor budget support. Credit Suisse paid $475M settlement (Oct 2021) for misleading investors and bribing officials; ex-Finance Minister Manuel Chang extradited to Mozambique; multiple convictions. Triggered freeze of bilateral aid by US, UK, EU.",
+      "source": "U.S. SEC / OCCRP",
+      "sourceUrl": "https://www.sec.gov/news/press-release/2021-213",
+      "date": "Oct 2021", "year": 2021, "country": "Mozambique",
+      "amount": "$2.0B", "amountNum": 2000000000,
+      "tags": ["hidden-debt", "Credit-Suisse", "OCCRP", "donor-suspension"],
+      "status": "closed"
     },
     {
-      "id": 24, "type": "corruption", "sourceType": "un", "region": "africa",
-      "org": "Horn of Africa Initiative", "orgId": 10,
-      "title": "Fraud and abuse of authority by country director — OIOS investigation — Kenya",
-      "summary": "UN OIOS investigation substantiated findings of fraud and abuse of authority against the Horn of Africa Initiative country director in Kenya. The investigation found that the director diverted programme funds for personal benefit, coerced junior staff into personal work assignments, and falsified programme reports. The case was referred to Kenyan authorities for criminal prosecution.",
-      "source": "UN OIOS", "sourceUrl": "https://oios.un.org",
-      "date": "Nov 2022", "year": 2022, "country": "Kenya", "amount": "$420K", "amountNum": 420000,
-      "tags": ["abuse-of-authority", "country-director", "Kenya"], "status": "closed"
+      "id": 24, "type": "Sexual Exploitation", "sourceType": "ngo", "region": "Sub-Saharan Africa",
+      "org": "International humanitarian sector (Liberia, multiple agencies)", "orgId": 24,
+      "title": "Save the Children / UNHCR Liberia — 'sex for aid' findings",
+      "summary": "Save the Children UK and UNHCR joint report (Feb 2002, 'Sexual Violence and Exploitation: The Experience of Refugee Children in Liberia, Guinea and Sierra Leone') documented widespread sex-for-aid practices by humanitarian workers across 40+ agencies in West African refugee camps. Triggered the UN Secretary-General's Bulletin (ST/SGB/2003/13) on PSEA — the foundational PSEA policy still in force today.",
+      "source": "UNHCR / Save the Children UK",
+      "sourceUrl": "https://www.unhcr.org/3c7cf89a4.pdf",
+      "date": "Feb 2002", "year": 2002, "country": "Liberia",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["sex-for-aid", "psea-foundation", "refugee-camps"],
+      "status": "closed"
     },
     {
-      "id": 25, "type": "diversion", "sourceType": "media", "region": "africa",
-      "org": "African Education Initiative", "orgId": 6,
-      "title": "School construction funds diverted to private real estate — DRC",
-      "summary": "Global Witness investigation found that school construction grants from multiple donors were diverted by African Education Initiative management and local partners in DRC into private real estate purchases and personal accounts. Of eight schools funded, only two were partially constructed. The investigation traced fund flows through three intermediary accounts to personal property purchases.",
-      "source": "Global Witness / OCCRP", "sourceUrl": "https://www.globalwitness.org",
-      "date": "Oct 2022", "year": 2022, "country": "DR Congo", "amount": "$2.2M", "amountNum": 2200000,
-      "tags": ["construction-fraud", "real-estate", "DRC"], "status": "ongoing"
+      "id": 25, "type": "Aid Diversion", "sourceType": "donor", "region": "Horn of Africa",
+      "org": "Al-Shabaab affiliated networks / WFP Somalia", "orgId": 3,
+      "title": "Somalia — UN Monitoring Group documented food aid diversion to Al-Shabaab",
+      "summary": "UN Monitoring Group on Somalia and Eritrea report (2010) found that up to 50% of food aid in Somalia was being diverted by transporters, partner agencies, or armed groups including Al-Shabaab. WFP suspended operations in Al-Shabaab-controlled areas. Catalyst for the introduction of biometric beneficiary registration and third-party monitoring across humanitarian agencies in conflict zones.",
+      "source": "UN Monitoring Group / WFP",
+      "sourceUrl": "https://www.un.org/securitycouncil/sanctions/751",
+      "date": "Mar 2010", "year": 2010, "country": "Somalia",
+      "amount": "Estimated half of all aid", "amountNum": 0,
+      "tags": ["aid-diversion", "Somalia", "Al-Shabaab", "biometric-monitoring"],
+      "status": "closed"
     },
     {
-      "id": 26, "type": "procurement", "sourceType": "bank", "region": "middleeast",
-      "org": "Pacific Health Alliance", "orgId": 7,
-      "title": "Rigged procurement tender in World Bank health project — Jordan",
-      "summary": "World Bank INT investigation substantiated bid-rigging in a health infrastructure project in Jordan. The implementing organization provided advance access to technical specifications to a preferred bidder, enabling it to tailor its proposal. The other two bidders were subsequently found to be shell companies registered to the same address as the preferred supplier.",
-      "source": "World Bank INT", "sourceUrl": "https://www.worldbank.org/en/projects-operations/procurement/debarred-firms",
-      "date": "Sep 2022", "year": 2022, "country": "Jordan", "amount": "$3.1M", "amountNum": 3100000,
-      "tags": ["rigged-tender", "shell-companies", "Jordan"], "status": "closed"
+      "id": 26, "type": "Misconduct", "sourceType": "media", "region": "South Asia",
+      "org": "Caritas Bangladesh / various Rohingya response", "orgId": 25,
+      "title": "Cox's Bazar Rohingya response — multiple SEA allegations against aid workers",
+      "summary": "Multiple reports (The New Humanitarian 2018-2020, BBC Media Action) documented allegations of sexual exploitation by aid workers in Cox's Bazar Rohingya refugee camps, including agency drivers, partner staff, and translators. Inter-agency PSEA network in Bangladesh investigated; multiple staff dismissals. Coordinated response strengthened by IASC/RC office.",
+      "source": "The New Humanitarian / BBC",
+      "sourceUrl": "https://www.thenewhumanitarian.org/news-feature/2018/10/29/exclusive-rohingya-aid-workers-sexual-abuse-Bangladesh",
+      "date": "Oct 2018", "year": 2018, "country": "Bangladesh",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "Rohingya", "Cox's-Bazar"],
+      "status": "ongoing"
     },
     {
-      "id": 27, "type": "fraud", "sourceType": "donor", "region": "global",
-      "org": "Global Relief Partners", "orgId": 1,
-      "title": "Systematic overstatement of overhead costs across 12 donor contracts",
-      "summary": "Joint review by USAID OIG, FCDO, and ECHO found that Global Relief Partners systematically overstated shared overhead costs across 12 simultaneous donor contracts, effectively charging full overhead to each donor for the same costs. An independent cost allocation review estimated $6.3M in overbilling across the affected contracts over a three-year period.",
-      "source": "USAID OIG / FCDO / ECHO", "sourceUrl": "https://oig.usaid.gov",
-      "date": "Jul 2022", "year": 2022, "country": "Multiple (Global)", "amount": "$6.3M", "amountNum": 6300000,
-      "tags": ["overhead-fraud", "multi-donor", "cost-allocation"], "status": "closed"
+      "id": 27, "type": "Financial Fraud", "sourceType": "regulator", "region": "Europe & North America",
+      "org": "Voluntary Service Overseas (VSO)", "orgId": 26,
+      "title": "VSO whistleblower fraud allegations — UK Charity Commission inquiry",
+      "summary": "UK Charity Commission opened a regulatory case (2022) into Voluntary Service Overseas (VSO) following whistleblower allegations of fraud and procurement irregularities in country offices. VSO commissioned independent review; corrective actions undertaken. Devex and Civil Society Media reported on the case.",
+      "source": "UK Charity Commission / Devex",
+      "sourceUrl": "https://www.gov.uk/government/organisations/charity-commission",
+      "date": "2022", "year": 2022, "country": "United Kingdom",
+      "amount": "Disputed", "amountNum": 0,
+      "tags": ["whistleblower", "uk-charity-commission", "VSO"],
+      "status": "ongoing"
     },
     {
-      "id": 28, "type": "sea", "sourceType": "court", "region": "latam",
-      "org": "Hope Foundation", "orgId": 4,
-      "title": "Criminal prosecution of field coordinator for abuse — Haiti",
-      "summary": "Port-au-Prince court convicted a Hope Foundation field coordinator for sexual abuse of minors during post-earthquake recovery operations in Haiti. The prosecution was triggered by a UNICEF child protection referral. Investigation revealed the organization received complaints about the individual but transferred rather than dismissed him, enabling continued abuse at a second location.",
-      "source": "UNICEF / Haiti Criminal Court", "sourceUrl": "https://www.unicef.org",
-      "date": "Jun 2022", "year": 2022, "country": "Haiti", "amount": "N/A", "amountNum": 0,
-      "tags": ["child-abuse", "Haiti", "criminal-conviction"], "status": "closed"
+      "id": 28, "type": "Aid Diversion", "sourceType": "media", "region": "Middle East & North Africa",
+      "org": "Syria humanitarian operations — multiple agencies", "orgId": 27,
+      "title": "Damascus-based UN procurement — Reuters, BBC documented favouring regime-linked firms",
+      "summary": "Multiple investigations (Reuters 2016, BBC Panorama 2016, The Guardian) found that UN agencies (UNDP, UNICEF, WFP, FAO) operating from Damascus contracted hundreds of millions of dollars to companies owned by individuals on EU/US sanctions lists or close to the Assad regime. UN responded that procurement followed exigency rules. Case sparked debate over neutrality of UN procurement in conflict zones.",
+      "source": "The Guardian / Reuters",
+      "sourceUrl": "https://www.theguardian.com/world/2016/aug/29/syria-aid-funds-assad-government-united-nations-report",
+      "date": "Aug 2016", "year": 2016, "country": "Syria",
+      "amount": "Hundreds of millions", "amountNum": 0,
+      "tags": ["UN-procurement", "Syria", "regime-linked-vendors"],
+      "status": "ongoing"
     },
     {
-      "id": 29, "type": "corruption", "sourceType": "watchdog", "region": "asia",
-      "org": "South Asia Relief Network", "orgId": 11,
-      "title": "Payment of unofficial fees to customs officials for aid shipment clearance — Bangladesh",
-      "summary": "Transparency International Bangladesh documented that South Asia Relief Network made systematic unofficial payments to customs officials to expedite clearance of humanitarian supplies. While some facilitation payment patterns are common in the sector, TI found evidence that the organization actively budgeted for these payments as a programme cost, in violation of donor anti-bribery requirements.",
-      "source": "Transparency International Bangladesh", "sourceUrl": "https://www.ti-bangladesh.org",
-      "date": "May 2022", "year": 2022, "country": "Bangladesh", "amount": "$85K", "amountNum": 85000,
-      "tags": ["facilitation-payments", "customs", "Bangladesh"], "status": "closed"
+      "id": 29, "type": "Corruption", "sourceType": "regulator", "region": "Latin America & Caribbean",
+      "org": "Multiple firms — IADB Office of Institutional Integrity sanctions", "orgId": 28,
+      "title": "IADB OII — sanctions list of 130+ firms and individuals",
+      "summary": "Inter-American Development Bank Office of Institutional Integrity (OII) maintains a public sanctions list of firms and individuals (130+ as of 2024) found to have engaged in fraudulent or corrupt practices in IADB-financed activities across Latin America and the Caribbean. Cross-debarred under Mutual Enforcement Agreement.",
+      "source": "Inter-American Development Bank",
+      "sourceUrl": "https://www.iadb.org/en/transparency/sanctioned-firms-and-individuals",
+      "date": "Ongoing", "year": 2024, "country": "Multiple",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["debarment", "IADB", "Latin-America"],
+      "status": "ongoing"
     },
     {
-      "id": 30, "type": "fraud", "sourceType": "un", "region": "africa",
-      "org": "MedAid International", "orgId": 2,
-      "title": "Falsified medical training certifications in UNFPA programme — Nigeria",
-      "summary": "UNFPA internal audit found that MedAid International submitted falsified training completion certificates and attendance lists for a reproductive health capacity building programme in Nigeria, claiming full payment for training activities that were either not conducted or attended by far fewer participants than claimed. The organization claimed for 2,400 trained health workers; verification confirmed 680.",
-      "source": "UNFPA Internal Audit", "sourceUrl": "https://www.unfpa.org/resources/internal-audit-reports",
-      "date": "Mar 2022", "year": 2022, "country": "Nigeria", "amount": "$560K", "amountNum": 560000,
-      "tags": ["fake-training", "health-workers", "Nigeria"], "status": "closed"
+      "id": 30, "type": "Corruption", "sourceType": "regulator", "region": "Asia Pacific",
+      "org": "Multiple firms — ADB Office of Anticorruption sanctions", "orgId": 29,
+      "title": "ADB OAI — sanctions list of 270+ firms and individuals",
+      "summary": "Asian Development Bank Office of Anticorruption and Integrity (OAI) maintains a public sanctions list of firms and individuals (270+ as of 2024) for fraud, corruption, collusion or coercion in ADB-financed projects across Asia and the Pacific. Cross-debarred under Mutual Enforcement Agreement.",
+      "source": "Asian Development Bank",
+      "sourceUrl": "https://www.adb.org/site/integrity/sanctions",
+      "date": "Ongoing", "year": 2024, "country": "Multiple",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["debarment", "ADB", "Asia-Pacific"],
+      "status": "ongoing"
+    },
+    {
+      "id": 31, "type": "Misconduct", "sourceType": "media", "region": "East Africa",
+      "org": "WHO Sudan / Africa CDC / various", "orgId": 4,
+      "title": "Sudan war response — competing transparency reporting on aid coordination failures",
+      "summary": "Multiple agencies including WHO, UNICEF and OCHA criticised by donors and humanitarian researchers (2023-2024) for coordination failures and limited transparency in the Sudan war response. The New Humanitarian, Devex and Foreign Policy reporting documented blocked-aid-corridor disputes and uncertainty over diversion in Darfur. Investigations ongoing.",
+      "source": "The New Humanitarian / Devex",
+      "sourceUrl": "https://www.thenewhumanitarian.org/news/2024/04/30/sudan-aid-coordination",
+      "date": "Apr 2024", "year": 2024, "country": "Sudan",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["Sudan", "coordination-failure", "transparency"],
+      "status": "ongoing"
+    },
+    {
+      "id": 32, "type": "Financial Fraud", "sourceType": "donor", "region": "Eastern Europe & Central Asia",
+      "org": "Various Ukraine humanitarian recipients", "orgId": 30,
+      "title": "Ukraine response — USAID OIG flagged fraud risks in $24B+ in U.S. assistance",
+      "summary": "USAID OIG (2023-2024 reports) identified significant fraud risks across the $24+ billion in U.S. humanitarian and development assistance to Ukraine since the Russian invasion. Multiple investigations underway into specific implementing partners, procurement contracts, and cash-assistance programmes. Devex, Reuters, and OCCRP reporting.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/Ukraine",
+      "date": "2024", "year": 2024, "country": "Ukraine",
+      "amount": "$24B+ at risk", "amountNum": 0,
+      "tags": ["Ukraine", "USAID-OIG", "fraud-risk"],
+      "status": "ongoing"
+    },
+    {
+      "id": 33, "type": "Sexual Exploitation", "sourceType": "un", "region": "Central Africa",
+      "org": "UN MONUSCO (DR Congo)", "orgId": 31,
+      "title": "DR Congo — over 100 substantiated SEA allegations against MONUSCO personnel",
+      "summary": "UN OIOS and Conduct and Discipline Service data (cumulative through 2024) record more than 100 substantiated sexual exploitation and abuse allegations involving MONUSCO peacekeepers and civilian staff over the mission's duration. Multiple troop-contributing countries have repatriated personnel. UN paid paternity claims in dozens of cases.",
+      "source": "UN Conduct and Discipline Service",
+      "sourceUrl": "https://conduct.unmissions.org/",
+      "date": "Ongoing", "year": 2024, "country": "DR Congo",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "MONUSCO", "peacekeepers"],
+      "status": "ongoing"
+    },
+    {
+      "id": 34, "type": "Procurement Fraud", "sourceType": "donor", "region": "South Asia",
+      "org": "Afghanistan reconstruction — multiple SIGAR documented contractors", "orgId": 32,
+      "title": "SIGAR cumulative findings — $19B+ in waste, fraud, abuse identified",
+      "summary": "Special Inspector General for Afghanistan Reconstruction (SIGAR) cumulative reports (2008-2024) document at least $19 billion in waste, fraud and abuse across $146 billion in U.S. reconstruction funding. Hundreds of cases include ghost projects, ghost soldiers, contractor overbilling, falsified deliverables. Final SIGAR Lessons Learned reports published 2021-2023.",
+      "source": "SIGAR",
+      "sourceUrl": "https://www.sigar.mil/",
+      "date": "2023", "year": 2023, "country": "Afghanistan",
+      "amount": "$19B+", "amountNum": 19000000000,
+      "tags": ["Afghanistan", "SIGAR", "waste-fraud-abuse"],
+      "status": "closed"
+    },
+    {
+      "id": 35, "type": "Misconduct", "sourceType": "regulator", "region": "Europe & North America",
+      "org": "Plan International UK", "orgId": 33,
+      "title": "UK Charity Commission case on safeguarding governance",
+      "summary": "UK Charity Commission engaged with Plan International UK (post-2018 sector-wide review) on safeguarding governance after concerns over reporting culture. Plan International published its 2017 disclosure of substantiated SEA cases as part of sector-wide transparency. Improvements implemented; case closed without formal inquiry.",
+      "source": "UK Charity Commission",
+      "sourceUrl": "https://www.gov.uk/government/organisations/charity-commission",
+      "date": "Mar 2018", "year": 2018, "country": "United Kingdom",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["safeguarding", "governance", "uk-charity-commission"],
+      "status": "closed"
     }
   ],
   "organizations": [
     {
-      "id": 1, "name": "Global Relief Partners", "slug": "global-relief-partners",
-      "type": "International NGO", "hq": "Geneva, Switzerland", "founded": "1998",
-      "riskScore": 85, "riskLevel": "high", "totalCases": 4,
-      "description": "International humanitarian NGO operating across 38 countries with annual turnover of approximately $120M. Primarily funded by USAID, FCDO, and ECHO.",
-      "caseIds": [1, 11, 20, 27],
-      "individuals": [
-        { "name": "Robert Harmon", "role": "Former Executive Director", "status": "debarred", "year": 2024 },
-        { "name": "Sarah Okafor", "role": "Former Finance Director", "status": "debarred", "year": 2024 },
-        { "name": "Marc Dubois", "role": "Country Director (South Sudan)", "status": "investigation", "year": 2024 },
-        { "name": "Amara Diallo", "role": "Logistics Manager (Uganda)", "status": "dismissed", "year": 2023 }
-      ]
+      "id": 1, "name": "Oxfam Great Britain", "slug": "oxfam-gb", "type": "International NGO confederation",
+      "hq": "Oxford, UK", "founded": 1942,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "British registered charity, member of the global Oxfam confederation. Subject of major 2018 Haiti SEA scandal that triggered UK Charity Commission inquiry, suspension of UK government funding, and sector-wide PSEA reforms.",
+      "caseIds": [1], "individuals": "Multiple senior staff dismissed/resigned"
     },
     {
-      "id": 2, "name": "MedAid International", "slug": "medaid-international",
-      "type": "Medical Humanitarian NGO", "hq": "London, United Kingdom", "founded": "2003",
-      "riskScore": 72, "riskLevel": "high", "totalCases": 4,
-      "description": "UK-registered medical humanitarian organization operating in 22 countries. Primary funders include ECHO, UNICEF, UNFPA, and DFID/FCDO.",
-      "caseIds": [2, 15, 23, 30],
-      "individuals": [
-        { "name": "James Kofi", "role": "Field Coordinator (DRC)", "status": "convicted", "year": 2024 },
-        { "name": "Thomas Adeyemi", "role": "Procurement Officer (South Sudan)", "status": "dismissed", "year": 2023 },
-        { "name": "Liu Wei", "role": "Supply Chain Manager (Myanmar)", "status": "investigation", "year": 2022 }
-      ]
+      "id": 2, "name": "UNHCR", "slug": "unhcr", "type": "UN refugee agency",
+      "hq": "Geneva, Switzerland", "founded": 1950,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 1,
+      "description": "United Nations High Commissioner for Refugees. Documented 2017 resettlement bribery case in Kenya operations exposed by Reuters investigation.",
+      "caseIds": [2], "individuals": "Multiple staff terminated"
     },
     {
-      "id": 3, "name": "Crisis Response Network", "slug": "crisis-response-network",
-      "type": "Emergency Response NGO", "hq": "Washington DC, USA", "founded": "2007",
-      "riskScore": 63, "riskLevel": "medium", "totalCases": 2,
-      "description": "US-based emergency response organization focusing on conflict-affected areas. Primarily USAID-funded with some UN agency partnerships.",
-      "caseIds": [3, 17],
-      "individuals": [
-        { "name": "Ahmed Al-Rashid", "role": "Yemen Country Director", "status": "investigation", "year": 2024 },
-        { "name": "Fatima Yusuf", "role": "Logistics Coordinator (Syria)", "status": "dismissed", "year": 2023 }
-      ]
+      "id": 3, "name": "World Food Programme", "slug": "wfp", "type": "UN agency",
+      "hq": "Rome, Italy", "founded": 1961,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 2,
+      "description": "World's largest humanitarian organization addressing hunger. Has documented diversion cases in Yemen (2018-19, Houthis), Somalia (2010, Al-Shabaab), and Ethiopia (2023, Tigray).",
+      "caseIds": [3, 25], "individuals": "Country-level cases"
     },
     {
-      "id": 4, "name": "Hope Foundation", "slug": "hope-foundation",
-      "type": "Development NGO", "hq": "Amsterdam, Netherlands", "founded": "1995",
-      "riskScore": 91, "riskLevel": "high", "totalCases": 4,
-      "description": "Netherlands-based development organization with operations in 29 countries. Annual revenue approximately €85M. Funded by multiple bilateral and multilateral donors.",
-      "caseIds": [4, 16, 21, 28],
-      "individuals": [
-        { "name": "Karim Hassan", "role": "Regional Director — Asia", "status": "convicted", "year": 2024 },
-        { "name": "Priya Sharma", "role": "Procurement Officer (Bangladesh)", "status": "debarred", "year": 2024 },
-        { "name": "Jean-Pierre Moreau", "role": "Executive Director", "status": "indicted", "year": 2023 },
-        { "name": "David Park", "role": "Finance Manager (Philippines)", "status": "dismissed", "year": 2023 },
-        { "name": "Claude Bernard", "role": "Field Coordinator (Haiti)", "status": "convicted", "year": 2022 }
-      ]
+      "id": 4, "name": "World Health Organization", "slug": "who", "type": "UN agency",
+      "hq": "Geneva, Switzerland", "founded": 1948,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 2,
+      "description": "UN specialized agency for international public health. 2018-2020 DRC Ebola response SEA scandal involved WHO staff (independent commission report 2021); ongoing scrutiny of Sudan war response.",
+      "caseIds": [4, 31], "individuals": "Independent Commission named perpetrators"
     },
     {
-      "id": 5, "name": "Levant Development Trust", "slug": "levant-development-trust",
-      "type": "Regional Development NGO", "hq": "Beirut, Lebanon", "founded": "2009",
-      "riskScore": 58, "riskLevel": "medium", "totalCases": 2,
-      "description": "Regional NGO focusing on development and recovery in the Levant region. Primarily funded by the EU and UNDP.",
-      "caseIds": [5, 12],
-      "individuals": [
-        { "name": "Georges Khoury", "role": "Executive Director", "status": "investigation", "year": 2023 },
-        { "name": "Nadia Salameh", "role": "Finance Officer", "status": "dismissed", "year": 2023 }
-      ]
+      "id": 5, "name": "Save the Children UK", "slug": "save-the-children-uk", "type": "International NGO",
+      "hq": "London, UK", "founded": 1919,
+      "riskScore": 5, "riskLevel": "medium", "totalCases": 1,
+      "description": "British member of Save the Children International. UK Charity Commission inquiry (2020) found mishandling of harassment complaints against senior executives.",
+      "caseIds": [5], "individuals": "Justin Forsyth, Brendan Cox (departed before inquiry)"
     },
     {
-      "id": 6, "name": "African Education Initiative", "slug": "african-education-initiative",
-      "type": "Education-focused NGO", "hq": "Nairobi, Kenya", "founded": "2005",
-      "riskScore": 79, "riskLevel": "high", "totalCases": 3,
-      "description": "Kenya-based education NGO operating in 11 African countries. Funded by FCDO, USAID, and the Global Partnership for Education.",
-      "caseIds": [6, 18, 25],
-      "individuals": [
-        { "name": "Peter Wanjiku", "role": "Executive Director", "status": "investigation", "year": 2024 },
-        { "name": "Josephine Nkosi", "role": "Programme Manager (Tanzania)", "status": "dismissed", "year": 2023 },
-        { "name": "Emmanuel Kabila", "role": "Country Director (DRC)", "status": "investigation", "year": 2022 }
-      ]
+      "id": 6, "name": "International Federation of Red Cross & Red Crescent", "slug": "ifrc", "type": "International humanitarian network",
+      "hq": "Geneva, Switzerland", "founded": 1919,
+      "riskScore": 5, "riskLevel": "medium", "totalCases": 1,
+      "description": "Global Red Cross and Red Crescent network. Disclosed (2017) approximately $6M in fraud during 2014-2016 West Africa Ebola response.",
+      "caseIds": [6], "individuals": "Country-level fraudsters"
     },
     {
-      "id": 7, "name": "Pacific Health Alliance", "slug": "pacific-health-alliance",
-      "type": "Health Sector NGO", "hq": "Sydney, Australia", "founded": "2001",
-      "riskScore": 55, "riskLevel": "medium", "totalCases": 2,
-      "description": "Australia-based health NGO focusing on Asia-Pacific. Primary funders include DFAT, WHO, and the Global Fund.",
-      "caseIds": [7, 26],
-      "individuals": [
-        { "name": "Michael Chen", "role": "Procurement Manager (PNG)", "status": "dismissed", "year": 2024 },
-        { "name": "Sara Hatem", "role": "Country Director (Jordan)", "status": "debarred", "year": 2022 }
-      ]
+      "id": 7, "name": "UN Oil-for-Food Programme", "slug": "un-oil-for-food", "type": "UN programme (closed)",
+      "hq": "New York, USA", "founded": 1996,
+      "riskScore": 9, "riskLevel": "high", "totalCases": 1,
+      "description": "UN-administered programme (1996-2003) allowing Iraq to sell oil for humanitarian goods. Volcker independent inquiry (2005) documented $1.8B in kickbacks; one of the largest UN scandals.",
+      "caseIds": [7], "individuals": "Benon Sevan and others"
     },
     {
-      "id": 8, "name": "Andean Relief Consortium", "slug": "andean-relief-consortium",
-      "type": "Regional Development NGO", "hq": "Bogotá, Colombia", "founded": "2000",
-      "riskScore": 68, "riskLevel": "high", "totalCases": 2,
-      "description": "Colombia-based consortium implementing IADB and World Bank-funded development projects across Andean countries.",
-      "caseIds": [8, 19],
-      "individuals": [
-        { "name": "Carlos Mendoza", "role": "Executive Director", "status": "convicted", "year": 2024 },
-        { "name": "Isabel Vargas", "role": "Finance Director", "status": "convicted", "year": 2024 },
-        { "name": "Luis Fuentes", "role": "Operations Manager (Bolivia)", "status": "debarred", "year": 2023 }
-      ]
+      "id": 8, "name": "UNRWA", "slug": "unrwa", "type": "UN agency",
+      "hq": "Amman / Gaza", "founded": 1949,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UN Relief and Works Agency for Palestine Refugees. 2019 leaked ethics report; donor funding suspensions; Commissioner-General Krähenbühl resignation.",
+      "caseIds": [8], "individuals": "Pierre Krähenbühl (resigned)"
     },
     {
-      "id": 9, "name": "Sahel Food Security Programme", "slug": "sahel-food-security",
-      "type": "Food Security NGO", "hq": "Dakar, Senegal", "founded": "2011",
-      "riskScore": 74, "riskLevel": "high", "totalCases": 2,
-      "description": "Senegal-based NGO operating WFP, USAID, and EU-funded food security programmes across the Sahel region.",
-      "caseIds": [9, 22],
-      "individuals": [
-        { "name": "Moussa Diallo", "role": "Executive Director", "status": "investigation", "year": 2024 },
-        { "name": "Aissatou Ba", "role": "Field Manager (Mali)", "status": "dismissed", "year": 2024 },
-        { "name": "Oumar Sow", "role": "M&E Officer (Burkina Faso)", "status": "dismissed", "year": 2023 }
-      ]
+      "id": 9, "name": "UN Peacekeeping (MINUSCA)", "slug": "minusca", "type": "UN peacekeeping mission",
+      "hq": "Bangui, CAR", "founded": 2014,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "UN Multidimensional Integrated Stabilization Mission in CAR. Documented child SEA allegations from 2014 onwards; Deschamps independent panel found 'gross institutional failure'.",
+      "caseIds": [9], "individuals": "Multiple peacekeepers"
     },
     {
-      "id": 10, "name": "Horn of Africa Initiative", "slug": "horn-of-africa-initiative",
-      "type": "Multi-sector NGO", "hq": "Addis Ababa, Ethiopia", "founded": "2004",
-      "riskScore": 80, "riskLevel": "high", "totalCases": 3,
-      "description": "Ethiopia-based regional NGO operating food, health, education, and livelihoods programmes across the Horn of Africa.",
-      "caseIds": [10, 14, 24],
-      "individuals": [
-        { "name": "Abdi Hassan", "role": "Country Director (Kenya)", "status": "investigation", "year": 2022 },
-        { "name": "Fatuma Wario", "role": "Distribution Manager (Ethiopia)", "status": "dismissed", "year": 2024 },
-        { "name": "Omar Farah", "role": "Field Coordinator (Somalia)", "status": "dismissed", "year": 2023 }
-      ]
+      "id": 10, "name": "Louis Berger Group", "slug": "louis-berger", "type": "USAID engineering contractor",
+      "hq": "New Jersey, USA", "founded": 1953,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "American engineering and consulting firm; major USAID Afghanistan reconstruction contractor. $69M DOJ settlement (2015) for inflated overhead billing; two executives pleaded guilty.",
+      "caseIds": [10], "individuals": "Two former executives convicted"
     },
     {
-      "id": 11, "name": "South Asia Relief Network", "slug": "south-asia-relief-network",
-      "type": "Multi-sector NGO", "hq": "Dhaka, Bangladesh", "founded": "2008",
-      "riskScore": 44, "riskLevel": "medium", "totalCases": 2,
-      "description": "Bangladesh-based NGO implementing GIZ, SIDA, and UN-funded programmes across South Asia.",
-      "caseIds": [13, 29],
-      "individuals": [
-        { "name": "Rahim Chowdhury", "role": "Executive Director", "status": "investigation", "year": 2023 },
-        { "name": "Nasrin Begum", "role": "HR Manager", "status": "dismissed", "year": 2023 }
-      ]
+      "id": 11, "name": "The Global Fund (recipients)", "slug": "global-fund", "type": "Multilateral health fund",
+      "hq": "Geneva, Switzerland", "founded": 2002,
+      "riskScore": 5, "riskLevel": "medium", "totalCases": 1,
+      "description": "Multilateral fund for HIV, TB, malaria. 2010-2011 misappropriation cases by recipient governments (Mali, Mauritania, Djibouti, Zambia) led to Sweden's funding suspension and Inspector General reforms.",
+      "caseIds": [11], "individuals": "Country-level recipients"
+    },
+    {
+      "id": 12, "name": "UNDP North Korea", "slug": "undp-dprk", "type": "UN agency programme",
+      "hq": "New York / Pyongyang", "founded": 1979,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UN Development Programme operations in DPRK; suspended in 2007 after US allegations of unmonitored hard-currency payments and procurement of dual-use equipment. External independent review (2008) found significant control weaknesses.",
+      "caseIds": [12], "individuals": "DPRK-selected staff"
+    },
+    {
+      "id": 13, "name": "Médecins Sans Frontières", "slug": "msf", "type": "International medical NGO",
+      "hq": "Geneva, Switzerland", "founded": 1971,
+      "riskScore": 4, "riskLevel": "medium", "totalCases": 1,
+      "description": "Doctors Without Borders. Disclosed (June 2018) 24 staff dismissals for harassment/abuse over 2017 as part of post-Oxfam transparency reforms.",
+      "caseIds": [13], "individuals": "24 dismissed in 2017"
+    },
+    {
+      "id": 14, "name": "GOAL Ireland", "slug": "goal-ireland", "type": "International humanitarian NGO",
+      "hq": "Dublin, Ireland", "founded": 1977,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 1,
+      "description": "Irish humanitarian organization. USAID/EU funding suspended in 2016 over Syria cross-border procurement fraud allegations; partial USAID funding later restored after corrective action.",
+      "caseIds": [14], "individuals": "Staff dismissed; case settled"
+    },
+    {
+      "id": 15, "name": "WFP Ethiopia / TPLF (diversion)", "slug": "wfp-ethiopia", "type": "UN agency operations",
+      "hq": "Addis Ababa, Ethiopia", "founded": 1961,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "Northern Ethiopia operations. May 2023 USAID/WFP confirmed widespread food aid diversion; aid suspended for several months.",
+      "caseIds": [15], "individuals": "Government and military actors implicated"
+    },
+    {
+      "id": 16, "name": "World Bank — debarred firms (collective)", "slug": "wb-debarred", "type": "Sanctions list",
+      "hq": "Washington DC, USA", "founded": 1944,
+      "riskScore": 0, "riskLevel": "n/a", "totalCases": 1,
+      "description": "World Bank Integrity Vice Presidency public list of 200+ firms and individuals barred from Bank-financed projects.",
+      "caseIds": [16], "individuals": "200+ firms"
+    },
+    {
+      "id": 17, "name": "GAVI Alliance", "slug": "gavi", "type": "Vaccine alliance",
+      "hq": "Geneva, Switzerland", "founded": 2000,
+      "riskScore": 3, "riskLevel": "low", "totalCases": 1,
+      "description": "Global vaccine alliance. 2013 USAID OIG audit of polio funds in Pakistan questioned $4.2M.",
+      "caseIds": [17], "individuals": "Country-level"
+    },
+    {
+      "id": 18, "name": "UNICEF", "slug": "unicef", "type": "UN agency",
+      "hq": "New York, USA", "founded": 1946,
+      "riskScore": 4, "riskLevel": "medium", "totalCases": 1,
+      "description": "UN Children's Fund. Multiple OIAI audit findings over the years; 2015-2016 Liberia Ebola procurement issues among them.",
+      "caseIds": [18], "individuals": "Country-office level"
+    },
+    {
+      "id": 19, "name": "International Rescue Committee", "slug": "irc", "type": "International NGO",
+      "hq": "New York, USA", "founded": 1933,
+      "riskScore": 3, "riskLevel": "low", "totalCases": 1,
+      "description": "Major international humanitarian NGO; participates in the Misconduct Disclosure Scheme, the post-Oxfam sector-wide effort to prevent re-hire of confirmed abusers.",
+      "caseIds": [19], "individuals": "Sector-wide MDS data"
+    },
+    {
+      "id": 20, "name": "USAID Iraq contractors (collective)", "slug": "usaid-iraq", "type": "Donor implementing partners",
+      "hq": "Iraq", "founded": 2003,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "Various contractors implicated in SIGIR/SIGAR-documented Iraq reconstruction fraud cases ($4B+ questioned).",
+      "caseIds": [20], "individuals": "Multiple convictions"
+    },
+    {
+      "id": 21, "name": "World Vision", "slug": "world-vision", "type": "International NGO",
+      "hq": "California, USA", "founded": 1950,
+      "riskScore": 4, "riskLevel": "medium", "totalCases": 1,
+      "description": "Christian humanitarian organization. 2022 USAID OIG investigation reviewed counter-terrorism vetting in Gaza programmes.",
+      "caseIds": [21], "individuals": "Former staff under review"
+    },
+    {
+      "id": 22, "name": "African Development Bank — sanctions list", "slug": "afdb-sanctions", "type": "Sanctions list",
+      "hq": "Abidjan, Côte d'Ivoire", "founded": 1964,
+      "riskScore": 0, "riskLevel": "n/a", "totalCases": 1,
+      "description": "AfDB Integrity & Anti-Corruption Office sanctions list (90+ firms/individuals).",
+      "caseIds": [22], "individuals": "90+ firms"
+    },
+    {
+      "id": 23, "name": "Mozambique tuna bonds — Credit Suisse / govt", "slug": "mozambique-tuna-bonds", "type": "Sovereign-debt corruption case",
+      "hq": "Maputo, Mozambique", "founded": 2013,
+      "riskScore": 9, "riskLevel": "high", "totalCases": 1,
+      "description": "$2B in hidden state-backed debt; Credit Suisse $475M settlement; ex-Finance Minister Manuel Chang convicted.",
+      "caseIds": [23], "individuals": "Manuel Chang, others convicted"
+    },
+    {
+      "id": 24, "name": "UNHCR / Save the Children — Liberia 2002 report", "slug": "unhcr-stc-liberia-2002", "type": "Joint report (West Africa)",
+      "hq": "West Africa", "founded": 2002,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "Foundational PSEA report (Feb 2002) documenting sex-for-aid practices across 40+ humanitarian agencies in West African refugee camps. Triggered the UN PSEA policy.",
+      "caseIds": [24], "individuals": "40+ agencies named in report"
+    },
+    {
+      "id": 25, "name": "Cox's Bazar Rohingya response (collective)", "slug": "cox-bazar-rohingya", "type": "Multi-agency operations",
+      "hq": "Bangladesh", "founded": 2017,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 1,
+      "description": "Multi-agency Rohingya refugee response in Cox's Bazar; documented SEA allegations against drivers, partner staff, and translators across multiple agencies.",
+      "caseIds": [26], "individuals": "Multiple dismissals"
+    },
+    {
+      "id": 26, "name": "Voluntary Service Overseas (VSO)", "slug": "vso", "type": "International NGO",
+      "hq": "London, UK", "founded": 1958,
+      "riskScore": 4, "riskLevel": "medium", "totalCases": 1,
+      "description": "British international development charity. UK Charity Commission engagement in 2022 following whistleblower fraud allegations.",
+      "caseIds": [27], "individuals": "Country-office level"
+    },
+    {
+      "id": 27, "name": "Damascus UN procurement (collective)", "slug": "damascus-un-procurement", "type": "Multi-agency operations",
+      "hq": "Damascus, Syria", "founded": 2012,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UNDP / UNICEF / WFP / FAO Damascus operations; documented contracting with regime-linked or sanctioned firms (Reuters, BBC, Guardian 2016).",
+      "caseIds": [28], "individuals": "Country-level vendors"
+    },
+    {
+      "id": 28, "name": "IADB — sanctions list", "slug": "iadb-sanctions", "type": "Sanctions list",
+      "hq": "Washington DC, USA", "founded": 1959,
+      "riskScore": 0, "riskLevel": "n/a", "totalCases": 1,
+      "description": "Inter-American Development Bank Office of Institutional Integrity sanctions list (130+ firms/individuals).",
+      "caseIds": [29], "individuals": "130+ firms"
+    },
+    {
+      "id": 29, "name": "ADB — sanctions list", "slug": "adb-sanctions", "type": "Sanctions list",
+      "hq": "Manila, Philippines", "founded": 1966,
+      "riskScore": 0, "riskLevel": "n/a", "totalCases": 1,
+      "description": "Asian Development Bank Office of Anticorruption and Integrity sanctions list (270+ firms/individuals).",
+      "caseIds": [30], "individuals": "270+ firms"
+    },
+    {
+      "id": 30, "name": "USAID Ukraine response (collective)", "slug": "usaid-ukraine", "type": "Donor implementing partners",
+      "hq": "Kyiv, Ukraine", "founded": 2022,
+      "riskScore": 5, "riskLevel": "medium", "totalCases": 1,
+      "description": "$24B+ in U.S. assistance to Ukraine since 2022; USAID OIG flagged significant fraud risks; multiple investigations ongoing.",
+      "caseIds": [32], "individuals": "Implementing partners"
+    },
+    {
+      "id": 31, "name": "UN MONUSCO", "slug": "monusco", "type": "UN peacekeeping mission",
+      "hq": "Goma, DR Congo", "founded": 2010,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "UN Stabilization Mission in DR Congo. 100+ substantiated SEA allegations cumulatively per UN data.",
+      "caseIds": [33], "individuals": "Peacekeepers / civilian staff"
+    },
+    {
+      "id": 32, "name": "Afghanistan reconstruction (SIGAR)", "slug": "sigar-afghanistan", "type": "Donor cumulative case file",
+      "hq": "Washington DC, USA", "founded": 2008,
+      "riskScore": 9, "riskLevel": "high", "totalCases": 1,
+      "description": "SIGAR cumulative findings: $19B+ in waste, fraud, abuse across $146B in U.S. Afghanistan reconstruction funding.",
+      "caseIds": [34], "individuals": "Multiple contractors"
+    },
+    {
+      "id": 33, "name": "Plan International UK", "slug": "plan-international-uk", "type": "International NGO",
+      "hq": "Surrey, UK", "founded": 1937,
+      "riskScore": 3, "riskLevel": "low", "totalCases": 1,
+      "description": "Children's NGO; UK Charity Commission engagement in 2018 on safeguarding governance.",
+      "caseIds": [35], "individuals": "Sector-wide reform"
     }
   ]
 }
