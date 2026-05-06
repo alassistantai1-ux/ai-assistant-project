@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  # ── AI Assistant (WebSocket + Chat UI) ──────────────────────────────────────
+  assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-8765}:8765"
+    environment:
+      PORT: "${PORT:-8765}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY}"
+      ANTHROPIC_MODEL: "${ANTHROPIC_MODEL:-claude-sonnet-4-6}"
+      GOOGLE_ACCESS_TOKEN: "${GOOGLE_ACCESS_TOKEN:-}"
+      GOOGLE_REFRESH_TOKEN: "${GOOGLE_REFRESH_TOKEN:-}"
+      GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID:-}"
+      GOOGLE_CLIENT_SECRET: "${GOOGLE_CLIENT_SECRET:-}"
+      GITHUB_TOKEN: "${GITHUB_TOKEN:-}"
+      SLACK_TOKEN: "${SLACK_TOKEN:-}"
+      NOTION_TOKEN: "${NOTION_TOKEN:-}"
+      JIRA_HOST: "${JIRA_HOST:-}"
+      JIRA_EMAIL: "${JIRA_EMAIL:-}"
+      JIRA_API_TOKEN: "${JIRA_API_TOKEN:-}"
+      TEAMS_ACCESS_TOKEN: "${TEAMS_ACCESS_TOKEN:-}"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8765/', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    depends_on:
+      aidwatch:
+        condition: service_healthy
+
+  # ── AidWatch API ────────────────────────────────────────────────────────────
+  aidwatch:
+    build:
+      context: ./aidwatch
+      dockerfile: Dockerfile
+    ports:
+      - "${AIDWATCH_PORT:-3000}:3000"
+    environment:
+      PORT: "${AIDWATCH_PORT:-3000}"
+      CORS_ORIGIN: "${CORS_ORIGIN:-*}"
+      RATE_LIMIT_MAX: "${RATE_LIMIT_MAX:-120}"
+      RATE_LIMIT_EXTERNAL: "${RATE_LIMIT_EXTERNAL:-20}"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', r => { let d=''; r.on('data', c => d+=c); r.on('end', () => { try { const b=JSON.parse(d); process.exit(b.data&&b.data.status==='ok'?0:1); } catch { process.exit(1); } }); }).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes: {}

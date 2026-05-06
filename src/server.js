@@ -41,13 +41,38 @@ function log(event, meta = {}) {
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 
 const httpServer = http.createServer((req, res) => {
+  const url = new URL(req.url, `http://localhost`);
+
+  // ── HTTP API endpoints ─────────────────────────────────────────────────────
+  if (req.method === 'GET' && url.pathname === '/api/connectors') {
+    const connectors = registry.list();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, data: { connectors } }));
+    return;
+  }
+
+  const healthMatch = req.method === 'GET' && url.pathname.match(/^\/api\/connectors\/([^/]+)\/health$/);
+  if (healthMatch) {
+    const name = healthMatch[1];
+    const all = registry.list();
+    const connector = all.find((c) => c.name === name);
+    if (!connector) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Connector not found' }));
+      return;
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, data: { name, status: 'available', connected: connector.connected } }));
+    return;
+  }
+
   if (req.method !== 'GET') {
     res.writeHead(405);
     res.end('Method Not Allowed');
     return;
   }
 
-  const safePath = req.url === '/' ? '/index.html' : req.url;
+  const safePath = url.pathname === '/' ? '/index.html' : url.pathname;
   // Prevent path traversal
   const filePath = path.resolve(PUBLIC_DIR, '.' + safePath);
   if (!filePath.startsWith(PUBLIC_DIR)) {

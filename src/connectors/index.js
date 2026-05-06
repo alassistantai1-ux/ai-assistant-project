@@ -5,6 +5,7 @@ const GitHubConnector = require('./github');
 const SlackConnector = require('./slack');
 const NotionConnector = require('./notion');
 const JiraConnector = require('./jira');
+const TeamsConnector = require('./teams');
 
 const CONNECTORS = {
   google: GoogleConnector,
@@ -12,6 +13,7 @@ const CONNECTORS = {
   slack: SlackConnector,
   notion: NotionConnector,
   jira: JiraConnector,
+  teams: TeamsConnector,
 };
 
 class ConnectorRegistry {

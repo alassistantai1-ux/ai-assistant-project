@@ -101,6 +101,45 @@ const JiraConnector = {
         required: ['issueKey'],
       },
     },
+    {
+      name: 'jira_list_projects',
+      description: 'List all accessible Jira projects',
+      input_schema: {
+        type: 'object',
+        properties: {
+          maxResults: { type: 'number', description: 'Max number of projects to return (default 50)' },
+        },
+      },
+    },
+    {
+      name: 'jira_create_issue',
+      description: 'Create a new Jira issue',
+      input_schema: {
+        type: 'object',
+        properties: {
+          project: { type: 'string', description: 'Project key (e.g. MYPROJ)' },
+          summary: { type: 'string', description: 'Issue title/summary' },
+          description: { type: 'string', description: 'Issue description (plain text)' },
+          issueType: { type: 'string', description: 'Issue type (e.g. "Bug", "Story", "Task") — default "Task"' },
+          priority: { type: 'string', description: 'Priority (e.g. "High", "Medium", "Low")' },
+          assignee: { type: 'string', description: 'Account ID of the assignee' },
+          labels: { type: 'array', items: { type: 'string' }, description: 'Labels to apply' },
+        },
+        required: ['project', 'summary'],
+      },
+    },
+    {
+      name: 'jira_add_comment',
+      description: 'Add a comment to an existing Jira issue',
+      input_schema: {
+        type: 'object',
+        properties: {
+          issueKey: { type: 'string', description: 'Issue key (e.g. MYPROJ-123)' },
+          body: { type: 'string', description: 'Comment text' },
+        },
+        required: ['issueKey', 'body'],
+      },
+    },
   ],
 
   /**
@@ -165,6 +204,57 @@ const JiraConnector = {
             body: extractDescription(c.body),
             created: c.created,
           })),
+        };
+      }
+
+      case 'jira_list_projects': {
+        const max = Math.min(params.maxResults || 50, 100);
+        const data = await request(`/project/search?maxResults=${max}&orderBy=name`, 'GET', host, token);
+        return {
+          total: data.total,
+          projects: (data.values || []).map((p) => ({
+            key: p.key,
+            name: p.name,
+            type: p.projectTypeKey,
+            style: p.style,
+            lead: p.lead?.displayName,
+          })),
+        };
+      }
+
+      case 'jira_create_issue': {
+        const fields = {
+          project: { key: params.project },
+          summary: params.summary,
+          issuetype: { name: params.issueType || 'Task' },
+        };
+        if (params.description) {
+          fields.description = {
+            version: 1,
+            type: 'doc',
+            content: [{ type: 'paragraph', content: [{ type: 'text', text: params.description }] }],
+          };
+        }
+        if (params.priority) fields.priority = { name: params.priority };
+        if (params.assignee) fields.assignee = { accountId: params.assignee };
+        if (params.labels) fields.labels = params.labels;
+
+        const data = await request('/issue', 'POST', host, token, { fields });
+        return { key: data.key, id: data.id, url: `https://${host}/browse/${data.key}` };
+      }
+
+      case 'jira_add_comment': {
+        const body = {
+          version: 1,
+          type: 'doc',
+          content: [{ type: 'paragraph', content: [{ type: 'text', text: params.body }] }],
+        };
+        const data = await request(`/issue/${params.issueKey}/comment`, 'POST', host, token, { body });
+        return {
+          id: data.id,
+          author: data.author?.displayName,
+          created: data.created,
+          body: extractDescription(data.body),
         };
       }
 

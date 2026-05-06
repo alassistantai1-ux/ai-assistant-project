@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -59,7 +60,20 @@ app.use('/api', apiLimiter);
 app.use('/api/external', externalLimiter);
 app.use('/api/everything', externalLimiter);
 
+// request ID middleware — UUID per request
+app.use((req, _res, next) => {
+  req.id = crypto.randomUUID();
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+// robots.txt
+app.get('/robots.txt', (_req, res) => {
+  res.type('text/plain').send(
+    'User-agent: *\nDisallow: /api/cases\nDisallow: /api/search\nAllow: /\n',
+  );
+});
 
 // ── load database ──────────────────────────────────────────────────────────────
 
@@ -121,6 +135,61 @@ function enrichCase(c) {
   return { ...c, severity: getSeverity(c) };
 }
 
+// ── org risk score 0-100 ──────────────────────────────────────────────────────
+
+function calcRiskScore(org) {
+  const sevWeights = { critical: 20, high: 10, medium: 5 };
+  let score = 0;
+  const cases = DB.cases.filter(c => org.caseIds.includes(c.id));
+  score += cases.length * 10;
+  for (const c of cases) {
+    const sev = getSeverity(c);
+    score += sevWeights[sev] || 0;
+    if (c.year >= 2020) score = Math.floor(score * 1.2);
+    if (c.amountNum > 0) score += Math.min(20, Math.floor(Math.log10(c.amountNum + 1) * 2));
+  }
+  return Math.min(100, score);
+}
+
+// ── fuzzy suggest ─────────────────────────────────────────────────────────────
+
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = a[i - 1] === b[j - 1]
+        ? dp[i - 1][j - 1]
+        : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+    }
+  }
+  return dp[m][n];
+}
+
+function getSuggest(q) {
+  if (!q || q.length < 3) return [];
+  const ql = q.toLowerCase();
+  const tokens = new Set();
+  for (const c of DB.cases) {
+    for (const word of [c.org, c.title, c.country, c.type, c.region, ...(c.tags || [])]) {
+      if (typeof word === 'string') {
+        for (const w of word.toLowerCase().split(/[\s,/()-]+/)) {
+          if (w.length >= 4) tokens.add(w);
+        }
+      }
+    }
+  }
+  const scored = [];
+  for (const t of tokens) {
+    const dist = levenshtein(ql, t);
+    if (dist > 0 && dist <= 2 && !t.startsWith(ql)) scored.push({ t, dist });
+  }
+  scored.sort((a, b) => a.dist - b.dist);
+  return scored.slice(0, 5).map(s => s.t);
+}
+
 // ── health ─────────────────────────────────────────────────────────────────────
 
 app.get('/health', (req, res) => {
@@ -176,6 +245,8 @@ app.get('/api/search', (req, res) => {
   const total = results.length;
   const paged = results.slice(offset, offset + limit).map(({ _score, ...c }) => c);
 
+  const suggestions = total === 0 && q ? getSuggest(q) : [];
+
   res.json({
     success: true,
     data: {
@@ -184,9 +255,29 @@ app.get('/api/search', (req, res) => {
       limit,
       pages: Math.ceil(total / limit),
       results: paged,
+      didYouMean: suggestions.length > 0 ? suggestions[0] : null,
+      suggestions,
     },
     source: 'local',
   });
+});
+
+// ── related cases (must precede /api/cases/:id) ───────────────────────────────
+
+app.get('/api/cases/related/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (isNaN(id)) return res.status(400).json({ success: false, error: 'Invalid case ID' });
+
+  const c = DB.cases.find(x => x.id === id);
+  if (!c) return res.status(404).json({ success: false, error: 'Case not found' });
+
+  const related = DB.cases
+    .filter(r => r.id !== id && (r.orgId === c.orgId || r.type === c.type || (c.relatedCases || []).includes(r.id)))
+    .sort((a, b) => b.year - a.year)
+    .slice(0, 6)
+    .map(enrichCase);
+
+  res.json({ success: true, data: { caseId: id, total: related.length, results: related } });
 });
 
 // ── case by id ─────────────────────────────────────────────────────────────────
@@ -545,6 +636,116 @@ app.get('/api/everything', async (req, res) => {
 
 app.get('/api/sources', (req, res) => {
   res.json({ success: true, data: { sources: SOURCES } });
+});
+
+// ── orgs list with risk scores ────────────────────────────────────────────────
+
+app.get('/api/orgs', (req, res) => {
+  const results = DB.organizations.map(org => ({
+    ...org,
+    riskScore: calcRiskScore(org),
+    caseCount: org.caseIds.length,
+  })).sort((a, b) => b.riskScore - a.riskScore);
+
+  res.json({ success: true, data: { total: results.length, results } });
+});
+
+// ── org profile by name/slug ──────────────────────────────────────────────────
+
+app.get('/api/orgs/:name', (req, res) => {
+  const name = sanitizeStr(req.params.name, 200).toLowerCase();
+  const org = DB.organizations.find(
+    o => o.slug === name || o.name.toLowerCase() === name,
+  );
+  if (!org) return res.status(404).json({ success: false, error: 'Organization not found' });
+
+  const cases = DB.cases
+    .filter(c => org.caseIds.includes(c.id))
+    .map(enrichCase)
+    .sort((a, b) => b.year - a.year);
+
+  res.json({ success: true, data: { org: { ...org, riskScore: calcRiskScore(org) }, cases } });
+});
+
+// ── autocomplete suggest ──────────────────────────────────────────────────────
+
+app.get('/api/search/suggest', (req, res) => {
+  const q = sanitizeStr(req.query.q, 100).toLowerCase();
+  if (!q || q.length < 2) return res.json({ success: true, data: { suggestions: [] } });
+
+  const seen = new Set();
+  const suggestions = [];
+  for (const c of DB.cases) {
+    for (const field of [c.org, c.title, c.country, c.type, ...(c.tags || [])]) {
+      if (typeof field === 'string' && field.toLowerCase().startsWith(q) && !seen.has(field)) {
+        seen.add(field);
+        suggestions.push(field);
+        if (suggestions.length >= 8) break;
+      }
+    }
+    if (suggestions.length >= 8) break;
+  }
+
+  // also add partial matches
+  if (suggestions.length < 8) {
+    for (const c of DB.cases) {
+      for (const field of [c.org, c.title, c.country, c.type, ...(c.tags || [])]) {
+        if (typeof field === 'string' && field.toLowerCase().includes(q) && !seen.has(field)) {
+          seen.add(field);
+          suggestions.push(field);
+          if (suggestions.length >= 8) break;
+        }
+      }
+      if (suggestions.length >= 8) break;
+    }
+  }
+
+  res.json({ success: true, data: { query: q, suggestions } });
+});
+
+// ── CSV export ────────────────────────────────────────────────────────────────
+
+app.get('/api/export/csv', (req, res) => {
+  const headers = ['id', 'title', 'org', 'type', 'region', 'country', 'year', 'amount', 'amountNum', 'status', 'severity', 'source', 'sourceUrl'];
+  const rows = DB.cases.map(c => {
+    const enriched = enrichCase(c);
+    return headers.map(h => {
+      const v = enriched[h] === undefined ? '' : String(enriched[h]);
+      return v.includes(',') || v.includes('"') || v.includes('\n') ? `"${v.replace(/"/g, '""')}"` : v;
+    }).join(',');
+  });
+  const csv = [headers.join(','), ...rows].join('\n');
+
+  res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+  res.setHeader('Content-Disposition', 'attachment; filename="aidwatch-cases.csv"');
+  res.send(csv);
+});
+
+// ── trends ────────────────────────────────────────────────────────────────────
+
+app.get('/api/trends', (req, res) => {
+  const typeByYear = {};
+  const regionByYear = {};
+  const typeCounts = {};
+  const regionCounts = {};
+
+  for (const c of DB.cases) {
+    const y = String(c.year);
+    if (!typeByYear[y]) typeByYear[y] = {};
+    typeByYear[y][c.type] = (typeByYear[y][c.type] || 0) + 1;
+    if (!regionByYear[y]) regionByYear[y] = {};
+    regionByYear[y][c.region] = (regionByYear[y][c.region] || 0) + 1;
+    typeCounts[c.type] = (typeCounts[c.type] || 0) + 1;
+    regionCounts[c.region] = (regionCounts[c.region] || 0) + 1;
+  }
+
+  const topTypes = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([k]) => k);
+  const topRegions = Object.entries(regionCounts).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([k]) => k);
+
+  res.json({
+    success: true,
+    data: { typeByYear, regionByYear, topTypes, topRegions, typeCounts, regionCounts },
+  });
 });
 
 // ── fallback to SPA ───────────────────────────────────────────────────────────

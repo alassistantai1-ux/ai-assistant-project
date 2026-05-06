@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Assistant</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <style>
   :root {
     --bg: #f8fafc;
@@ -328,6 +330,41 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 3px; }
 
+  /* ── Typing indicator ── */
+  .typing-indicator {
+    display: flex; align-items: center; gap: 4px; padding: 10px 14px;
+    background: var(--bot-bubble); border-radius: var(--radius) var(--radius) var(--radius) 4px;
+    width: fit-content;
+  }
+  .typing-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted);
+    animation: typingBounce 1.2s infinite ease-in-out;
+  }
+  .typing-dot:nth-child(2) { animation-delay: .15s; }
+  .typing-dot:nth-child(3) { animation-delay: .3s; }
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
+
+  /* ── Message timestamp ── */
+  .msg-time { font-size: .72rem; color: var(--text-muted); margin-top: 4px; opacity: .7; }
+
+  /* ── Copy button ── */
+  .msg-actions { display: flex; gap: 6px; margin-top: 4px; }
+  .btn-copy {
+    font-size: .72rem; color: var(--text-muted); background: none; border: 1px solid var(--bd);
+    border-radius: 6px; padding: 2px 8px; cursor: pointer; transition: background .15s;
+  }
+  .btn-copy:hover { background: var(--bd); color: var(--text); }
+
+  /* ── Code blocks in bubbles ── */
+  .bubble pre { margin: 8px 0; border-radius: 8px; overflow-x: auto; }
+  .bubble code:not(pre code) { background: var(--bd); padding: 2px 5px; border-radius: 4px; font-size: .87em; }
+  .bubble p + p { margin-top: 8px; }
+  .bubble ul, .bubble ol { padding-left: 20px; margin: 6px 0; }
+  .bubble li { margin: 2px 0; }
+
   /* ── Mobile ── */
   @media (max-width: 640px) {
     .sidebar { width: 100%; position: absolute; top: 56px; bottom: 0; z-index: 20; transform: translateX(-100%); transition: transform .25s; }
@@ -404,6 +441,7 @@ const CONNECTOR_FIELDS = {
   jira:    [{ key: 'host',           label: 'Host (e.g. org.atlassian.net)', type: 'text' },
             { key: 'email',          label: 'Email',                 type: 'text' },
             { key: 'apiToken',       label: 'API Token',             type: 'password' }],
+  teams:   [{ key: 'accessToken',   label: 'Microsoft Graph Access Token', type: 'password' }],
 };
 
 // ── State ─────────────────────────────────────────────────────────────────────
@@ -429,6 +467,10 @@ const $connList   = document.getElementById('connectorsList');
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   localStorage.setItem('ai-theme', t);
+  const hlCss = document.getElementById('hljs-css');
+  if (hlCss) hlCss.href = t === 'dark'
+    ? 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'
+    : 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
   const icon = document.getElementById('iconTheme');
   if (t === 'dark') {
     icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
@@ -506,6 +548,7 @@ function handleMessage(msg) {
 
     case 'response_start':
       streamingText = '';
+      removeTypingIndicator();
       streamingBubble = appendBubble('bot', '', true);
       break;
 
@@ -518,7 +561,6 @@ function handleMessage(msg) {
 
     case 'tool_call':
       appendToolCall(msg.tool, msg.input);
-      // Re-create a fresh streaming bubble after the tool card
       streamingText = '';
       streamingBubble = appendBubble('bot', '', true);
       break;
@@ -526,7 +568,12 @@ function handleMessage(msg) {
     case 'response_end':
       if (streamingBubble) {
         streamingBubble.classList.remove('streaming');
-        if (!streamingText) streamingBubble.closest('.msg')?.remove();
+        if (streamingText) {
+          renderMarkdown(streamingBubble, streamingText);
+          appendMessageActions(streamingBubble.closest('.msg'), streamingText);
+        } else {
+          streamingBubble.closest('.msg')?.remove();
+        }
         streamingBubble = null;
       }
       isStreaming = false;
@@ -555,6 +602,11 @@ function hideEmpty() {
   if ($empty) $empty.style.display = 'none';
 }
 
+function fmtTime() {
+  const d = new Date();
+  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
 function appendBubble(role, text, streaming = false) {
   hideEmpty();
   const msg = document.createElement('div');
@@ -562,14 +614,90 @@ function appendBubble(role, text, streaming = false) {
   const avatar = document.createElement('div');
   avatar.className = 'avatar';
   avatar.textContent = role === 'user' ? 'U' : '✦';
+  const wrap = document.createElement('div');
+  wrap.style.display = 'flex';
+  wrap.style.flexDirection = 'column';
+  wrap.style.alignItems = role === 'user' ? 'flex-end' : 'flex-start';
   const bubble = document.createElement('div');
   bubble.className = 'bubble' + (streaming ? ' streaming' : '');
-  bubble.textContent = text;
+  if (text) bubble.textContent = text;
+  const timeEl = document.createElement('div');
+  timeEl.className = 'msg-time';
+  timeEl.textContent = fmtTime();
+  wrap.appendChild(bubble);
+  wrap.appendChild(timeEl);
   msg.appendChild(avatar);
-  msg.appendChild(bubble);
+  msg.appendChild(wrap);
   $messages.appendChild(msg);
   scrollToBottom();
   return bubble;
+}
+
+function appendMessageActions(msgEl, text) {
+  if (!msgEl) return;
+  const wrap = msgEl.querySelector('div');
+  const actions = document.createElement('div');
+  actions.className = 'msg-actions';
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'btn-copy';
+  copyBtn.textContent = 'Copy';
+  copyBtn.setAttribute('aria-label', 'Copy message to clipboard');
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(text).then(() => {
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1500);
+    }).catch(() => {});
+  });
+  actions.appendChild(copyBtn);
+  wrap.appendChild(actions);
+}
+
+function renderMarkdown(bubble, text) {
+  // Basic markdown: code blocks, inline code, bold, italic, lists
+  let html = escHtml(text)
+    .replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+      const highlighted = lang && window.hljs && hljs.getLanguage(lang)
+        ? hljs.highlight(unescHtml(code), { language: lang }).value
+        : escHtml(unescHtml(code));
+      return `<pre><code class="hljs language-${lang || 'plaintext'}">${highlighted}</code></pre>`;
+    })
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+  bubble.innerHTML = `<p>${html}</p>`;
+}
+
+function unescHtml(s) {
+  return s.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+}
+
+function showTypingIndicator() {
+  hideEmpty();
+  const msg = document.createElement('div');
+  msg.className = 'msg bot';
+  msg.id = 'typing-indicator';
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar';
+  avatar.textContent = '✦';
+  const indicator = document.createElement('div');
+  indicator.className = 'typing-indicator';
+  for (let i = 0; i < 3; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'typing-dot';
+    indicator.appendChild(dot);
+  }
+  msg.appendChild(avatar);
+  msg.appendChild(indicator);
+  $messages.appendChild(msg);
+  scrollToBottom();
+}
+
+function removeTypingIndicator() {
+  document.getElementById('typing-indicator')?.remove();
 }
 
 function appendToolCall(name, input) {
@@ -672,6 +800,7 @@ function sendQuery() {
   isStreaming = true;
   $btnSend.disabled = true;
   pendingRequestId = 'q-' + Date.now();
+  showTypingIndicator();
   send({ type: 'query', text, requestId: pendingRequestId });
 }
 

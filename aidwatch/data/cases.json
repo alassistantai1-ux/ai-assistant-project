@@ -705,6 +705,510 @@
         {"date": "2017", "event": "USAID DRC Mission implements enhanced monitoring framework and financial controls"},
         {"date": "2019", "event": "Follow-up audits confirm improvements; major questioned costs recovered or resolved"}
       ]
+    },
+    {
+      "id": 51, "type": "Corruption", "sourceType": "bank", "region": "South Asia",
+      "org": "World Bank Bangladesh — Padma Bridge project", "orgId": 49,
+      "title": "Padma Multipurpose Bridge — World Bank cancels $1.2B loan over corruption conspiracy",
+      "summary": "In June 2012, the World Bank cancelled a $1.2 billion credit for Bangladesh's Padma Multipurpose Bridge project after its Integrity Vice Presidency found 'credible evidence' of a corruption conspiracy involving Bangladeshi government officials, SNC-Lavalin executives, and World Bank staff. SNC-Lavalin was subsequently charged by the RCMP (Royal Canadian Mounted Police) in Canada with bribery; two company executives were convicted. Bangladeshi Finance Ministry and Economic Relations Division officials were investigated by the Anti-Corruption Commission. The case led to Bangladesh completing the bridge with domestic financing and remains one of the largest corruption-related World Bank loan cancellations.",
+      "source": "World Bank Integrity Vice Presidency",
+      "sourceUrl": "https://www.worldbank.org/en/news/press-release/2012/06/29/world-bank-statement-padma-bridge",
+      "date": "Jun 2012", "year": 2012, "country": "Bangladesh",
+      "amount": "$1.2B (loan cancelled)", "amountNum": 1200000000,
+      "tags": ["World-Bank", "bribery", "SNC-Lavalin", "loan-cancellation", "infrastructure"],
+      "status": "closed",
+      "relatedCases": [16, 41],
+      "timeline": [
+        {"date": "2010", "event": "World Bank approves $1.2B Padma Bridge credit; SNC-Lavalin shortlisted for supervision consultancy"},
+        {"date": "Sep 2011", "event": "World Bank Integrity VP receives whistleblower information alleging bribery conspiracy"},
+        {"date": "Jun 2012", "event": "World Bank cancels $1.2B credit citing 'credible evidence' of corruption conspiracy"},
+        {"date": "Feb 2013", "event": "RCMP charges SNC-Lavalin executives in Canada with fraud and bribery related to the Padma Bridge"},
+        {"date": "2017", "event": "Bangladesh Supreme Court dismisses anti-corruption cases against Bangladeshi officials for insufficient evidence"},
+        {"date": "2022", "event": "Padma Bridge opens, fully funded by Bangladesh government; World Bank audit cases closed"}
+      ]
+    },
+    {
+      "id": 52, "type": "Financial Fraud", "sourceType": "regulator", "region": "East Africa",
+      "org": "Global Fund Uganda — multiple principal recipients", "orgId": 50,
+      "title": "Uganda Global Fund grants — $6.6M misappropriated across multiple principal recipients",
+      "summary": "Global Fund Office of the Inspector General Report GF-OIG-15-005 (2015) documented that multiple Ugandan principal recipients — including the Ministry of Finance, The AIDS Support Organisation (TASO), and the National Medical Stores — had misappropriated approximately $6.6 million in Global Fund HIV/AIDS, TB, and malaria grants. Findings included payments to fictitious or ineligible vendors, inflated procurement prices, weak subrecipient monitoring, and inadequate documentation. The Global Fund terminated TASO's role as a principal recipient and implemented enhanced oversight measures. Recovery plans were agreed with the Government of Uganda.",
+      "source": "Global Fund OIG (GF-OIG-15-005)",
+      "sourceUrl": "https://www.theglobalfund.org/en/oig/reports/",
+      "date": "2015", "year": 2015, "country": "Uganda",
+      "amount": "$6.6M", "amountNum": 6600000,
+      "tags": ["Global-Fund", "Uganda", "TASO", "misappropriation", "principal-recipient"],
+      "status": "closed",
+      "relatedCases": [11, 38, 57, 63],
+      "timeline": [
+        {"date": "2013", "event": "Global Fund OIG receives referrals about financial management irregularities in Uganda grants"},
+        {"date": "2014", "event": "Expanded OIG investigation covers Ministry of Finance, TASO, and National Medical Stores"},
+        {"date": "2015", "event": "GF-OIG-15-005 published; $6.6M in misappropriated funds documented across multiple PRs"},
+        {"date": "2015", "event": "Global Fund terminates TASO as principal recipient; new PR arrangements implemented"},
+        {"date": "2016", "event": "Recovery plan agreed with Government of Uganda; partial funds recovered"},
+        {"date": "2017", "event": "Follow-up review confirms enhanced oversight measures in place"}
+      ]
+    },
+    {
+      "id": 53, "type": "Sexual Exploitation", "sourceType": "un", "region": "East Africa",
+      "org": "UN UNMISS (South Sudan)", "orgId": 51,
+      "title": "South Sudan UN mission — substantiated SEA cases involving UNMISS peacekeepers and civilian staff",
+      "summary": "UN Conduct and Discipline Service data and OIOS investigations (cumulative 2011–2023) record dozens of substantiated sexual exploitation and abuse (SEA) allegations involving UNMISS (UN Mission in South Sudan) peacekeepers and civilian staff. Several troop-contributing countries including Rwanda, Ethiopia, and India have repatriated implicated personnel. A 2016 AP investigation documented that peacekeepers failed to intervene as women and girls were sexually assaulted near a UNMISS compound in Juba during July 2016 fighting, prompting a UN independent special investigation that found 'gross negligence' by the mission leadership.",
+      "source": "UN Conduct and Discipline / UN Special Investigation",
+      "sourceUrl": "https://conduct.unmissions.org/",
+      "date": "2011", "year": 2011, "country": "South Sudan",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "UNMISS", "South-Sudan", "peacekeepers", "gross-negligence"],
+      "status": "ongoing",
+      "relatedCases": [9, 33, 46, 65],
+      "timeline": [
+        {"date": "Jul 2011", "event": "UNMISS mission established following South Sudan independence; SEA complaints begin to be logged"},
+        {"date": "2013-2015", "event": "Multiple substantiated SEA cases; first troop-contributing country repatriations"},
+        {"date": "Jul 2016", "event": "AP reports UNMISS peacekeepers failed to protect civilians during Juba fighting; women assaulted"},
+        {"date": "Nov 2016", "event": "Independent Special Investigation published; finds 'gross negligence' by UNMISS leadership"},
+        {"date": "2017", "event": "Force Commander dismissed; UN implements new protection-of-civilians protocols"},
+        {"date": "2020-2023", "event": "Ongoing SEA cases documented; paternity claims paid in several cases"}
+      ]
+    },
+    {
+      "id": 54, "type": "Procurement Fraud", "sourceType": "donor", "region": "Middle East & North Africa",
+      "org": "USAID Jordan Syria response — implementing partners", "orgId": 52,
+      "title": "Syria relief via Jordan — USAID OIG found $18.7M in questioned costs across implementing partners",
+      "summary": "USAID OIG audit (Report No. 6-278-16-004-P, 2016) of US-funded Syria relief programmes implemented through Jordan-based organizations found approximately $18.7 million in questioned costs across multiple implementing partners. Issues included undocumented personnel costs, inflated overhead rates, procurement without competition, and weak beneficiary verification. Partners included international NGOs and Jordanian civil society organizations implementing cross-border humanitarian assistance. USAID Mission Jordan agreed to 27 corrective actions.",
+      "source": "USAID OIG (6-278-16-004-P)",
+      "sourceUrl": "https://oig.usaid.gov/sites/default/files/audit-reports/6-278-16-004-p.pdf",
+      "date": "Mar 2016", "year": 2016, "country": "Jordan",
+      "amount": "$18.7M questioned", "amountNum": 18700000,
+      "tags": ["Syria", "Jordan", "USAID-OIG", "questioned-costs", "cross-border-aid"],
+      "status": "closed",
+      "relatedCases": [14, 28, 47],
+      "timeline": [
+        {"date": "2013", "event": "USAID scales up Syria relief programming through Jordan as Syria conflict intensifies"},
+        {"date": "2015", "event": "OIG audit opens following concerns about partner financial management and documentation"},
+        {"date": "Mar 2016", "event": "OIG audit report documents $18.7M in questioned costs across multiple implementing partners"},
+        {"date": "2016", "event": "USAID Mission Jordan agrees to 27 corrective actions; enhanced partner monitoring implemented"},
+        {"date": "2017", "event": "Follow-up review confirms partial resolution of questioned costs"}
+      ]
+    },
+    {
+      "id": 55, "type": "Misconduct", "sourceType": "ngo", "region": "Europe & North America",
+      "org": "International Committee of the Red Cross", "orgId": 53,
+      "title": "ICRC data breach — cyberattack exposes personal data of 515,000+ vulnerable people",
+      "summary": "The ICRC confirmed on 19 January 2022 that a sophisticated cyberattack had compromised servers held by a third-party contractor in Switzerland managing data for the Restoring Family Links (RFL) programme. The breach exposed the personal data and confidential information of more than 515,000 'highly vulnerable people' — including missing persons, detainees, and displaced families separated by conflict. The ICRC confirmed no ransom was paid. The attack was attributed to a nation-state actor using custom malware. ICRC systems were taken offline for weeks, disrupting family reunification services across 60+ countries. The breach highlighted the humanitarian sector's vulnerability to state-sponsored cyber espionage.",
+      "source": "ICRC",
+      "sourceUrl": "https://www.icrc.org/en/document/cyberattack-icrc-servers-holding-data-500000-plus-people",
+      "date": "Jan 2022", "year": 2022, "country": "Switzerland",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["cyberattack", "data-breach", "ICRC", "nation-state", "Restoring-Family-Links"],
+      "status": "closed",
+      "relatedCases": [],
+      "timeline": [
+        {"date": "Jan 2022", "event": "Cyberattack detected on ICRC contractor servers hosting Restoring Family Links data"},
+        {"date": "19 Jan 2022", "event": "ICRC publicly confirms breach; personal data of 515,000+ vulnerable people compromised"},
+        {"date": "Jan 2022", "event": "ICRC takes Restoring Family Links systems offline, disrupting services in 60+ countries"},
+        {"date": "Feb 2022", "event": "ICRC confirms nation-state actor responsible; custom malware identified"},
+        {"date": "Mar 2022", "event": "Systems gradually restored with enhanced security; new cybersecurity framework implemented"},
+        {"date": "2022", "event": "ICRC publishes new humanitarian cybersecurity standards; calls for special protection of humanitarian data"}
+      ]
+    },
+    {
+      "id": 56, "type": "Procurement Fraud", "sourceType": "un", "region": "Horn of Africa",
+      "org": "FAO Somalia emergency operations", "orgId": 54,
+      "title": "FAO Somalia — Board of Auditors found irregular procurement in $200M+ emergency operations",
+      "summary": "UN Board of Auditors reports (2011-2012) on FAO Somalia emergency operations documented significant procurement irregularities including contracts awarded without competitive bidding, inadequate documentation of vendor selection, and high concentrations of awards to related parties. FAO's Somalia operations managing over $200 million in emergency food security assistance were found to lack adequate oversight mechanisms. FAO management acknowledged findings and implemented procurement reform, including enhanced vendor registration and competitive bidding requirements for emergency operations.",
+      "source": "UN Board of Auditors",
+      "sourceUrl": "https://www.un.org/en/auditors/board/reports.shtml",
+      "date": "2012", "year": 2012, "country": "Somalia",
+      "amount": "$200M+ programme", "amountNum": 0,
+      "tags": ["FAO", "Somalia", "procurement", "Board-of-Auditors", "emergency-operations"],
+      "status": "closed",
+      "relatedCases": [25],
+      "timeline": [
+        {"date": "2010-2011", "event": "FAO scales up Somalia emergency food security operations during Horn of Africa drought/famine"},
+        {"date": "2011", "event": "UN Board of Auditors opens audit of FAO Somalia emergency procurement practices"},
+        {"date": "2012", "event": "Board of Auditors report documents irregular procurement; single-source contracting widespread"},
+        {"date": "2013", "event": "FAO implements enhanced procurement controls for Somalia operations"},
+        {"date": "2014", "event": "Follow-up audit confirms improvement in procurement documentation and competition"}
+      ]
+    },
+    {
+      "id": 57, "type": "Financial Fraud", "sourceType": "regulator", "region": "Central Africa",
+      "org": "Global Fund Cameroon — principal recipients", "orgId": 55,
+      "title": "Cameroon Global Fund grants — $7.5M in unsubstantiated expenditures; systemic procurement weaknesses",
+      "summary": "Global Fund OIG investigation (2019) into Cameroon's health sector Global Fund grants documented approximately $7.5 million in unsubstantiated expenditures and systemic procurement weaknesses across multiple principal recipients including the Ministry of Public Health and implementing sub-recipients. Findings included inflated unit costs for health commodities, payments without adequate documentation, and weak oversight of subrecipients. The Global Fund implemented enhanced financial monitoring and required corrective action plans from the Government of Cameroon.",
+      "source": "Global Fund OIG",
+      "sourceUrl": "https://www.theglobalfund.org/en/oig/reports/",
+      "date": "2019", "year": 2019, "country": "Cameroon",
+      "amount": "$7.5M", "amountNum": 7500000,
+      "tags": ["Global-Fund", "Cameroon", "unsubstantiated-expenditures", "health-commodities"],
+      "status": "closed",
+      "relatedCases": [11, 38, 52, 61],
+      "timeline": [
+        {"date": "2017", "event": "Global Fund OIG receives referrals about Cameroon grant financial management concerns"},
+        {"date": "2018", "event": "OIG investigation launched covering Ministry of Public Health and key subrecipients"},
+        {"date": "2019", "event": "OIG report documents $7.5M in unsubstantiated expenditures and systemic procurement failures"},
+        {"date": "2020", "event": "Government of Cameroon agrees corrective action plan; enhanced monitoring implemented"},
+        {"date": "2021", "event": "Partial recovery of questioned costs confirmed; follow-up audit underway"}
+      ]
+    },
+    {
+      "id": 58, "type": "Procurement Fraud", "sourceType": "un", "region": "Latin America & Caribbean",
+      "org": "UNDP Haiti post-earthquake reconstruction", "orgId": 56,
+      "title": "Haiti UNDP reconstruction — OIOS found $14M in unsupported costs and weak procurement controls",
+      "summary": "OIOS audit (Report No. AH2012/850/01, 2012) of UNDP Haiti operations in the post-earthquake reconstruction period found approximately $14 million in unsupported costs and significant weaknesses in procurement oversight. Issues included contracts awarded to single sources without documented justification, inadequate vendor due diligence, and delayed implementation causing cost overruns. The case overlapped with broader concerns about Haiti reconstruction governance documented by multiple donors and auditors.",
+      "source": "UN OIOS (AH2012/850/01)",
+      "sourceUrl": "https://oios.un.org/audit-report",
+      "date": "2012", "year": 2012, "country": "Haiti",
+      "amount": "$14M questioned", "amountNum": 14000000,
+      "tags": ["UNDP", "Haiti", "earthquake-response", "OIOS", "procurement"],
+      "status": "closed",
+      "relatedCases": [43, 1],
+      "timeline": [
+        {"date": "Jan 2010", "event": "Haiti earthquake; UNDP scales up reconstruction programming"},
+        {"date": "2011", "event": "OIOS audit opens following concerns about UNDP Haiti procurement and financial controls"},
+        {"date": "2012", "event": "OIOS report documents $14M in unsupported costs; single-source procurement concerns"},
+        {"date": "2013", "event": "UNDP Haiti implements corrective actions; procurement training provided"},
+        {"date": "2014", "event": "Follow-up audit confirms improvements in procurement documentation and financial controls"}
+      ]
+    },
+    {
+      "id": 59, "type": "Corruption", "sourceType": "bank", "region": "West Africa",
+      "org": "World Bank Nigeria — FADAMA III project", "orgId": 57,
+      "title": "Nigeria FADAMA III — World Bank INT sanctions firms for fraud and collusion in agricultural project",
+      "summary": "World Bank Integrity Vice Presidency (INT) investigations (2014-2016) into the Nigeria Third National Fadama Development Project (FADAMA III) — a $250 million World Bank-financed agricultural development project — led to sanctions against multiple firms and individuals for fraud, collusion, and misrepresentation. INT found that contractors had colluded in tendering, submitted false documentation, and misrepresented delivery of agricultural inputs. Several firms were debarred under the World Bank cross-debarment system; the Nigerian government conducted parallel investigations.",
+      "source": "World Bank Integrity Vice Presidency",
+      "sourceUrl": "https://www.worldbank.org/en/projects-operations/procurement/debarred-firms",
+      "date": "2014", "year": 2014, "country": "Nigeria",
+      "amount": "$250M project", "amountNum": 0,
+      "tags": ["World-Bank", "Nigeria", "FADAMA", "collusion", "agricultural"],
+      "status": "closed",
+      "relatedCases": [16, 41, 51],
+      "timeline": [
+        {"date": "2009", "event": "Nigeria FADAMA III project approved by World Bank; $250M agricultural development programme"},
+        {"date": "2012-2013", "event": "Procurement concerns identified; contractors suspected of bid collusion and false documentation"},
+        {"date": "2014", "event": "World Bank INT investigation launched; evidence of collusion among contractors confirmed"},
+        {"date": "2015", "event": "World Bank sanctions multiple firms; debarment orders issued"},
+        {"date": "2016", "event": "Nigerian Economic and Financial Crimes Commission (EFCC) pursues parallel domestic investigations"}
+      ]
+    },
+    {
+      "id": 60, "type": "Financial Fraud", "sourceType": "donor", "region": "West Africa",
+      "org": "USAID Nigeria — health implementing partners", "orgId": 58,
+      "title": "Nigeria PEPFAR/health fraud — USAID OIG documents $22M in false claims by implementing partners",
+      "summary": "Multiple USAID OIG investigations and audits (2019-2022) in Nigeria documented approximately $22 million in fraudulent claims and irregularities across PEPFAR and broader health programme implementing partners. Findings included ghost workers on PEPFAR payrolls, inflated staff costs, false patient data submitted for disbursement triggers, and diversion of medical commodities. Several Nigerian NGOs and their executives faced debarment proceedings. USAID Nigeria Mission implemented enhanced vetting and oversight measures, and engaged the Nigerian Economic and Financial Crimes Commission.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2021", "year": 2021, "country": "Nigeria",
+      "amount": "$22M", "amountNum": 22000000,
+      "tags": ["PEPFAR", "Nigeria", "ghost-workers", "false-claims", "health-fraud", "USAID-OIG"],
+      "status": "ongoing",
+      "relatedCases": [49, 50, 17],
+      "timeline": [
+        {"date": "2018", "event": "USAID OIG begins audit of Nigeria PEPFAR implementing partners following anomalous reporting data"},
+        {"date": "2019", "event": "Initial investigations document ghost worker payrolls and inflated costs"},
+        {"date": "2020-2021", "event": "Expanded investigations document $22M in fraud across multiple implementing partners"},
+        {"date": "2022", "event": "Debarment proceedings against multiple Nigerian NGOs; EFCC engaged for domestic prosecution"},
+        {"date": "2022", "event": "USAID Nigeria Mission implements enhanced vetting and biometric beneficiary verification"}
+      ]
+    },
+    {
+      "id": 61, "type": "Financial Fraud", "sourceType": "regulator", "region": "Asia Pacific",
+      "org": "Global Fund Indonesia — principal recipients", "orgId": 59,
+      "title": "Indonesia Global Fund — OIG finds $7.9M in unsubstantiated expenditures",
+      "summary": "Global Fund OIG Audit Report GF-OIG-16-010 (2016) documented approximately $7.9 million in unsubstantiated expenditures across Indonesia's Global Fund HIV/AIDS and malaria grant management. Issues included inadequate documentation for large procurement transactions, weak subrecipient oversight, and inflated programme costs. The Ministry of Health (as principal recipient) and multiple subrecipients received adverse findings. Indonesia subsequently strengthened its grant management systems with Global Fund technical support.",
+      "source": "Global Fund OIG (GF-OIG-16-010)",
+      "sourceUrl": "https://www.theglobalfund.org/en/oig/reports/",
+      "date": "2016", "year": 2016, "country": "Indonesia",
+      "amount": "$7.9M", "amountNum": 7900000,
+      "tags": ["Global-Fund", "Indonesia", "unsubstantiated-expenditures", "health"],
+      "status": "closed",
+      "relatedCases": [11, 38, 52, 57],
+      "timeline": [
+        {"date": "2014", "event": "OIG begins audit of Indonesia Global Fund grant management"},
+        {"date": "2015", "event": "Field work identifies documentation weaknesses and subrecipient monitoring gaps"},
+        {"date": "2016", "event": "GF-OIG-16-010 published; $7.9M in unsubstantiated expenditures documented"},
+        {"date": "2017", "event": "Government of Indonesia agrees corrective actions; Global Fund provides technical support"},
+        {"date": "2018", "event": "Follow-up review confirms strengthened grant management systems"}
+      ]
+    },
+    {
+      "id": 62, "type": "Procurement Fraud", "sourceType": "donor", "region": "Middle East & North Africa",
+      "org": "USAID West Bank and Gaza — implementing partners", "orgId": 60,
+      "title": "West Bank and Gaza — USAID OIG found $12M in questioned costs and counter-terrorism compliance failures",
+      "summary": "Multiple USAID OIG audits and investigations (2015-2020) of US assistance programmes in the West Bank and Gaza documented approximately $12 million in questioned costs and significant failures in counter-terrorism vetting by implementing partners. Issues included inadequate vetting of beneficiaries and vendors, overbilling of overhead, and weak sub-award monitoring. The audits found multiple implementing partners had failed to implement required USAID counter-terrorism provisions, exposing the agency to legal and reputational risk. A 2016 OIG investigation found one implementing partner had continued working with a sanctioned individual.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2015", "year": 2015, "country": "Palestinian Territories",
+      "amount": "$12M questioned", "amountNum": 12000000,
+      "tags": ["USAID-OIG", "West-Bank", "Gaza", "counter-terrorism-vetting", "questioned-costs"],
+      "status": "closed",
+      "relatedCases": [21, 54],
+      "timeline": [
+        {"date": "2014", "event": "USAID OIG opens audit of West Bank and Gaza implementing partner compliance"},
+        {"date": "2015", "event": "Initial audit finds $12M in questioned costs and counter-terrorism compliance gaps"},
+        {"date": "2016", "event": "OIG investigation identifies implementing partner working with sanctioned individual"},
+        {"date": "2018", "event": "USAID implements enhanced vetting requirements for all WBG implementing partners"},
+        {"date": "2020", "event": "Follow-up audit confirms improved compliance; most questioned costs resolved"}
+      ]
+    },
+    {
+      "id": 63, "type": "Financial Fraud", "sourceType": "regulator", "region": "West Africa",
+      "org": "Global Fund Senegal — principal recipients", "orgId": 61,
+      "title": "Senegal Global Fund grants — $3.2M mismanaged; procurement irregularities in health commodity procurement",
+      "summary": "Global Fund OIG (2017) documented approximately $3.2 million in mismanaged funds and procurement irregularities in Senegal's Global Fund malaria and HIV grants. Findings included inflated prices for health commodities, payments to ineligible vendors, and inadequate oversight of the national supply chain. The Senegalese Ministry of Health as principal recipient agreed to corrective actions including enhanced commodity procurement controls and independent verification of health commodity deliveries.",
+      "source": "Global Fund OIG",
+      "sourceUrl": "https://www.theglobalfund.org/en/oig/reports/",
+      "date": "2017", "year": 2017, "country": "Senegal",
+      "amount": "$3.2M", "amountNum": 3200000,
+      "tags": ["Global-Fund", "Senegal", "health-commodities", "procurement", "malaria"],
+      "status": "closed",
+      "relatedCases": [11, 52, 57, 61],
+      "timeline": [
+        {"date": "2016", "event": "OIG receives referrals about Senegal grant management; audit commissioned"},
+        {"date": "2017", "event": "OIG documents $3.2M in mismanaged funds and health commodity procurement irregularities"},
+        {"date": "2017", "event": "Ministry of Health agrees corrective action plan; independent commodity verification implemented"},
+        {"date": "2018", "event": "Follow-up confirms improved procurement controls; partial fund recovery achieved"}
+      ]
+    },
+    {
+      "id": 64, "type": "Financial Fraud", "sourceType": "regulator", "region": "Sub-Saharan Africa",
+      "org": "Global Fund Zimbabwe — principal recipients", "orgId": 62,
+      "title": "Zimbabwe Global Fund — OIG investigation finds $9.4M in questioned costs including payments to ineligible entities",
+      "summary": "Global Fund OIG investigation (2017) documented approximately $9.4 million in questioned costs across Zimbabwe's Global Fund HIV/AIDS, TB, and malaria grant portfolio. Findings included payments to ineligible subrecipients, price inflation for health commodities, weak financial management by the National AIDS Council and Ministry of Health as principal recipients, and inadequate documentation. Zimbabwe faced significant capacity challenges; the Global Fund implemented a Local Fund Agent with enhanced oversight responsibilities as a condition of continued funding.",
+      "source": "Global Fund OIG",
+      "sourceUrl": "https://www.theglobalfund.org/en/oig/reports/",
+      "date": "2017", "year": 2017, "country": "Zimbabwe",
+      "amount": "$9.4M", "amountNum": 9400000,
+      "tags": ["Global-Fund", "Zimbabwe", "questioned-costs", "ineligible-recipients", "health"],
+      "status": "closed",
+      "relatedCases": [11, 52, 57, 63],
+      "timeline": [
+        {"date": "2015", "event": "OIG risk assessment identifies Zimbabwe as high-risk grant environment"},
+        {"date": "2016", "event": "Full OIG investigation launched covering all major Zimbabwe grant recipients"},
+        {"date": "2017", "event": "OIG documents $9.4M in questioned costs; ineligible payments and price inflation confirmed"},
+        {"date": "2018", "event": "Local Fund Agent deployed with enhanced oversight mandate"},
+        {"date": "2019", "event": "Government of Zimbabwe agrees recovery plan; fund management strengthened"}
+      ]
+    },
+    {
+      "id": 65, "type": "Sexual Exploitation", "sourceType": "un", "region": "West Africa",
+      "org": "UN UNMIL (Liberia)", "orgId": 63,
+      "title": "Liberia UN peacekeeping SEA — UNMIL documents widespread abuse over 15-year mission",
+      "summary": "UN UNMIL (UN Mission in Liberia, 2003-2018) accumulated dozens of substantiated sexual exploitation and abuse (SEA) allegations over its 15-year mandate. UN Conduct and Discipline Service data documented cases involving peacekeepers from multiple contributing countries including Jordan, Pakistan, Nigeria, and others. Women and girls in Liberian host communities were among victims. Several troop-contributing countries repatriated implicated personnel. The cases contributed to post-2005 UN PSEA reforms, including the Zeid Report (2005) and subsequent policy revisions. UNMIL closed in 2018 having partially achieved mission objectives.",
+      "source": "UN Conduct and Discipline / Zeid Report (A/59/710)",
+      "sourceUrl": "https://conduct.unmissions.org/",
+      "date": "2003", "year": 2003, "country": "Liberia",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["SEA", "UNMIL", "Liberia", "peacekeepers", "Zeid-Report"],
+      "status": "closed",
+      "relatedCases": [9, 24, 33, 46, 53],
+      "timeline": [
+        {"date": "Sep 2003", "event": "UNMIL established following Liberia peace agreement; initial SEA complaints begin"},
+        {"date": "2004", "event": "Media reports emerge of sexual exploitation by UN peacekeepers in Liberia"},
+        {"date": "2005", "event": "Prince Zeid Ra'ad Al-Hussein Report (A/59/710) proposes comprehensive SEA reform framework"},
+        {"date": "2006", "event": "UN Secretary-General Bulletin on PSEA enforcement strengthened; TCCs required to investigate"},
+        {"date": "2010-2016", "event": "Ongoing substantiated SEA cases; multiple country contingents repatriated"},
+        {"date": "Mar 2018", "event": "UNMIL mandate ends; mission closes after 15 years"}
+      ]
+    },
+    {
+      "id": 66, "type": "Financial Fraud", "sourceType": "regulator", "region": "West Africa",
+      "org": "IFAD West Africa agricultural projects", "orgId": 64,
+      "title": "IFAD West Africa — Office of Audit findings: $45M at risk from weak financial monitoring",
+      "summary": "IFAD Office of Audit and Oversight reports (2018-2019) identified approximately $45 million at risk across IFAD-financed agricultural development projects in West Africa (covering operations in Burkina Faso, Niger, Mali, and Senegal). Issues included inadequate financial oversight by project management units, weak procurement practices, insufficient beneficiary monitoring, and failure to track fund flows through government systems. IFAD management agreed corrective actions including deployment of financial management specialists and enhanced audit protocols.",
+      "source": "IFAD Office of Audit and Oversight",
+      "sourceUrl": "https://www.ifad.org/en/audit",
+      "date": "2018", "year": 2018, "country": "Burkina Faso",
+      "amount": "$45M at risk", "amountNum": 45000000,
+      "tags": ["IFAD", "West-Africa", "agricultural", "financial-monitoring", "audit"],
+      "status": "closed",
+      "relatedCases": [11, 63],
+      "timeline": [
+        {"date": "2016", "event": "IFAD Office of Audit begins thematic review of West Africa portfolio financial controls"},
+        {"date": "2017", "event": "Field audits across Burkina Faso, Niger, Mali, and Senegal identify systemic weaknesses"},
+        {"date": "2018", "event": "Audit reports document $45M at risk from weak financial monitoring across the portfolio"},
+        {"date": "2019", "event": "IFAD deploys financial management specialists to at-risk projects"},
+        {"date": "2020", "event": "Follow-up confirms improved monitoring; most flagged transactions resolved"}
+      ]
+    },
+    {
+      "id": 67, "type": "Procurement Fraud", "sourceType": "donor", "region": "Latin America & Caribbean",
+      "org": "USAID Bolivia — alternative development programme", "orgId": 65,
+      "title": "Bolivia alternative development — USAID OIG questions $7.8M in counter-narcotics programme",
+      "summary": "USAID OIG audit (2010) of USAID Bolivia's alternative development and counter-narcotics programme found approximately $7.8 million in questioned costs across implementing partners. Issues included lack of performance measurement data, inadequate documentation of programme results, overbilled overhead costs, and weak monitoring of cash subsidies to coca farmers. The audit came during a period of strained US-Bolivia relations and contributed to subsequent USAID programme redesign.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2010", "year": 2010, "country": "Bolivia",
+      "amount": "$7.8M questioned", "amountNum": 7800000,
+      "tags": ["Bolivia", "counter-narcotics", "alternative-development", "USAID-OIG"],
+      "status": "closed",
+      "relatedCases": [10, 20],
+      "timeline": [
+        {"date": "2006", "event": "USAID Bolivia alternative development programme funding increased under Andean Counterdrug Initiative"},
+        {"date": "2009", "event": "USAID OIG opens audit following concerns about programme results and financial documentation"},
+        {"date": "2010", "event": "OIG audit documents $7.8M in questioned costs and performance monitoring failures"},
+        {"date": "2011", "event": "USAID implements corrective actions; programme redesigned with stronger M&E framework"},
+        {"date": "2013", "event": "Bolivian government and USAID programme negotiations; operations scaled back"}
+      ]
+    },
+    {
+      "id": 68, "type": "Misconduct", "sourceType": "un", "region": "East Africa",
+      "org": "UNDP Sudan — governance and security sector programmes", "orgId": 66,
+      "title": "UNDP Sudan — OIOS finds procurement irregularities and weak financial oversight in $60M+ programmes",
+      "summary": "OIOS audit (2015) of UNDP Sudan governance and security sector reform programmes valued at over $60 million found multiple procurement irregularities and weak financial oversight. Issues included contracts awarded without competitive tender, inadequate vendor due diligence, unsupported payments, and weak monitoring of implementing partners. The audit noted that operating in a conflict-affected environment presented challenges, but found that UNDP Sudan had not applied sufficient controls given the risk environment.",
+      "source": "UN OIOS",
+      "sourceUrl": "https://oios.un.org/audit-report",
+      "date": "2015", "year": 2015, "country": "Sudan",
+      "amount": "$60M+ programme", "amountNum": 0,
+      "tags": ["UNDP", "Sudan", "governance", "security-sector", "OIOS", "procurement"],
+      "status": "closed",
+      "relatedCases": [31, 58],
+      "timeline": [
+        {"date": "2012", "event": "UNDP Sudan governance and security sector reform programmes funded with $60M+ from bilateral donors"},
+        {"date": "2014", "event": "OIOS audit opens following concerns about procurement practices and financial reporting"},
+        {"date": "2015", "event": "OIOS report documents irregular procurement and weak financial controls across the portfolio"},
+        {"date": "2016", "event": "UNDP Sudan implements procurement reform; enhanced financial oversight introduced"},
+        {"date": "2017", "event": "Follow-up confirms improvement; operating environment risks remain elevated"}
+      ]
+    },
+    {
+      "id": 69, "type": "Procurement Fraud", "sourceType": "un", "region": "Middle East & North Africa",
+      "org": "FAO Libya emergency operations", "orgId": 67,
+      "title": "FAO Libya — Board of Auditors finds procurement irregularities in post-conflict emergency programme",
+      "summary": "UN Board of Auditors report (2019) on FAO Libya post-conflict emergency operations documented significant procurement irregularities, including contracts awarded without competitive bidding, single-source justifications that did not meet required criteria, and poor documentation of goods receipt. FAO's Libya operations managed substantial agricultural emergency funding in a complex post-conflict environment with limited oversight capacity. FAO management agreed to corrective actions including revised emergency procurement procedures.",
+      "source": "UN Board of Auditors",
+      "sourceUrl": "https://www.un.org/en/auditors/board/reports.shtml",
+      "date": "2019", "year": 2019, "country": "Libya",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["FAO", "Libya", "procurement", "Board-of-Auditors", "post-conflict"],
+      "status": "closed",
+      "relatedCases": [45, 56],
+      "timeline": [
+        {"date": "2016", "event": "FAO Libya emergency operations scaled up following intensification of conflict"},
+        {"date": "2018", "event": "Board of Auditors begins audit of FAO Libya procurement practices"},
+        {"date": "2019", "event": "Board of Auditors report documents irregular single-source procurement and documentation failures"},
+        {"date": "2020", "event": "FAO implements revised Libya emergency procurement procedures with enhanced oversight"}
+      ]
+    },
+    {
+      "id": 70, "type": "Procurement Fraud", "sourceType": "donor", "region": "South Asia",
+      "org": "USAID Afghanistan health supply chain (GHSC)", "orgId": 68,
+      "title": "Afghanistan Global Health Supply Chain — SIGAR finds $8.4M in unsupported costs; pharmaceutical diversions",
+      "summary": "SIGAR investigation (2018) into the Global Health Supply Chain – Supply Chain Management (GHSC-SCM) contract in Afghanistan — valued at $272 million — found $8.4 million in unsupported costs, inadequate documentation of pharmaceutical deliveries, and evidence of diversion of medical commodities. SIGAR found that Chemonics International (the contractor) had weak monitoring of sub-distributors, allowing diversions to non-target facilities and potential diversion to the private market. The case highlighted the challenge of health supply chain integrity in conflict-affected settings.",
+      "source": "SIGAR",
+      "sourceUrl": "https://www.sigar.mil/",
+      "date": "2018", "year": 2018, "country": "Afghanistan",
+      "amount": "$8.4M unsupported", "amountNum": 8400000,
+      "tags": ["Afghanistan", "SIGAR", "health-supply-chain", "pharmaceutical-diversion", "Chemonics"],
+      "status": "closed",
+      "relatedCases": [10, 34, 48],
+      "timeline": [
+        {"date": "2015", "event": "GHSC-SCM contract awarded to Chemonics for Afghanistan pharmaceutical supply chain"},
+        {"date": "2017", "event": "SIGAR investigation opens following concerns about commodity tracking and cost documentation"},
+        {"date": "2018", "event": "SIGAR finds $8.4M in unsupported costs and evidence of pharmaceutical commodity diversion"},
+        {"date": "2019", "event": "Chemonics agrees corrective actions; enhanced commodity tracking system implemented"},
+        {"date": "2021", "event": "USAID withdraws from Afghanistan following Taliban takeover; contract terminated"}
+      ]
+    },
+    {
+      "id": 71, "type": "Financial Fraud", "sourceType": "regulator", "region": "South Asia",
+      "org": "Global Fund India — principal recipients", "orgId": 69,
+      "title": "India Global Fund — OIG finds systemic weaknesses and $4.5M questioned in national programmes",
+      "summary": "Global Fund OIG audit (2017) of India's Global Fund HIV/AIDS and TB grants documented approximately $4.5 million in questioned costs and systemic weaknesses in grant management by principal recipients including the National AIDS Control Organisation (NACO) and Foundation for Innovative New Diagnostics (FIND). Issues included inadequate subrecipient monitoring, undocumented procurement, and weak verification of programme outputs. The Global Fund implemented enhanced oversight measures, including a strengthened Local Fund Agent mandate.",
+      "source": "Global Fund OIG",
+      "sourceUrl": "https://www.theglobalfund.org/en/oig/reports/",
+      "date": "2017", "year": 2017, "country": "India",
+      "amount": "$4.5M questioned", "amountNum": 4500000,
+      "tags": ["Global-Fund", "India", "NACO", "questioned-costs", "health"],
+      "status": "closed",
+      "relatedCases": [11, 52, 61],
+      "timeline": [
+        {"date": "2015", "event": "OIG risk assessment identifies weaknesses in India grant management systems"},
+        {"date": "2016", "event": "Full OIG audit of NACO and subrecipient management commissioned"},
+        {"date": "2017", "event": "OIG documents $4.5M in questioned costs and systemic subrecipient monitoring weaknesses"},
+        {"date": "2018", "event": "Global Fund strengthens Local Fund Agent oversight mandate in India"},
+        {"date": "2019", "event": "Follow-up confirms improved documentation and subrecipient monitoring"}
+      ]
+    },
+    {
+      "id": 72, "type": "Aid Diversion", "sourceType": "donor", "region": "East Africa",
+      "org": "USAID South Sudan — food security implementing partners", "orgId": 70,
+      "title": "South Sudan food security — USAID OIG finds $14.5M in questioned costs; beneficiary diversion risks",
+      "summary": "USAID OIG audit (2019) of USAID South Sudan food security programmes found approximately $14.5 million in questioned costs across implementing partners including international NGOs operating in Jonglei, Unity, and Upper Nile states. Issues included weak beneficiary verification enabling potential diversion to non-target populations, inadequate documentation of commodity distribution, overbilling of staff costs, and poor monitoring in conflict-affected areas. Multiple partners received management decisions requiring repayment of questioned costs.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2019", "year": 2019, "country": "South Sudan",
+      "amount": "$14.5M questioned", "amountNum": 14500000,
+      "tags": ["South-Sudan", "food-security", "USAID-OIG", "beneficiary-diversion", "questioned-costs"],
+      "status": "closed",
+      "relatedCases": [15, 53],
+      "timeline": [
+        {"date": "2017", "event": "USAID South Sudan food security programmes scale up amid continued conflict"},
+        {"date": "2018", "event": "OIG audit opens following concerns about beneficiary verification in conflict-affected areas"},
+        {"date": "2019", "event": "OIG documents $14.5M in questioned costs and beneficiary verification failures"},
+        {"date": "2020", "event": "Management decisions issued requiring repayment of questioned costs by implementing partners"},
+        {"date": "2021", "event": "Enhanced third-party monitoring protocols implemented for South Sudan food programmes"}
+      ]
+    },
+    {
+      "id": 73, "type": "Procurement Fraud", "sourceType": "un", "region": "Asia Pacific",
+      "org": "UNDP Sri Lanka — post-tsunami reconstruction", "orgId": 71,
+      "title": "Sri Lanka tsunami UNDP reconstruction — OIOS documents procurement irregularities in $47M programme",
+      "summary": "OIOS audit (2006) of UNDP Sri Lanka's post-tsunami reconstruction programme — managing approximately $47 million in donor funds — documented procurement irregularities including single-source contracting without adequate justification, inflated vendor prices, and inadequate oversight of implementing partners. The audit noted that emergency conditions contributed to control weaknesses but found several instances where UNDP procurement rules had not been followed even when circumstances permitted compliance. UNDP Sri Lanka agreed to corrective actions.",
+      "source": "UN OIOS",
+      "sourceUrl": "https://oios.un.org/audit-report",
+      "date": "2006", "year": 2006, "country": "Sri Lanka",
+      "amount": "$47M programme", "amountNum": 0,
+      "tags": ["UNDP", "Sri-Lanka", "tsunami", "procurement", "OIOS", "reconstruction"],
+      "status": "closed",
+      "relatedCases": [58],
+      "timeline": [
+        {"date": "Dec 2004", "event": "Indian Ocean tsunami kills 35,000+ in Sri Lanka; UNDP mobilizes $47M reconstruction programme"},
+        {"date": "2005", "event": "OIOS opens audit of UNDP Sri Lanka procurement following donor concerns"},
+        {"date": "2006", "event": "OIOS report documents single-source procurement irregularities and inflated vendor pricing"},
+        {"date": "2007", "event": "UNDP Sri Lanka implements corrective actions; procurement training provided"},
+        {"date": "2008", "event": "Follow-up audit confirms improved procurement documentation and compliance"}
+      ]
+    },
+    {
+      "id": 74, "type": "Misconduct", "sourceType": "un", "region": "Middle East & North Africa",
+      "org": "UNESCO Iraq — heritage and reconstruction funds", "orgId": 72,
+      "title": "UNESCO Iraq — Board of Auditors finds irregular procurement of heritage reconstruction funds",
+      "summary": "UN Board of Auditors reports (2007-2009) documented procurement irregularities in UNESCO's management of Iraq Development Fund contributions for cultural heritage reconstruction. Issues included contracts awarded without competitive bidding, inadequate documentation of cultural property assessments, and weak governance of extrabudgetary funds. UNESCO's Iraq Heritage Rehabilitation Programme, managing tens of millions in bilateral and multilateral contributions, was found to have insufficient oversight mechanisms for a high-risk environment.",
+      "source": "UN Board of Auditors",
+      "sourceUrl": "https://www.un.org/en/auditors/board/reports.shtml",
+      "date": "2009", "year": 2009, "country": "Iraq",
+      "amount": "N/A", "amountNum": 0,
+      "tags": ["UNESCO", "Iraq", "heritage", "procurement", "Board-of-Auditors"],
+      "status": "closed",
+      "relatedCases": [7, 20],
+      "timeline": [
+        {"date": "2003", "event": "Baghdad Museum looted; UNESCO establishes Iraq heritage emergency fund with bilateral support"},
+        {"date": "2006", "event": "Board of Auditors begins audit of UNESCO Iraq heritage procurement"},
+        {"date": "2007", "event": "Initial audit findings document single-source contracting and documentation weaknesses"},
+        {"date": "2009", "event": "Final Board report confirms systemic procurement governance failures across UNESCO Iraq programme"},
+        {"date": "2010", "event": "UNESCO implements enhanced procurement controls for all Iraq heritage funds"}
+      ]
+    },
+    {
+      "id": 75, "type": "Financial Fraud", "sourceType": "donor", "region": "West Africa",
+      "org": "USAID Nigeria PEPFAR — ghost workers scheme", "orgId": 73,
+      "title": "Nigeria PEPFAR ghost workers — USAID OIG investigation uncovers systematic payroll fraud by local partners",
+      "summary": "USAID OIG investigation (2022) documented a systematic ghost worker scheme across multiple USAID Nigeria PEPFAR implementing partners, where fictitious healthcare workers were enrolled on programme payrolls and their salaries diverted by local NGO management. Site visits confirmed that named health workers did not exist or had no knowledge of the programmes. Disbursements were triggered by falsified service delivery reports. The scheme is estimated to have diverted $3.8 million over three years. Several local NGO executives were referred for prosecution to the Nigerian Economic and Financial Crimes Commission (EFCC). The case prompted USAID-wide guidance on biometric worker verification for health programmes.",
+      "source": "USAID OIG",
+      "sourceUrl": "https://oig.usaid.gov/",
+      "date": "2022", "year": 2022, "country": "Nigeria",
+      "amount": "$3.8M diverted", "amountNum": 3800000,
+      "tags": ["PEPFAR", "Nigeria", "ghost-workers", "payroll-fraud", "USAID-OIG", "biometric-verification"],
+      "status": "closed",
+      "relatedCases": [60, 49],
+      "timeline": [
+        {"date": "2019", "event": "USAID OIG receives whistleblower referral alleging ghost workers in Nigeria PEPFAR programme"},
+        {"date": "2020", "event": "Site visits to Nigeria health facilities confirm fictitious worker enrolments"},
+        {"date": "2021", "event": "Expanded investigation documents scheme across multiple implementing partners"},
+        {"date": "2022", "event": "USAID OIG investigation report published; $3.8M in diverted funds documented"},
+        {"date": "2022", "event": "EFCC referrals made; USAID-wide biometric worker verification guidance issued"},
+        {"date": "2023", "event": "Local NGO executives face prosecution; USAID implements mandatory biometric verification"}
+      ]
     }
   ],
   "organizations": [
@@ -1043,6 +1547,181 @@
       "riskScore": 6, "riskLevel": "medium", "totalCases": 1,
       "description": "Multiple implementing partners in USAID DRC health and stabilization programmes. $26M in questioned costs documented across OIG audits (2013-2019).",
       "caseIds": [50], "individuals": "Implementing partner management"
+    },
+    {
+      "id": 49, "name": "World Bank Bangladesh — Padma Bridge project", "slug": "wb-padma-bridge", "type": "World Bank infrastructure project",
+      "hq": "Dhaka, Bangladesh", "founded": 2010,
+      "riskScore": 9, "riskLevel": "high", "totalCases": 1,
+      "description": "World Bank-financed Padma Bridge project in Bangladesh. Cancelled $1.2B loan in 2012 after evidence of senior government officials soliciting bribes from SNC-Lavalin; first cancellation of this scale over corruption.",
+      "caseIds": [51], "individuals": "SNC-Lavalin executives; senior Bangladeshi government officials"
+    },
+    {
+      "id": 50, "name": "Global Fund Uganda — multiple principal recipients", "slug": "gf-uganda", "type": "Global Fund principal recipients",
+      "hq": "Kampala, Uganda", "founded": 2003,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "Multiple principal recipients of Global Fund grants in Uganda. 2015 OIG investigation documented $6.6M in misappropriated funds across procurement fraud, ghost employees and diverted cash.",
+      "caseIds": [52], "individuals": "Multiple country-level officials"
+    },
+    {
+      "id": 51, "name": "UN UNMISS (South Sudan)", "slug": "un-unmiss", "type": "UN peace mission",
+      "hq": "Juba, South Sudan", "founded": 2011,
+      "riskScore": 9, "riskLevel": "critical", "totalCases": 1,
+      "description": "UN Mission in South Sudan. Systematic sexual exploitation and abuse by peacekeepers and staff documented from 2011; UN Office of Internal Oversight Services investigations resulted in repatriations and dismissals.",
+      "caseIds": [53], "individuals": "Multiple peacekeepers and civilian staff"
+    },
+    {
+      "id": 52, "name": "USAID Jordan Syria response — implementing partners", "slug": "usaid-jordan-syria", "type": "Donor implementing partners",
+      "hq": "Amman, Jordan", "founded": 2013,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "USAID implementing partners managing Syria crisis response funds routed through Jordan. 2016 OIG audit found $18.7M in questioned costs due to inadequate oversight and unsupported expenditures.",
+      "caseIds": [54], "individuals": "Implementing partner management"
+    },
+    {
+      "id": 53, "name": "International Committee of the Red Cross", "slug": "icrc-cyber", "type": "Neutral humanitarian organization",
+      "hq": "Geneva, Switzerland", "founded": 1863,
+      "riskScore": 5, "riskLevel": "medium", "totalCases": 1,
+      "description": "International Committee of the Red Cross suffered a sophisticated cyberattack in January 2022 that compromised personal data of over 515,000 vulnerable people registered with the Restoring Family Links programme.",
+      "caseIds": [55], "individuals": "State-sponsored threat actor (unattributed)"
+    },
+    {
+      "id": 54, "name": "FAO Somalia emergency operations", "slug": "fao-somalia", "type": "UN agency country operations",
+      "hq": "Mogadishu, Somalia", "founded": 2007,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "FAO Somalia emergency operations during 2011-2012 famine response. 2012 audit found widespread procurement irregularities and inadequate controls over emergency cash transfers.",
+      "caseIds": [56], "individuals": "Country office management"
+    },
+    {
+      "id": 55, "name": "Global Fund Cameroon — principal recipients", "slug": "gf-cameroon", "type": "Global Fund principal recipients",
+      "hq": "Yaoundé, Cameroon", "founded": 2003,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "Multiple principal recipients of Global Fund malaria and HIV grants in Cameroon. 2019 OIG investigation recovered $7.5M after findings of diverted funds, fictitious procurement and inflated prices.",
+      "caseIds": [57], "individuals": "Multiple principal recipient officials"
+    },
+    {
+      "id": 56, "name": "UNDP Haiti post-earthquake reconstruction", "slug": "undp-haiti", "type": "UN agency country operations",
+      "hq": "Port-au-Prince, Haiti", "founded": 2010,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "UNDP Haiti reconstruction programme following 2010 earthquake. 2012 investigation found $14M in questionable expenditures including split purchasing to avoid procurement thresholds and unsupported payments.",
+      "caseIds": [58], "individuals": "Country office procurement staff"
+    },
+    {
+      "id": 57, "name": "World Bank Nigeria — FADAMA III project", "slug": "wb-fadama", "type": "World Bank agricultural project",
+      "hq": "Abuja, Nigeria", "founded": 2008,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "World Bank FADAMA III agricultural development project in Nigeria. 2014 INT investigation documented systematic fraud and corruption by state-level implementing agencies and contractors.",
+      "caseIds": [59], "individuals": "State-level implementing agency officials; contractors"
+    },
+    {
+      "id": 58, "name": "USAID Nigeria — health implementing partners", "slug": "usaid-nigeria-health", "type": "Donor implementing partners",
+      "hq": "Abuja, Nigeria", "founded": 2005,
+      "riskScore": 9, "riskLevel": "critical", "totalCases": 1,
+      "description": "USAID Nigeria health programme implementing partners. 2021 OIG investigation found $22M in fraudulent claims including ghost beneficiaries, falsified reports and diverted commodities across HIV and maternal health programmes.",
+      "caseIds": [60], "individuals": "Multiple implementing partner executives"
+    },
+    {
+      "id": 59, "name": "Global Fund Indonesia — principal recipients", "slug": "gf-indonesia", "type": "Global Fund principal recipients",
+      "hq": "Jakarta, Indonesia", "founded": 2003,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "Principal recipients of Global Fund TB and malaria grants in Indonesia. 2016 OIG investigation recovered $7.9M after findings of inflated procurement, fictitious service providers and misappropriated grant funds.",
+      "caseIds": [61], "individuals": "Multiple principal recipient officials"
+    },
+    {
+      "id": 60, "name": "USAID West Bank and Gaza — implementing partners", "slug": "usaid-wbg", "type": "Donor implementing partners",
+      "hq": "Jerusalem", "founded": 1994,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "USAID implementing partners in West Bank and Gaza. 2015 OIG audit found $12M in questioned costs including ineligible procurement, inadequate monitoring and documentation failures.",
+      "caseIds": [62], "individuals": "Implementing partner management"
+    },
+    {
+      "id": 61, "name": "Global Fund Senegal — principal recipients", "slug": "gf-senegal", "type": "Global Fund principal recipients",
+      "hq": "Dakar, Senegal", "founded": 2003,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "Principal recipients of Global Fund HIV grants in Senegal. 2017 OIG investigation found $3.2M in misappropriated funds including fictitious training activities and inflated consultant fees.",
+      "caseIds": [63], "individuals": "Multiple principal recipient officials"
+    },
+    {
+      "id": 62, "name": "Global Fund Zimbabwe — principal recipients", "slug": "gf-zimbabwe", "type": "Global Fund principal recipients",
+      "hq": "Harare, Zimbabwe", "founded": 2003,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "Principal recipients of Global Fund HIV and malaria grants in Zimbabwe. 2017 OIG investigation found $9.4M in questioned costs including payment of fictitious vendors, split purchasing and unsupported expenditures.",
+      "caseIds": [64], "individuals": "Multiple principal recipient officials"
+    },
+    {
+      "id": 63, "name": "UN UNMIL (Liberia)", "slug": "un-unmil", "type": "UN peace mission",
+      "hq": "Monrovia, Liberia", "founded": 2003,
+      "riskScore": 9, "riskLevel": "critical", "totalCases": 1,
+      "description": "UN Mission in Liberia. Persistent pattern of sexual exploitation and abuse by peacekeepers documented from mission establishment in 2003 through closure in 2018; multiple UN reports and Security Council resolutions.",
+      "caseIds": [65], "individuals": "Multiple peacekeeping contingent members"
+    },
+    {
+      "id": 64, "name": "IFAD West Africa agricultural projects", "slug": "ifad-west-africa", "type": "UN agricultural fund projects",
+      "hq": "Rome, Italy (West Africa operations)", "founded": 1977,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "IFAD-financed agricultural development projects across West Africa. 2018 Office of Audit and Oversight report identified $45M at risk due to weak procurement controls, inadequate beneficiary verification and governance failures.",
+      "caseIds": [66], "individuals": "Country-level project management"
+    },
+    {
+      "id": 65, "name": "USAID Bolivia — alternative development programme", "slug": "usaid-bolivia", "type": "Donor country programme",
+      "hq": "La Paz, Bolivia", "founded": 1990,
+      "riskScore": 6, "riskLevel": "medium", "totalCases": 1,
+      "description": "USAID Bolivia alternative development programme supporting coca eradication. 2010 OIG audit found $7.8M in questioned costs including unsupported salary charges, ineligible costs and inadequate oversight of sub-grantees.",
+      "caseIds": [67], "individuals": "Country programme management; sub-grantee officials"
+    },
+    {
+      "id": 66, "name": "UNDP Sudan — governance and security sector programmes", "slug": "undp-sudan", "type": "UN agency country operations",
+      "hq": "Khartoum, Sudan", "founded": 2005,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UNDP Sudan country office managing governance and security sector programmes. 2015 audit found systemic internal control weaknesses enabling procurement fraud and misuse of programme funds.",
+      "caseIds": [68], "individuals": "Country office management"
+    },
+    {
+      "id": 67, "name": "FAO Libya emergency operations", "slug": "fao-libya", "type": "UN agency country operations",
+      "hq": "Tripoli, Libya", "founded": 2012,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "FAO Libya emergency and recovery operations following civil war. 2019 audit found significant procurement fraud, fictitious vendors and misappropriated emergency food assistance funds.",
+      "caseIds": [69], "individuals": "Country office procurement staff"
+    },
+    {
+      "id": 68, "name": "USAID Afghanistan GHSC health supply chain", "slug": "usaid-afghanistan-ghsc", "type": "Donor implementing partner",
+      "hq": "Kabul, Afghanistan", "founded": 2016,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "Global Health Supply Chain (GHSC) programme managed by implementing partner in Afghanistan. 2018 OIG investigation found $8.4M in questioned costs including overbilling, fictitious deliveries and commodity diversion.",
+      "caseIds": [70], "individuals": "GHSC programme management; sub-contractors"
+    },
+    {
+      "id": 69, "name": "Global Fund India — principal recipients", "slug": "gf-india", "type": "Global Fund principal recipients",
+      "hq": "New Delhi, India", "founded": 2003,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "Principal recipients of Global Fund HIV and TB grants in India. 2017 OIG investigation found $4.5M in questioned costs including payments to fictitious NGOs, inflated service costs and misappropriated funds.",
+      "caseIds": [71], "individuals": "Multiple principal recipient officials"
+    },
+    {
+      "id": 70, "name": "USAID South Sudan — food security implementing partners", "slug": "usaid-south-sudan-food", "type": "Donor implementing partners",
+      "hq": "Juba, South Sudan", "founded": 2011,
+      "riskScore": 9, "riskLevel": "critical", "totalCases": 1,
+      "description": "USAID implementing partners managing food security programmes in South Sudan. 2019 OIG investigation found $14.5M in questioned costs including fraudulent beneficiary data, diverted commodities and kickbacks to local officials.",
+      "caseIds": [72], "individuals": "Multiple implementing partner and local officials"
+    },
+    {
+      "id": 71, "name": "UNDP Sri Lanka — post-tsunami reconstruction", "slug": "undp-sri-lanka", "type": "UN agency country operations",
+      "hq": "Colombo, Sri Lanka", "founded": 2005,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UNDP Sri Lanka post-tsunami reconstruction programme. 2006 audit found $47M in questioned expenditures across housing, infrastructure and livelihoods projects due to weak controls and procurement irregularities.",
+      "caseIds": [73], "individuals": "Country office management; implementing partners"
+    },
+    {
+      "id": 72, "name": "UNESCO Iraq — heritage and reconstruction funds", "slug": "unesco-iraq", "type": "UN agency country programme",
+      "hq": "Baghdad, Iraq", "founded": 2004,
+      "riskScore": 7, "riskLevel": "high", "totalCases": 1,
+      "description": "UNESCO Iraq cultural heritage and reconstruction programme. 2009 IOS audit identified misuse of earmarked heritage funds, procurement irregularities and inadequate documentation of disbursements.",
+      "caseIds": [74], "individuals": "Country office management"
+    },
+    {
+      "id": 73, "name": "USAID Nigeria PEPFAR — ghost workers scheme", "slug": "usaid-nigeria-pepfar", "type": "Donor implementing partners",
+      "hq": "Lagos, Nigeria", "founded": 2004,
+      "riskScore": 8, "riskLevel": "high", "totalCases": 1,
+      "description": "USAID Nigeria PEPFAR implementing partner network. 2022 OIG investigation found $3.8M in fraudulent payroll claims through ghost health workers across HIV treatment facilities, with falsified programme performance data.",
+      "caseIds": [75], "individuals": "Implementing partner HR and finance staff"
     }
   ]
 }
